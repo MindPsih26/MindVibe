@@ -71,5 +71,58 @@
 
                 <div class="bg-black text-white p-4 rounded-xl flex justify-between items-center">
                     <span class="text-[10px] font-black uppercase text-indigo-400">Status:</span>
-                    <span class="text-[10px]
+                    <span class="text-[10px] font-black uppercase text-green-400">Live pe telefon</span>
+                </div>
+
+                <button onclick="saveTip()" class="w-full btn-neo bg-indigo-600 text-white py-4 rounded-xl font-black uppercase">Salvează Modificările</button>
+                
+                <button onclick="logoutAdmin()" class="w-full text-[10px] font-black text-red-600 uppercase underline mt-4">Ieșire din cont</button>
+            </div>
+            
+            <button id="close-btn-init" onclick="closeAdmin()" class="mt-4 text-xs font-bold underline w-full text-center">Renunță</button>
+        </div>
+    </div>
+
+    <script>
+        // Logica de logare și moderare
+        window.checkPass = () => {
+            const inputPass = document.getElementById('pass').value;
+            if(inputPass === 'mindvibe2024') {
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('control-section').classList.remove('hidden');
+                document.getElementById('close-btn-init').classList.add('hidden');
+                
+                // Preia automat textul actual din site
+                const currentTip = document.getElementById('daily-tip-display').innerText;
+                document.getElementById('new-tip').value = currentTip;
+            } else {
+                alert("Parolă incorectă!");
+            }
+        };
+
+        window.saveTip = () => {
+            const newText = document.getElementById('new-tip').value;
+            if(newText.trim() === "") {
+                alert("Scrie ceva mai întâi!");
+                return;
+            }
+            document.getElementById('daily-tip-display').innerText = newText;
+            alert("Succes! Site-ul a fost actualizat.");
+            closeAdmin();
+        };
+
+        window.logoutAdmin = () => {
+            document.getElementById('pass').value = "";
+            document.getElementById('auth-section').classList.remove('hidden');
+            document.getElementById('control-section').classList.add('hidden');
+            document.getElementById('close-btn-init').classList.remove('hidden');
+            closeAdmin();
+        };
+
+        window.openAdmin = () => { document.getElementById('admin-modal').style.display = 'flex'; };
+        window.closeAdmin = () => { document.getElementById('admin-modal').style.display = 'none'; };
+    </script>
+
+</body>
+</html>
 
