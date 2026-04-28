@@ -2,113 +2,105 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindVibe</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background-color: #fefce8; overflow-x: hidden; }
-        .neo-card { border: 3px solid #000; box-shadow: 6px 6px 0px #000; }
-        .modal { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.85); 
-            z-index: 9999; 
-            align-items: center; 
-            justify-content: center;
-            padding: 15px;
-        }
-        /* Fix pentru scroll pe mobil */
-        .modal-content {
-            background: white;
-            border: 4px solid black;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 350px;
-            max-height: 80vh; /* Ocupă maxim 80% din înălțime */
-            overflow-y: auto; /* Permite scroll */
-            padding: 20px;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-        }
+        body { font-family: 'Outfit', sans-serif; background-color: #fefce8; margin: 0; padding: 0; }
+        .neo-card { border: 4px solid #000; box-shadow: 8px 8px 0px #000; background: white; }
+        .admin-section { display: none; background: #fff; border-top: 4px solid black; padding: 20px; }
     </style>
 </head>
 <body>
 
     <nav class="bg-white border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-50">
-        <span class="font-black uppercase tracking-tighter">MindVibe</span>
-        <button onclick="openAdmin()" class="bg-yellow-300 border-2 border-black px-3 py-1 font-black text-[10px] shadow-[2px_2px_0px_black]">MODERARE 🔒</button>
+        <span class="font-black uppercase">MindVibe</span>
+        <button onclick="toggleAdmin()" class="bg-yellow-300 border-2 border-black px-4 py-2 font-black text-xs shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-1">MODERARE 🔒</button>
     </nav>
 
-    <section class="p-6 text-center">
-        <h1 class="text-5xl font-black mb-6 uppercase leading-none">Stay <span class="text-indigo-600">Real.</span></h1>
+    <main id="main-content" class="p-6 text-center">
+        <h1 class="text-6xl font-black mb-6 uppercase leading-none mt-4">Stay <span class="text-indigo-600">Real.</span></h1>
         
-        <div class="bg-white p-4 rounded-xl border-4 border-black inline-block mb-8 neo-card">
-            <p id="daily-tip-display" class="font-bold italic">"Ești mai mult decât scorul de la test."</p>
+        <div class="neo-card p-6 rounded-2xl inline-block mb-10 w-full max-w-sm">
+            <p id="daily-tip-display" class="font-bold italic text-xl text-gray-800">"Ești mai mult decât scorul de la test."</p>
         </div>
 
         <div class="flex justify-center mb-10">
             <img src="https://api.dicebear.com/7.x/open-peeps/svg?face=smileBig&head=shaved2&skinColor=ffffff&backgroundColor=b6e3f4" 
-                 alt="Avatar" 
-                 class="w-48 h-48 border-4 border-black rounded-full bg-white shadow-[8px_8px_0px_black]">
+                 class="w-56 h-56 border-4 border-black rounded-full bg-white shadow-[10px Pint10px_0px_black]">
+        </div>
+    </main>
+
+    <section id="admin-panel" class="admin-section">
+        <div class="max-w-md mx-auto">
+            <div id="auth-box">
+                <h2 class="text-2xl font-black mb-4 uppercase italic">Acces Admin</h2>
+                <input type="password" id="pass" class="w-full border-4 border-black p-4 rounded-xl font-black mb-4 mb-6" placeholder="Introdu Parola">
+                <button onclick="checkPass()" class="w-full bg-black text-white py-4 rounded-xl font-black border-2 border-black mb-4">DEBLOCHEAZĂ</button>
+                <button onclick="toggleAdmin()" class="w-full text-xs font-bold underline uppercase">Înapoi la site</button>
+            </div>
+
+            <div id="dashboard" class="hidden space-y-8 pb-20">
+                <h2 class="text-3xl font-black mb-4 uppercase text-indigo-600 italic">Dashboard</h2>
+                
+                <div class="space-y-2">
+                    <label class="block font-black uppercase text-sm italic">Schimbă Mesajul Zilei:</label>
+                    <textarea id="new-tip" class="w-full border-4 border-black p-4 rounded-xl font-bold bg-yellow-50" rows="5"></textarea>
+                </div>
+
+                <button onclick="saveTip()" class="w-full bg-indigo-500 text-white py-5 rounded-xl font-black border-4 border-black shadow-[6px_6px_0px_black]">SALVEAZĂ MESAJUL</button>
+                
+                <div class="p-4 border-4 border-black bg-gray-100 rounded-xl">
+                    <p class="font-black text-xs uppercase text-gray-500 mb-2">Info:</p>
+                    <p class="font-bold">Acest meniu folosește acum scroll-ul normal al telefonului tău. Nu mai este o fereastră blocată.</p>
+                </div>
+
+                <button onclick="logout()" class="w-full text-red-600 font-black underline uppercase py-4">Ieșire Admin</button>
+            </div>
         </div>
     </section>
 
-    <div id="admin-modal" class="modal">
-        <div class="modal-content shadow-[10px_10px_0px_black]">
-            
-            <div id="auth-section">
-                <h3 class="text-xl font-black mb-4 uppercase">Acces Admin</h3>
-                <input type="password" id="pass" class="w-full border-2 border-black p-3 mb-4 rounded-lg" placeholder="Parola">
-                <button onclick="checkPass()" class="w-full bg-black text-white py-3 rounded-lg font-black border-2 border-black">LOG IN</button>
-                <button onclick="closeAdmin()" class="w-full mt-4 text-xs font-bold underline">Închide</button>
-            </div>
-
-            <div id="control-section" class="hidden">
-                <h3 class="text-xl font-black mb-4 uppercase text-indigo-600">Dashboard</h3>
-                <label class="block text-[10px] font-black mb-1 text-left">MESAJ NOU:</label>
-                <textarea id="new-tip" class="w-full border-2 border-black p-3 mb-4 rounded-lg font-bold bg-yellow-50" rows="3"></textarea>
-                
-                <button onclick="saveTip()" class="w-full bg-indigo-500 text-white py-3 rounded-lg font-black border-2 border-black mb-4">SALVEAZĂ</button>
-                
-                <div class="bg-gray-100 p-3 rounded border-2 border-black text-[10px] font-bold mb-4">
-                    Status: Online <br> Vizualizare: Mobil optimizat
-                </div>
-
-                <button onclick="logoutAdmin()" class="w-full text-red-600 text-[10px] font-bold underline uppercase">Ieșire</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        function openAdmin() { document.getElementById('admin-modal').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('admin-modal').style.display = 'none'; }
+        function toggleAdmin() {
+            const main = document.getElementById('main-content');
+            const admin = document.getElementById('admin-panel');
+            
+            if (admin.style.display === 'block') {
+                admin.style.display = 'none';
+                main.style.display = 'block';
+                window.scrollTo(0, 0);
+            } else {
+                admin.style.display = 'block';
+                main.style.display = 'none';
+                window.scrollTo(0, 0);
+            }
+        }
 
         function checkPass() {
             if(document.getElementById('pass').value === 'mindvibe2024') {
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('control-section').style.display = 'block';
+                document.getElementById('auth-box').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
                 document.getElementById('new-tip').value = document.getElementById('daily-tip-display').innerText;
             } else {
-                alert("Parolă greșită!");
+                alert("Parolă incorectă!");
             }
         }
 
         function saveTip() {
-            const val = document.getElementById('new-tip').value;
-            if(val) {
-                document.getElementById('daily-tip-display').innerText = val;
-                alert("Actualizat!");
-                closeAdmin();
+            const text = document.getElementById('new-tip').value;
+            if(text) {
+                document.getElementById('daily-tip-display').innerText = text;
+                alert("Mesaj actualizat cu succes! ✨");
+                toggleAdmin();
             }
         }
 
-        function logoutAdmin() {
+        function logout() {
             document.getElementById('pass').value = '';
-            document.getElementById('auth-section').style.display = 'block';
-            document.getElementById('control-section').style.display = 'none';
-            closeAdmin();
+            document.getElementById('auth-box').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            toggleAdmin();
         }
     </script>
 </body>
