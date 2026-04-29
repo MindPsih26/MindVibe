@@ -1,79 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe - Public</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MindVibe - Hub-ul tău de Bine</title>
     <style>
-        body { 
-            font-family: sans-serif; 
-            background-color: #fefce8; 
-            margin: 0; padding: 20px;
-            color: #1a1a1a;
-            line-height: 1.5;
-        }
-        .container { max-width: 500px; margin: 0 auto; text-align: center; }
-        .header { font-size: 40px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
-        .accent { color: #f59e0b; }
-        .mesaj-card { 
-            background: white; 
-            border: 4px solid black; 
-            padding: 20px; 
-            border-radius: 15px;
-            box-shadow: 8px 8px 0px black;
-            margin-bottom: 30px;
-        }
-        .sun-icon { font-size: 150px; margin: 0 auto 40px; display: block; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
         
-        /* Zona de admin este ascunsa pentru vizitatori, o gasesti doar tu prin scroll */
-        .admin-zone {
-            margin-top: 150px;
-            padding: 30px 20px;
-            border-top: 2px solid #ddd;
-            opacity: 0.3; /* Foarte discreta pentru vizitatori */
-        }
-        .admin-zone:hover { opacity: 1; } /* Se vede clar cand ajungi la ea */
+        :root { --yellow: #fbbf24; --indigo: #6366f1; --bg: #fefce8; }
+        
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); margin: 0; color: #1a1a1a; overflow-x: hidden; }
+        
+        /* Utilitare */
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+        .neo-card { background: white; border: 4px solid black; border-radius: 20px; box-shadow: 8px 8px 0px black; padding: 20px; margin-bottom: 25px; }
+        .btn { background: var(--yellow); border: 3px solid black; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 4px 4px 0px black; width: 100%; margin-bottom: 10px; }
+        .btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        
+        /* Navigație */
+        nav { background: white; border-bottom: 4px solid black; padding: 15px; display: flex; justify-content: space-between; align-items: center; sticky top: 0; z-index: 100; }
+        .logo { font-weight: 900; font-size: 24px; text-transform: uppercase; }
 
-        input, textarea { width: 90%; padding: 15px; margin: 10px 0; border: 3px solid black; border-radius: 10px; }
-        .btn { background: #fbbf24; border: 3px solid black; padding: 15px 30px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-        .hidden { display: none; }
+        /* Pagini */
+        .page { display: none; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Componente Specifice */
+        .sun-icon { font-size: 100px; margin: 20px auto; display: block; text-align: center; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .topic-card { background: white; border: 3px solid black; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 4px 4px 0px black; cursor: pointer; }
+        
+        /* Test Stres */
+        .quiz-option { background: #f3f4f6; border: 2px solid black; padding: 10px; margin: 10px 0; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .quiz-option:hover { background: #e5e7eb; }
+
+        /* Admin */
+        .admin-panel { background: #fff; border-top: 4px solid black; margin-top: 50px; padding: 20px; }
+        textarea { width: 100%; border: 3px solid black; border-radius: 10px; padding: 10px; box-sizing: border-box; font-family: inherit; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="logo">Mind<span style="color:var(--indigo)">Vibe</span> ☀️</div>
+        <button onclick="showPage('admin-page')" style="background:none; border:none; font-weight:bold; cursor:pointer;">ADMIN 🔒</button>
+    </nav>
+
     <div class="container">
-        <div class="header">Mind<span class="accent">Vibe</span> ☀️</div>
+        
+        <div id="home-page" class="page active">
+            <div class="sun-icon">😊</div>
+            
+            <div class="neo-card">
+                <p style="font-size: 10px; font-weight: 900; color: var(--indigo); margin: 0; text-transform: uppercase;">Mesajul Zilei</p>
+                <h2 id="main-message" style="margin: 10px 0;">Ești mai mult decât un test! ✨</h2>
+            </div>
 
-        <div class="mesaj-card">
-            <p style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #f59e0b; margin: 0;">Mesajul Zilei:</p>
-            <h2 id="text-site" style="margin: 10px 0;">Ești mai mult decât un test! ✨</h2>
+            <h3 style="text-transform: uppercase; font-weight: 900;">Explorează Hub-ul:</h3>
+            <div class="grid">
+                <div class="topic-card" onclick="openTopic('Stres', 'Stresul este răspunsul corpului la provocări. Încearcă tehnica 4-7-8: inspiră 4 secunde, ține-ți respirația 7, expiră 8.')">
+                    <span style="font-size:30px">🧘‍♂️</span>
+                    <p style="font-weight:900; font-size:12px; margin-top:5px;">STRES</p>
+                </div>
+                <div class="topic-card" onclick="showPage('test-page')">
+                    <span style="font-size:30px">📝</span>
+                    <p style="font-weight:900; font-size:12px; margin-top:5px;">TEST STRES</p>
+                </div>
+                <div class="topic-card" onclick="openTopic('Anxietate', 'Anxietatea se simte ca o furtună, dar tu ești muntele. Concentrează-te pe 5 lucruri pe care le poți vedea acum.')">
+                    <span style="font-size:30px">🌊</span>
+                    <p style="font-weight:900; font-size:12px; margin-top:5px;">ANXIETATE</p>
+                </div>
+                <div class="topic-card" onclick="openTopic('Somn', 'Creierul tău are nevoie de întuneric pentru melatonină. Lasă ecranele cu o oră înainte de culcare.')">
+                    <span style="font-size:30px">🌙</span>
+                    <p style="font-weight:900; font-size:12px; margin-top:5px;">SOMN</p>
+                </div>
+            </div>
         </div>
 
-        <div class="sun-icon">😊</div>
-        <p style="font-weight: bold; color: #f59e0b; margin-top: -30px;">Stay Sunny!</p>
-
-        <div class="admin-zone">
-            <p style="font-size: 10px; font-weight: bold;">ADMIN SECURED</p>
-            <div id="login-section">
-                <input type="password" id="pass-input" placeholder="Parola">
-                <br>
-                <button class="btn" onclick="login()">Log In</button>
-            </div>
-            <div id="dash-section" class="hidden">
-                <p>Ești conectat. Pentru a schimba mesajul pentru <b>TOȚI</b> vizitatorii, editează fișierul index.html în GitHub.</p>
-                <button onclick="logout()" style="color: red; font-size: 10px;">Ieșire</button>
+        <div id="topic-page" class="page text-center">
+            <button class="btn" onclick="showPage('home-page')" style="background:#eee; margin-bottom:20px;">← ÎNAPOI</button>
+            <div class="neo-card">
+                <h1 id="topic-title" style="text-transform:uppercase;"></h1>
+                <p id="topic-text" style="font-size: 18px; line-height: 1.6;"></p>
             </div>
         </div>
+
+        <div id="test-page" class="page">
+            <button class="btn" onclick="showPage('home-page')" style="background:#eee; margin-bottom:20px;">← RENUNȚĂ</button>
+            <div class="neo-card text-center">
+                <h2 style="text-transform:uppercase;">Test de Stres Rapid</h2>
+                <div id="quiz-container">
+                    <p id="question" style="font-weight:900; font-size:20px;">Cum te-ai simțit azi?</p>
+                    <div class="quiz-option" onclick="nextQuestion(1)">Foarte liniștit</div>
+                    <div class="quiz-option" onclick="nextQuestion(2)">Puțin agitat</div>
+                    <div class="quiz-option" onclick="nextQuestion(3)">Destul de stresat</div>
+                    <div class="quiz-option" onclick="nextQuestion(4)">Copleșit total</div>
+                </div>
+                <div id="result-container" class="hidden" style="display:none;">
+                    <h3 id="result-text" style="font-size:24px; color:var(--indigo);"></h3>
+                    <button class="btn" onclick="showPage('home-page')">OK, AM ÎNȚELES</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-page" class="page">
+            <button class="btn" onclick="showPage('home-page')" style="background:#eee; margin-bottom:20px;">← ÎNAPOI LA SITE</button>
+            <div class="neo-card">
+                <h2 style="text-transform:uppercase;">Acces Moderator</h2>
+                <div id="admin-login">
+                    <input type="password" id="admin-pass" placeholder="Introdu parola" style="width:100%; padding:15px; border:3px solid black; border-radius:10px; margin-bottom:20px;">
+                    <button class="btn" onclick="login()">LOG IN</button>
+                </div>
+                <div id="admin-dash" style="display:none;">
+                    <p style="color:green; font-weight:900;">LOGAT ✅</p>
+                    <label style="font-weight:900; font-size:12px;">MODIFICĂ MESAJUL (DOAR PENTRU TINE):</label>
+                    <textarea id="edit-msg" rows="4"></textarea>
+                    <button class="btn" style="margin-top:10px; background:var(--indigo); color:white;" onclick="saveMsg()">SALVEAZĂ LOCAL</button>
+                    <p style="font-size:10px; margin-top:20px;">*Pentru a schimba mesajul pentru toți vizitatorii, modifică linia 61 din codul GitHub.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function login() {
-            if(document.getElementById('pass-input').value === 'mindvibe2024') {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('dash-section').classList.remove('hidden');
-            } else { alert("Acces interzis."); }
+        // Navigație între pagini
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
         }
-        function logout() { location.reload(); }
+
+        // Deschidere secțiuni
+        function openTopic(title, text) {
+            document.getElementById('topic-title').innerText = title;
+            document.getElementById('topic-text').innerText = text;
+            showPage('topic-page');
+        }
+
+        // Logică Test Stres
+        let score = 0;
+        function nextQuestion(val) {
+            score = val;
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            let res = "";
+            if(score <= 1) res = "Ești ZEN! 🧘‍♂️";
+            else if(score == 2) res = "Ai un stres gestionabil. 😊";
+            else if(score == 3) res = "Ai nevoie de o pauză! ☕";
+            else res = "Ești la limită. Odihnește-te! 🆘";
+            document.getElementById('result-text').innerText = res;
+        }
+
+        // Logică Admin
+        function login() {
+            if(document.getElementById('admin-pass').value === 'mindvibe2024') {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dash').style.display = 'block';
+                document.getElementById('edit-msg').value = document.getElementById('main-message').innerText;
+            } else { alert("Greșit!"); }
+        }
+
+        function saveMsg() {
+            const m = document.getElementById('edit-msg').value;
+            localStorage.setItem('localMsg', m);
+            document.getElementById('main-message').innerText = m;
+            alert("Salvat pe acest telefon!");
+            showPage('home-page');
+        }
+
+        // Încărcare mesaj local la pornire
+        window.onload = function() {
+            const s = localStorage.getItem('localMsg');
+            if(s) document.getElementById('main-message').innerText = s;
+        }
     </script>
+
 </body>
 </html>
