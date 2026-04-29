@@ -1,114 +1,142 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MindVibe App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe PRO - Soare</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background-color: #fefce8; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        .neo-brutal { border: 4px solid black; box-shadow: 8px 8px 0px black; }
-        section { display: none; }
-        section.active { display: block; }
+        /* CSS PUR - Robust si sigur pentru mobil */
+        body { 
+            font-family: sans-serif; 
+            background-color: #fefce8; 
+            margin: 0; padding: 20px;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .container { max-width: 500px; margin: 0 auto; text-align: center; }
+        
+        .header { font-size: 40px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+        .accent { color: #f59e0b; /* Culoare soare */ }
+
+        .mesaj-card { 
+            background: white; 
+            border: 4px solid black; 
+            padding: 20px; 
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px black;
+            margin-bottom: 30px;
+        }
+
+        /* Containerul pentru Soare in loc de Avatar */
+        .sun-icon {
+            font-size: 150px; /* Dimensiune mare */
+            margin: 0 auto 40px;
+            display: block;
+        }
+
+        /* SECTIUNEA DE ADMIN - VIZIBILA PRIN SCROLL NATURAl */
+        .admin-zone {
+            margin-top: 100px;
+            padding: 30px 20px;
+            border-top: 5px dashed black;
+            background: #fff;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 3px solid black;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: #fbbf24;
+            border: 3px solid black;
+            padding: 15px 30px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px black;
+        }
+        .btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <nav class="bg-white border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-[100]">
-        <span class="font-black text-xl tracking-tighter uppercase">MindVibe</span>
-        <div class="flex gap-2">
-            <button onclick="showPage('home')" class="bg-blue-400 border-2 border-black p-2 shadow-[2px_2px_0px_black] text-xs font-black">HOME</button>
-            <button onclick="showPage('admin')" class="bg-yellow-300 border-2 border-black p-2 shadow-[2px_2px_0px_black] text-xs font-black italic">ADMIN 🔒</button>
-        </div>
-    </nav>
+    <div class="container">
+        <div class="header">Mind<span class="accent">Vibe</span> ☀️</div>
 
-    <section id="home" class="active p-6 animate-fadeIn">
-        <div class="text-center">
-            <h1 class="text-6xl font-black mb-6 uppercase leading-[0.8] mt-4">STAY <br><span class="text-indigo-600">REAL.</span></h1>
+        <div class="mesaj-card">
+            <p style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #f59e0b; margin: 0;">Sfatul tău:</p>
+            <h2 id="text-site" style="margin: 10px 0;">Ești mai mult decât un test!</h2>
+        </div>
+
+        <div class="sun-icon">😊</div>
+        <p style="font-weight: bold; color: #f59e0b; margin-top: -30px; margin-bottom: 40px;">Stay Sunny!</p>
+
+        <p style="font-size: 14px; font-weight: bold; color: gray;">👇 Scroll în jos pentru Moderare 👇</p>
+
+        <div class="admin-zone">
+            <h2 style="text-transform: uppercase; font-weight: 900;">Panou Moderare 🔒</h2>
             
-            <div class="neo-brutal p-6 rounded-2xl bg-white mb-10 mx-auto max-w-sm">
-                <p id="display-text" class="text-xl font-bold italic">"Ești mai mult decât scorul de la test."</p>
+            <div id="login-section">
+                <input type="password" id="pass-input" placeholder="Parola">
+                <br>
+                <button class="btn" onclick="login()">Intră în Dashboard</button>
             </div>
 
-            <img src="https://api.dicebear.com/7.x/open-peeps/svg?face=smileBig&head=shaved2&skinColor=ffffff" 
-                 class="w-56 h-56 border-4 border-black rounded-full bg-blue-100 mx-auto shadow-[10px_10px_0px_black]">
-        </div>
-    </section>
-
-    <section id="admin" class="p-6">
-        <div id="login-form" class="max-w-sm mx-auto">
-            <h2 class="text-3xl font-black mb-6 uppercase italic">Acces Securizat</h2>
-            <div class="neo-brutal p-6 rounded-2xl bg-white">
-                <input type="password" id="admin-pass" class="w-full border-4 border-black p-4 rounded-xl mb-4 font-black" placeholder="PAROLA">
-                <button onclick="login()" class="w-full bg-black text-white py-4 rounded-xl font-black uppercase hover:bg-gray-800 transition">Intră în Panou</button>
+            <div id="dash-section" class="hidden">
+                <p style="color: green; font-weight: bold;">Ești conectat! ✅</p>
+                <textarea id="edit-text" placeholder="Scrie mesajul nou aici..."></textarea>
+                <br>
+                <button class="btn" style="background: #6366f1; color: white;" onclick="save()">Salvează pe ecran</button>
+                <br><br>
+                <button onclick="logout()" style="border: none; background: none; text-decoration: underline; font-weight: bold; color: red; cursor: pointer;">Ieșire</button>
             </div>
         </div>
-
-        <div id="admin-dashboard" class="hidden max-w-sm mx-auto pb-20">
-            <h2 class="text-3xl font-black mb-2 uppercase text-indigo-600">DASHBOARD</h2>
-            <p class="text-[10px] font-black uppercase text-green-600 mb-6 tracking-widest">● Conectat ca Moderator</p>
-            
-            <div class="neo-brutal p-6 rounded-2xl bg-white space-y-6">
-                <div>
-                    <label class="block font-black text-xs uppercase mb-2">Schimbă Mesajul Principal:</label>
-                    <textarea id="input-text" class="w-full border-4 border-black p-4 rounded-xl font-bold bg-yellow-50 focus:outline-none" rows="5"></textarea>
-                </div>
-                
-                <button onclick="updateMessage()" class="w-full bg-indigo-500 text-white py-4 rounded-xl font-black border-4 border-black shadow-[4px_4px_0px_black] uppercase">
-                    Salvează pe Telefon
-                </button>
-
-                <button onclick="logout()" class="w-full text-red-600 font-black underline text-xs uppercase pt-4">Ieșire din cont</button>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <script>
-        // Logica de navigare intre pagini (fara scroll blocat)
-        function showPage(pageId) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        // Incarcare date salvate
+        // Incarcare automata si persisenta locala
         window.onload = function() {
-            const savedData = localStorage.getItem('mindvibe_msg');
-            if(savedData) document.getElementById('display-text').innerText = savedData;
+            const saved = localStorage.getItem('vibe_msg');
+            if(saved) document.getElementById('text-site').innerText = saved;
             
-            if(localStorage.getItem('is_logged') === 'true') {
-                document.getElementById('login-form').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-            }
+            if(localStorage.getItem('logged') === 'true') showDash();
         }
 
         function login() {
-            const p = document.getElementById('admin-pass').value;
-            if(p === 'mindvibe2024') {
-                localStorage.setItem('is_logged', 'true');
-                document.getElementById('login-form').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                document.getElementById('input-text').value = document.getElementById('display-text').innerText;
-            } else {
-                alert('Parola gresita!');
-            }
+            // Parola ramane aceeasi
+            if(document.getElementById('pass-input').value === 'mindvibe2024') {
+                localStorage.setItem('logged', 'true');
+                showDash();
+            } else { alert("Greșit!"); }
         }
 
-        function updateMessage() {
-            const txt = document.getElementById('input-text').value;
-            if(txt) {
-                localStorage.setItem('mindvibe_msg', txt);
-                document.getElementById('display-text').innerText = txt;
-                alert('Mesaj salvat local! ✨');
-                showPage('home');
-            }
+        function showDash() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('dash-section').classList.remove('hidden');
+            document.getElementById('edit-text').value = document.getElementById('text-site').innerText;
+        }
+
+        function save() {
+            const nou = document.getElementById('edit-text').value;
+            localStorage.setItem('vibe_msg', nou);
+            document.getElementById('text-site').innerText = nou;
+            alert("S-A SALVAT PE ACEST DISPOZITIV!");
+            window.scrollTo(0,0); // Revine sus dupa salvare
         }
 
         function logout() {
-            localStorage.removeItem('is_logged');
+            localStorage.removeItem('logged');
             location.reload();
         }
     </script>
+
 </body>
 </html>
