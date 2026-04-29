@@ -2,137 +2,112 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MindVibe App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background-color: #fefce8; margin: 0; padding: 0; }
-        .neo-card { border: 4px solid #000; box-shadow: 8px 8px 0px #000; background: white; }
+        body { font-family: 'Outfit', sans-serif; background-color: #fefce8; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        .neo-brutal { border: 4px solid black; box-shadow: 8px 8px 0px black; }
+        section { display: none; }
+        section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <nav class="bg-white border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-50">
-        <span class="font-black uppercase tracking-tighter">MindVibe</span>
-        <button onclick="toggleAdmin()" id="admin-btn" class="bg-yellow-300 border-2 border-black px-4 py-2 font-black text-xs shadow-[3px_3px_0px_black] active:shadow-none uppercase">
-            Admin 🔒
-        </button>
+    <nav class="bg-white border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-[100]">
+        <span class="font-black text-xl tracking-tighter uppercase">MindVibe</span>
+        <div class="flex gap-2">
+            <button onclick="showPage('home')" class="bg-blue-400 border-2 border-black p-2 shadow-[2px_2px_0px_black] text-xs font-black">HOME</button>
+            <button onclick="showPage('admin')" class="bg-yellow-300 border-2 border-black p-2 shadow-[2px_2px_0px_black] text-xs font-black italic">ADMIN 🔒</button>
+        </div>
     </nav>
 
-    <main id="main-content" class="p-6 text-center">
-        <h1 class="text-6xl font-black mb-6 uppercase leading-none mt-4">Stay <span class="text-indigo-600">Real.</span></h1>
-        
-        <div class="neo-card p-6 rounded-2xl inline-block mb-10 w-full max-w-sm text-center">
-            <p id="daily-tip-display" class="font-bold italic text-xl text-gray-800 italic">"Ești mai mult decât scorul de la test."</p>
-        </div>
-
-        <div class="flex justify-center mb-10">
-            <img src="https://api.dicebear.com/7.x/open-peeps/svg?face=smileBig&head=shaved2&skinColor=ffffff&backgroundColor=b6e3f4" 
-                 class="w-56 h-56 border-4 border-black rounded-full bg-white shadow-[10px_10px_0px_black]">
-        </div>
-    </main>
-
-    <section id="admin-panel" class="hidden p-6 bg-white min-h-screen">
-        <div class="max-w-md mx-auto">
-            <div id="auth-box">
-                <h2 class="text-2xl font-black mb-4 uppercase italic">Logare Moderator</h2>
-                <input type="password" id="pass" class="w-full border-4 border-black p-4 rounded-xl font-black mb-6" placeholder="Parola">
-                <button onclick="checkPass()" class="w-full bg-black text-white py-4 rounded-xl font-black border-2 border-black">LOG IN</button>
-            </div>
-
-            <div id="dashboard" class="hidden space-y-8 pb-20">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-3xl font-black uppercase text-indigo-600 italic">Dashboard</h2>
-                    <button onclick="logout()" class="text-red-600 font-black underline text-xs uppercase">Ieșire</button>
-                </div>
-                
-                <div class="space-y-2">
-                    <label class="block font-black uppercase text-sm italic underline">Schimbă textul de pe site:</label>
-                    <textarea id="new-tip" class="w-full border-4 border-black p-4 rounded-xl font-bold bg-yellow-50" rows="5"></textarea>
-                </div>
-
-                <button onclick="saveTip()" class="w-full bg-indigo-500 text-white py-5 rounded-xl font-black border-4 border-black shadow-[6px_6px_0px_black] uppercase tracking-widest">
-                    Salvează și Aplică
-                </button>
-                
-                <p class="text-[10px] font-bold text-gray-400 text-center uppercase">Modificările sunt salvate pe acest dispozitiv.</p>
-            </div>
+    <section id="home" class="active p-6 animate-fadeIn">
+        <div class="text-center">
+            <h1 class="text-6xl font-black mb-6 uppercase leading-[0.8] mt-4">STAY <br><span class="text-indigo-600">REAL.</span></h1>
             
-            <button onclick="toggleAdmin()" class="w-full mt-8 text-center font-black uppercase text-sm border-2 border-black p-2 bg-gray-100">
-                ← Înapoi la Site
-            </button>
+            <div class="neo-brutal p-6 rounded-2xl bg-white mb-10 mx-auto max-w-sm">
+                <p id="display-text" class="text-xl font-bold italic">"Ești mai mult decât scorul de la test."</p>
+            </div>
+
+            <img src="https://api.dicebear.com/7.x/open-peeps/svg?face=smileBig&head=shaved2&skinColor=ffffff" 
+                 class="w-56 h-56 border-4 border-black rounded-full bg-blue-100 mx-auto shadow-[10px_10px_0px_black]">
+        </div>
+    </section>
+
+    <section id="admin" class="p-6">
+        <div id="login-form" class="max-w-sm mx-auto">
+            <h2 class="text-3xl font-black mb-6 uppercase italic">Acces Securizat</h2>
+            <div class="neo-brutal p-6 rounded-2xl bg-white">
+                <input type="password" id="admin-pass" class="w-full border-4 border-black p-4 rounded-xl mb-4 font-black" placeholder="PAROLA">
+                <button onclick="login()" class="w-full bg-black text-white py-4 rounded-xl font-black uppercase hover:bg-gray-800 transition">Intră în Panou</button>
+            </div>
+        </div>
+
+        <div id="admin-dashboard" class="hidden max-w-sm mx-auto pb-20">
+            <h2 class="text-3xl font-black mb-2 uppercase text-indigo-600">DASHBOARD</h2>
+            <p class="text-[10px] font-black uppercase text-green-600 mb-6 tracking-widest">● Conectat ca Moderator</p>
+            
+            <div class="neo-brutal p-6 rounded-2xl bg-white space-y-6">
+                <div>
+                    <label class="block font-black text-xs uppercase mb-2">Schimbă Mesajul Principal:</label>
+                    <textarea id="input-text" class="w-full border-4 border-black p-4 rounded-xl font-bold bg-yellow-50 focus:outline-none" rows="5"></textarea>
+                </div>
+                
+                <button onclick="updateMessage()" class="w-full bg-indigo-500 text-white py-4 rounded-xl font-black border-4 border-black shadow-[4px_4px_0px_black] uppercase">
+                    Salvează pe Telefon
+                </button>
+
+                <button onclick="logout()" class="w-full text-red-600 font-black underline text-xs uppercase pt-4">Ieșire din cont</button>
+            </div>
         </div>
     </section>
 
     <script>
-        // Încărcăm datele salvate când se deschide site-ul
+        // Logica de navigare intre pagini (fara scroll blocat)
+        function showPage(pageId) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // Incarcare date salvate
         window.onload = function() {
-            // 1. Încărcăm mesajul salvat anterior
-            const savedTip = localStorage.getItem("saved_daily_tip");
-            if (savedTip) {
-                document.getElementById('daily-tip-display').innerText = savedTip;
+            const savedData = localStorage.getItem('mindvibe_msg');
+            if(savedData) document.getElementById('display-text').innerText = savedData;
+            
+            if(localStorage.getItem('is_logged') === 'true') {
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('admin-dashboard').classList.remove('hidden');
             }
+        }
 
-            // 2. Verificăm dacă suntem logați
-            if (localStorage.getItem("admin_logged_in") === "true") {
-                showDashboard();
-            }
-        };
-
-        function toggleAdmin() {
-            const main = document.getElementById('main-content');
-            const admin = document.getElementById('admin-panel');
-            const btn = document.getElementById('admin-btn');
-
-            if (admin.classList.contains('hidden')) {
-                admin.classList.remove('hidden');
-                main.classList.add('hidden');
-                btn.innerText = "SITE 🌐";
-                // Dacă suntem deja logați, punem textul curent în textarea
-                if (localStorage.getItem("admin_logged_in") === "true") {
-                    document.getElementById('new-tip').value = document.getElementById('daily-tip-display').innerText;
-                }
+        function login() {
+            const p = document.getElementById('admin-pass').value;
+            if(p === 'mindvibe2024') {
+                localStorage.setItem('is_logged', 'true');
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('admin-dashboard').classList.remove('hidden');
+                document.getElementById('input-text').value = document.getElementById('display-text').innerText;
             } else {
-                admin.classList.add('hidden');
-                main.classList.remove('hidden');
-                btn.innerText = "ADMIN 🔒";
+                alert('Parola gresita!');
             }
         }
 
-        function checkPass() {
-            if(document.getElementById('pass').value === 'mindvibe2024') {
-                localStorage.setItem("admin_logged_in", "true");
-                showDashboard();
-            } else {
-                alert("Parolă incorectă!");
-            }
-        }
-
-        function showDashboard() {
-            document.getElementById('auth-box').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            document.getElementById('new-tip').value = document.getElementById('daily-tip-display').innerText;
-        }
-
-        function saveTip() {
-            const text = document.getElementById('new-tip').value;
-            if(text) {
-                // SALVARE PERMANENTĂ în browser
-                localStorage.setItem("saved_daily_tip", text);
-                // Actualizare vizuală imediată
-                document.getElementById('daily-tip-display').innerText = text;
-                alert("Salvat permanent! ✨");
-                toggleAdmin();
+        function updateMessage() {
+            const txt = document.getElementById('input-text').value;
+            if(txt) {
+                localStorage.setItem('mindvibe_msg', txt);
+                document.getElementById('display-text').innerText = txt;
+                alert('Mesaj salvat local! ✨');
+                showPage('home');
             }
         }
 
         function logout() {
-            localStorage.removeItem("admin_logged_in");
-            document.getElementById('pass').value = '';
-            document.getElementById('auth-box').classList.remove('hidden');
-            document.getElementById('dashboard').classList.add('hidden');
-            toggleAdmin();
+            localStorage.removeItem('is_logged');
+            location.reload();
         }
     </script>
 </body>
