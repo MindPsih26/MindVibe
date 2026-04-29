@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe PRO - Soare</title>
+    <title>MindVibe - Public</title>
     <style>
-        /* CSS PUR - Robust si sigur pentru mobil */
         body { 
             font-family: sans-serif; 
             background-color: #fefce8; 
@@ -14,10 +13,8 @@
             line-height: 1.5;
         }
         .container { max-width: 500px; margin: 0 auto; text-align: center; }
-        
         .header { font-size: 40px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
-        .accent { color: #f59e0b; /* Culoare soare */ }
-
+        .accent { color: #f59e0b; }
         .mesaj-card { 
             background: white; 
             border: 4px solid black; 
@@ -26,43 +23,19 @@
             box-shadow: 8px 8px 0px black;
             margin-bottom: 30px;
         }
-
-        /* Containerul pentru Soare in loc de Avatar */
-        .sun-icon {
-            font-size: 150px; /* Dimensiune mare */
-            margin: 0 auto 40px;
-            display: block;
-        }
-
-        /* SECTIUNEA DE ADMIN - VIZIBILA PRIN SCROLL NATURAl */
-        .admin-zone {
-            margin-top: 100px;
-            padding: 30px 20px;
-            border-top: 5px dashed black;
-            background: #fff;
-        }
-
-        input, textarea {
-            width: 90%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 3px solid black;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .btn {
-            background: #fbbf24;
-            border: 3px solid black;
-            padding: 15px 30px;
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px black;
-        }
-        .btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        .sun-icon { font-size: 150px; margin: 0 auto 40px; display: block; }
         
+        /* Zona de admin este ascunsa pentru vizitatori, o gasesti doar tu prin scroll */
+        .admin-zone {
+            margin-top: 150px;
+            padding: 30px 20px;
+            border-top: 2px solid #ddd;
+            opacity: 0.3; /* Foarte discreta pentru vizitatori */
+        }
+        .admin-zone:hover { opacity: 1; } /* Se vede clar cand ajungi la ea */
+
+        input, textarea { width: 90%; padding: 15px; margin: 10px 0; border: 3px solid black; border-radius: 10px; }
+        .btn { background: #fbbf24; border: 3px solid black; padding: 15px 30px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
         .hidden { display: none; }
     </style>
 </head>
@@ -72,71 +45,35 @@
         <div class="header">Mind<span class="accent">Vibe</span> ☀️</div>
 
         <div class="mesaj-card">
-            <p style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #f59e0b; margin: 0;">Sfatul tău:</p>
-            <h2 id="text-site" style="margin: 10px 0;">Ești mai mult decât un test!</h2>
+            <p style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #f59e0b; margin: 0;">Mesajul Zilei:</p>
+            <h2 id="text-site" style="margin: 10px 0;">Ești mai mult decât un test! ✨</h2>
         </div>
 
         <div class="sun-icon">😊</div>
-        <p style="font-weight: bold; color: #f59e0b; margin-top: -30px; margin-bottom: 40px;">Stay Sunny!</p>
-
-        <p style="font-size: 14px; font-weight: bold; color: gray;">👇 Scroll în jos pentru Moderare 👇</p>
+        <p style="font-weight: bold; color: #f59e0b; margin-top: -30px;">Stay Sunny!</p>
 
         <div class="admin-zone">
-            <h2 style="text-transform: uppercase; font-weight: 900;">Panou Moderare 🔒</h2>
-            
+            <p style="font-size: 10px; font-weight: bold;">ADMIN SECURED</p>
             <div id="login-section">
                 <input type="password" id="pass-input" placeholder="Parola">
                 <br>
-                <button class="btn" onclick="login()">Intră în Dashboard</button>
+                <button class="btn" onclick="login()">Log In</button>
             </div>
-
             <div id="dash-section" class="hidden">
-                <p style="color: green; font-weight: bold;">Ești conectat! ✅</p>
-                <textarea id="edit-text" placeholder="Scrie mesajul nou aici..."></textarea>
-                <br>
-                <button class="btn" style="background: #6366f1; color: white;" onclick="save()">Salvează pe ecran</button>
-                <br><br>
-                <button onclick="logout()" style="border: none; background: none; text-decoration: underline; font-weight: bold; color: red; cursor: pointer;">Ieșire</button>
+                <p>Ești conectat. Pentru a schimba mesajul pentru <b>TOȚI</b> vizitatorii, editează fișierul index.html în GitHub.</p>
+                <button onclick="logout()" style="color: red; font-size: 10px;">Ieșire</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Incarcare automata si persisenta locala
-        window.onload = function() {
-            const saved = localStorage.getItem('vibe_msg');
-            if(saved) document.getElementById('text-site').innerText = saved;
-            
-            if(localStorage.getItem('logged') === 'true') showDash();
-        }
-
         function login() {
-            // Parola ramane aceeasi
             if(document.getElementById('pass-input').value === 'mindvibe2024') {
-                localStorage.setItem('logged', 'true');
-                showDash();
-            } else { alert("Greșit!"); }
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('dash-section').classList.remove('hidden');
+            } else { alert("Acces interzis."); }
         }
-
-        function showDash() {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('dash-section').classList.remove('hidden');
-            document.getElementById('edit-text').value = document.getElementById('text-site').innerText;
-        }
-
-        function save() {
-            const nou = document.getElementById('edit-text').value;
-            localStorage.setItem('vibe_msg', nou);
-            document.getElementById('text-site').innerText = nou;
-            alert("S-A SALVAT PE ACEST DISPOZITIV!");
-            window.scrollTo(0,0); // Revine sus dupa salvare
-        }
-
-        function logout() {
-            localStorage.removeItem('logged');
-            location.reload();
-        }
+        function logout() { location.reload(); }
     </script>
-
 </body>
 </html>
