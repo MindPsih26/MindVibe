@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MindVibe - Hub-ul tău de Bine</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
         
-        :root { --yellow: #fbbf24; --indigo: #6366f1; --bg: #fefce8; }
+        :root { --yellow: #fbbf24; --indigo: #6366f1; --bg: #fefce8; --neon-pink: #ff007f; }
         
         body { font-family: 'Outfit', sans-serif; background-color: var(--bg); margin: 0; color: #1a1a1a; overflow-x: hidden; }
         
         /* Utilitare */
         .container { max-width: 500px; margin: 0 auto; padding: 20px; }
         .neo-card { background: white; border: 4px solid black; border-radius: 20px; box-shadow: 8px 8px 0px black; padding: 20px; margin-bottom: 25px; }
-        .btn { background: var(--yellow); border: 3px solid black; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 4px 4px 0px black; width: 100%; margin-bottom: 10px; }
+        .btn { background: var(--yellow); border: 3px solid black; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 4px 4px 0px black; width: 100%; margin-bottom: 10px; font-family: 'Outfit', sans-serif; }
         .btn:active { transform: translate(2px, 2px); box-shadow: none; }
         
         /* Navigație */
-        nav { background: white; border-bottom: 4px solid black; padding: 15px; display: flex; justify-content: space-between; align-items: center; sticky top: 0; z-index: 100; }
+        nav { background: white; border-bottom: 4px solid black; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .logo { font-weight: 900; font-size: 24px; text-transform: uppercase; }
 
         /* Pagini */
@@ -31,9 +31,13 @@
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .topic-card { background: white; border: 3px solid black; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 4px 4px 0px black; cursor: pointer; }
         
-        /* Test Stres */
-        .quiz-option { background: #f3f4f6; border: 2px solid black; padding: 10px; margin: 10px 0; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        .quiz-option:hover { background: #e5e7eb; }
+        /* Chestionare & Teste */
+        .quiz-option { background: white; border: 3px solid black; padding: 12px; margin: 12px 0; border-radius: 12px; cursor: pointer; font-weight: 700; box-shadow: 3px 3px 0px black; transition: 0.1s; }
+        .quiz-option:active { transform: translate(1px, 1px); box-shadow: none; }
+        .quiz-option:hover { background: #f3f4f6; }
+
+        /* Ghid Burnout */
+        .hack-card { background: #f0fdf4; border: 3px solid black; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: left; }
 
         /* Admin */
         .admin-panel { background: #fff; border-top: 4px solid black; margin-top: 50px; padding: 20px; }
@@ -43,7 +47,7 @@
 <body>
 
     <nav>
-        <div class="logo">Mind<span style="color:var(--indigo)">Vibe</span> ☀️</div>
+        <div class="logo" onclick="showPage('home-page')" style="cursor:pointer;">Mind<span style="color:var(--indigo)">Vibe</span> ☀️</div>
         <button onclick="showPage('admin-page')" style="background:none; border:none; font-weight:bold; cursor:pointer;">ADMIN 🔒</button>
     </nav>
 
@@ -54,27 +58,80 @@
             
             <div class="neo-card">
                 <p style="font-size: 10px; font-weight: 900; color: var(--indigo); margin: 0; text-transform: uppercase;">Mesajul Zilei</p>
-                <h2 id="main-message" style="margin: 10px 0;">Zambeste, astăziesti pe un vibe bun! ✨</h2>
+                <h2 id="main-message" style="margin: 10px 0;">Ești mai mult decât un test! ✨</h2>
             </div>
 
             <h3 style="text-transform: uppercase; font-weight: 900;">Explorează Hub-ul:</h3>
             <div class="grid">
-                <div class="topic-card" onclick="openTopic('Stres', 'Stresul este răspunsul corpului la provocări. Încearcă tehnica 4-7-8: inspiră 4 secunde, ține-ți respirația 7, expiră 8.')">
-                    <span style="font-size:30px">🧘‍♂️</span>
-                    <p style="font-weight:900; font-size:12px; margin-top:5px;">STRES</p>
+                <div class="topic-card" onclick="showPage('burnout-hub')" style="border-color: var(--neon-pink); box-shadow: 4px 4px 0px var(--neon-pink);">
+                    <span style="font-size:30px">🎒</span>
+                    <p style="font-weight:900; font-size:12px; margin-top:5px; color: var(--neon-pink);">FĂRĂ BURNOUT</p>
                 </div>
                 <div class="topic-card" onclick="showPage('test-page')">
                     <span style="font-size:30px">📝</span>
                     <p style="font-weight:900; font-size:12px; margin-top:5px;">TEST STRES</p>
                 </div>
-                <div class="topic-card" onclick="openTopic('Anxietate', 'Anxietatea se simte ca o furtună, dar tu ești muntele. Concentrează-te pe 5 lucruri pe care le poți vedea acum.')">
+                <div class="topic-card" onclick="openTopic('Anxietate', 'Anxietatea se simte ca o furtună, dar tu ești muntele. Concentrează-te pe 5 lucruri pe care le poți vedea acum pentru a te ancora în prezent.')">
                     <span style="font-size:30px">🌊</span>
                     <p style="font-weight:900; font-size:12px; margin-top:5px;">ANXIETATE</p>
                 </div>
-                <div class="topic-card" onclick="openTopic('Somn', 'Creierul tău are nevoie de întuneric pentru melatonină. Lasă ecranele cu o oră înainte de culcare.')">
+                <div class="topic-card" onclick="openTopic('Somn', 'Creierul tău are nevoie de întuneric pentru melatonină. Lasă ecranele cu o oră înainte de culcare dacă vrei să te trezești fresh.')">
                     <span style="font-size:30px">🌙</span>
                     <p style="font-weight:900; font-size:12px; margin-top:5px;">SOMN</p>
                 </div>
+            </div>
+        </div>
+
+        <div id="burnout-hub" class="page">
+            <button class="btn" onclick="showPage('home-page')" style="background:#eee; margin-bottom:20px;">← ÎNAPOI ACASĂ</button>
+            
+            <div class="neo-card" style="border-color: var(--neon-pink); text-align: center;">
+                <h1 style="text-transform: uppercase; margin-top:0; color: var(--neon-pink); font-size: 28px;">Școală fără Burnout 🎒⚡</h1>
+                <p style="font-size:15px; font-weight: 700;">Te simți stors de energie din cauza liceului? Hai să vedem exact unde te situezi cu noul nostru super-test de 10 întrebări și cum să-ți salvezi vibe-ul.</p>
+            </div>
+
+            <button class="btn" style="background: var(--neon-pink); color: white; border-color: black;" onclick="startBurnoutQuiz()">
+                📝 Începe testul de 10 întrebări
+            </button>
+
+            <h3 style="text-transform: uppercase; font-weight: 900; margin-top: 30px; margin-bottom: 15px;">Hack-uri rapide anti-stres:</h3>
+            
+            <div class="hack-card">
+                <h4 style="margin: 0 0 5px 0; text-transform: uppercase;">⚡ Regula de 5 minute</h4>
+                <p style="margin:0; font-size:14px;">Când ai de învățat ceva mega-plictisitor, spune-ți: „Învăț doar 5 minute și gata”. De cele mai multe ori, după ce treci de primul hop, creierul prinde avânt și continui fără efort.</p>
+            </div>
+
+            <div class="hack-card" style="background: #f0f9ff;">
+                <h4 style="margin: 0 0 5px 0; text-transform: uppercase;">📵 Modul focus = Game on</h4>
+                <p style="margin:0; font-size:14px;">Instagram și TikTok îți bombardează creierul cu dopamină ieftină. Când înveți cu telefonul lângă tine, obosești de 3 ori mai repede. Ascunde-l în altă cameră timp de 40 de minute. O să fii șocat cât de repede termini.</p>
+            </div>
+
+            <div class="hack-card" style="background: #fff7ed;">
+                <h4 style="margin: 0 0 5px 0; text-transform: uppercase;">☕ Nu ești robot</h4>
+                <p style="margin:0; font-size:14px;">Notele proaste nu îți definesc valoarea ca om. O notă de 4 sau 5 e doar un feedback temporar, nu un verdict pe viață. Oferă-ți permisiunea să mai și eșuezi.</p>
+            </div>
+        </div>
+
+        <div id="burnout-quiz-page" class="page">
+            <button class="btn" onclick="showPage('burnout-hub')" style="background:#eee; margin-bottom:20px;">← RENUNȚĂ</button>
+            
+            <div class="neo-card">
+                <p style="font-size:11px; font-weight:900; color: var(--neon-pink); text-transform:uppercase; margin:0;" id="quiz-progress">Întrebarea 1 din 10</p>
+                <h2 id="burnout-question" style="margin-top:10px; font-size: 21px;">Cum te simți când te gândești la ziua de mâine la școală?</h2>
+                
+                <div id="burnout-options">
+                    </div>
+            </div>
+        </div>
+
+        <div id="burnout-result-page" class="page">
+            <div class="neo-card" style="text-align: center; border-color: var(--neon-pink);">
+                <span style="font-size: 60px;" id="result-emoji">🎒</span>
+                <h2 style="text-transform: uppercase; margin-top: 10px;">Scorul tău de Burnout:</h2>
+                <h1 id="burnout-result-score" style="font-size: 40px; margin: 10px 0; color: var(--neon-pink);">0%</h1>
+                <p id="burnout-result-desc" style="font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 25px;"></p>
+                
+                <button class="btn" onclick="showPage('burnout-hub')" style="background: var(--neon-pink); color: white;">Mersi de sfaturi! ⚡</button>
             </div>
         </div>
 
@@ -89,7 +146,7 @@
         <div id="test-page" class="page">
             <button class="btn" onclick="showPage('home-page')" style="background:#eee; margin-bottom:20px;">← RENUNȚĂ</button>
             <div class="neo-card text-center">
-                <h2 style="text-transform:uppercase;">Test de Stres Rapid</h2>
+                <h2 style="text-transform:uppercase;">Test de Stres General</h2>
                 <div id="quiz-container">
                     <p id="question" style="font-weight:900; font-size:20px;">Cum te-ai simțit azi?</p>
                     <div class="quiz-option" onclick="nextQuestion(1)">Foarte liniștit</div>
@@ -114,10 +171,10 @@
                 </div>
                 <div id="admin-dash" style="display:none;">
                     <p style="color:green; font-weight:900;">LOGAT ✅</p>
-                    <label style="font-weight:900; font-size:12px;">MODIFICĂ MESAJUL (DOAR PENTRU TINE):</label>
+                    <label style="font-weight:900; font-size:12px;">MODIFICĂ MESAJUL DE PREVIZUALIZARE:</label>
                     <textarea id="edit-msg" rows="4"></textarea>
                     <button class="btn" style="margin-top:10px; background:var(--indigo); color:white;" onclick="saveMsg()">SALVEAZĂ LOCAL</button>
-                    <p style="font-size:10px; margin-top:20px;">*Pentru a schimba mesajul pentru toți vizitatorii, modifică linia 61 din codul GitHub.</p>
+                    <p style="font-size:10px; margin-top:20px;">*Pentru a schimba mesajul oficial pentru toți vizitatorii, editează linia 61 din codul GitHub.</p>
                 </div>
             </div>
         </div>
@@ -132,14 +189,163 @@
             window.scrollTo(0,0);
         }
 
-        // Deschidere secțiuni
+        // Deschidere secțiuni simple
         function openTopic(title, text) {
             document.getElementById('topic-title').innerText = title;
             document.getElementById('topic-text').innerText = text;
             showPage('topic-page');
         }
 
-        // Logică Test Stres
+        // --- SISTEM CHESTIONAR BURNOUT (10 INTREBARI) ---
+        const burnoutQuestions = [
+            {
+                q: "Cum te simți dimineața când sună alarma pentru școală?",
+                options: [
+                    { t: "Fresh, gata de acțiune! ☀️", v: 0 },
+                    { t: "Puțin leneș, dar îmi revin rapid. 🥱", v: 1 },
+                    { t: "Extrem de obosit, aș vrea să dispar. 💀", v: 3 }
+                ]
+            },
+            {
+                q: "Cât de des simți că nu mai poți reține nimic când înveți?",
+                options: [
+                    { t: "Rar, mă concentrez destul de ușor. 🧠", v: 0 },
+                    { t: "Uneori, mai ales la materiile grele. 📚", v: 1 },
+                    { t: "Aproape mereu. Citesc și simt că citesc în chineză. 🤯", v: 3 }
+                ]
+            },
+            {
+                q: "Ce se întâmplă cu hobby-urile tale în ultima vreme?",
+                options: [
+                    { t: "Încă am timp și chef de ieșit/gaming/sport. 🎮", v: 0 },
+                    { t: "Am mai puțin timp, dar mă mai relaxez în weekend. ✊", v: 1 },
+                    { t: "Nu mai am chef de nimic, doar stau pe telefon. 📱", v: 3 }
+                ]
+            },
+            {
+                q: "Cât de des te simți copleșit de presiunea notelor?",
+                options: [
+                    { t: "Nu prea îmi pasă de note, mă interesează ce învăț. 😎", v: 0 },
+                    { t: "Mă stresez doar la teze/examene importante. 📈", v: 1 },
+                    { t: "Zilnic, simt că dacă iau o notă mică s-a terminat lumea. 😭", v: 3 }
+                ]
+            },
+            {
+                q: "Când ai un test mare, cum reacționează corpul tău cu o zi înainte?",
+                options: [
+                    { t: "Sunt relaxat, știu ce am de făcut. 🫡", v: 0 },
+                    { t: "Am puțină agitație în stomac, dar e controlabil. 😐", v: 1 },
+                    { t: "Mă doare capul, am greață sau nu pot respira bine. 🤮", v: 3 }
+                ]
+            },
+            {
+                q: "Cât de des intri în conflicte cu părinții sau profesorii din cauza școlii?",
+                options: [
+                    { t: "Rar sau aproape deloc. Ne înțelegem ok. 🤝", v: 0 },
+                    { t: "Din când în când, când sunt note mai slabe. ⚡", v: 1 },
+                    { t: "Foarte des, simt că pun o presiune uriașă pe mine. 🌋", v: 3 }
+                ]
+            },
+            {
+                q: "Cum stai cu somnul în nopțile din timpul săptămânii?",
+                options: [
+                    { t: "Dorm super bine, minim 7-8 ore. 😴", v: 0 },
+                    { t: "Dorm binișor, dar mă mai trezesc noaptea. 🌀", v: 1 },
+                    { t: "Nu pot să adorm de griji sau stau pe telefon până la 3 dimineața. 👁️", v: 3 }
+                ]
+            },
+            {
+                q: "Când un profesor te ascultă nepregătit sau se ia de tine, ce simți?",
+                options: [
+                    { t: "Trece pe lângă mine, aia e, se mai întâmplă. 🤷‍♂️", v: 0 },
+                    { t: "Mă enervez puțin pe moment, dar îmi trece repede. 😠", v: 1 },
+                    { t: "Simt o panică uriașă, îmi vine să plâng sau să plec. 🥀", v: 3 }
+                ]
+            },
+            {
+                q: "Simți vreodată că mergi la școală doar ca să nu-i dezamăgești pe alții?",
+                options: [
+                    { t: "Nu, merg pentru mine și viitorul meu. 🎯", v: 0 },
+                    { t: "Uneori simt asta, dar încerc să găsesc și lucruri faine. 🙌", v: 1 },
+                    { t: "Mereu. Simt că trăiesc doar ca să bifez așteptările altora. ⛓️", v: 3 }
+                ]
+            },
+            {
+                q: "Cât de des simți că „creierul tău dă blue screen” (oboseală mentală totală)?",
+                options: [
+                    { t: "Aproape niciodată, am energie. 🔋", v: 0 },
+                    { t: "Doar la sfârșitul săptămânii, vineri seara. ⏳", v: 1 },
+                    { t: "Zilnic, mă trezesc obosit și mă culc și mai obosit. 🛌", v: 3 }
+                ]
+            }
+        ];
+
+        let currentBQuestion = 0;
+        let totalBScore = 0;
+
+        function startBurnoutQuiz() {
+            currentBQuestion = 0;
+            totalBScore = 0;
+            loadBurnoutQuestion();
+            showPage('burnout-quiz-page');
+        }
+
+        function loadBurnoutQuestion() {
+            const qData = burnoutQuestions[currentBQuestion];
+            document.getElementById('quiz-progress').innerText = `Întrebarea ${currentBQuestion + 1} din ${burnoutQuestions.length}`;
+            document.getElementById('burnout-question').innerText = qData.q;
+            
+            const optionsDiv = document.getElementById('burnout-options');
+            optionsDiv.innerHTML = "";
+            
+            qData.options.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = "quiz-option";
+                btn.innerText = opt.t;
+                btn.onclick = () => answerBurnoutQuestion(opt.v);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function answerBurnoutQuestion(val) {
+            totalBScore += val;
+            currentBQuestion++;
+            
+            if (currentBQuestion < burnoutQuestions.length) {
+                loadBurnoutQuestion();
+            } else {
+                showBurnoutResult();
+            }
+        }
+
+        function showBurnoutResult() {
+            // Scorul maxim posibil este 30 de puncte (10 întrebări x 3 puncte maxim)
+            const percentage = Math.round((totalBScore / 30) * 100);
+            document.getElementById('burnout-result-score').innerText = percentage + "%";
+            
+            let emoji = "🎒";
+            let desc = "";
+            
+            if (percentage <= 20) {
+                emoji = "😎";
+                desc = "Vibe-ul tău e mega stabil! Știi să pui limite, nu te stresezi inutil pentru note și îți protejezi timpul liber. Ești un exemplu de 'așa da'. Ține-o tot așa!";
+            } else if (percentage <= 55) {
+                emoji = "🔋";
+                desc = "Ești pe modul de supraviețuire activă. Oboseala începe să se adune, iar presiunea notelor te cam ajunge din urmă. Ai grijă la somn și aplică tehnica 'Modului Focus' ca să termini temele mai repede și să ai timp de tine.";
+            } else if (percentage <= 80) {
+                emoji = "🚨";
+                desc = "Atenție, ești la un pas de burnout serios! Te consumi enorm pentru școală, somnul tău e praf din cauza stresului și simți că nu mai ai energie de nimic. Ai nevoie urgentă să prioritizezi liniștea ta în loc de note perfecte. Începe să zici 'nu' când e prea mult.";
+            } else {
+                emoji = "🤯";
+                desc = "BLUE SCREEN TOTAL! Bateria ta e pe 0%. Ești complet epuizat din toate punctele de vedere. Școala a devenit o sursă de chin psihic. Vorbește cu cineva de încredere (părinți, un prieten bun sau un psiholog școlar) și ia-ți o pauză binemeritată. Nimic nu e mai important decât sănătatea ta!";
+            }
+            
+            document.getElementById('result-emoji').innerText = emoji;
+            document.getElementById('burnout-result-desc').innerText = desc;
+            showPage('burnout-result-page');
+        }
+
+        // Logică Test Stres General (Cel vechi)
         let score = 0;
         function nextQuestion(val) {
             score = val;
@@ -155,27 +361,4 @@
 
         // Logică Admin
         function login() {
-            if(document.getElementById('admin-pass').value === 'mindvibe2024') {
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('admin-dash').style.display = 'block';
-                document.getElementById('edit-msg').value = document.getElementById('main-message').innerText;
-            } else { alert("Greșit!"); }
-        }
-
-        function saveMsg() {
-            const m = document.getElementById('edit-msg').value;
-            localStorage.setItem('localMsg', m);
-            document.getElementById('main-message').innerText = m;
-            alert("Salvat pe acest telefon!");
-            showPage('home-page');
-        }
-
-        // Încărcare mesaj local la pornire
-        window.onload = function() {
-            const s = localStorage.getItem('localMsg');
-            if(s) document.getElementById('main-message').innerText = s;
-        }
-    </script>
-
-</body>
-</html>
+            if(
