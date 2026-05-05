@@ -361,4 +361,26 @@
 
         // Logică Admin
         function login() {
-            if(
+            if(document.getElementById('admin-pass').value === 'mindvibe2024') {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dash').style.display = 'block';
+                document.getElementById('edit-msg').value = document.getElementById('main-message').innerText;
+            } else { alert("Greșit!"); }
+        }
+
+        function saveMsg() {
+            const m = document.getElementById('edit-msg').value;
+            localStorage.setItem('localMsg', m);
+            document.getElementById('main-message').innerText = m;
+            alert("Salvat pe acest telefon!");
+            showPage('home-page');
+        }
+
+        window.onload = function() {
+            const s = localStorage.getItem('localMsg');
+            if(s) document.getElementById('main-message').innerText = s;
+        }
+    </script>
+
+</body>
+</html>
