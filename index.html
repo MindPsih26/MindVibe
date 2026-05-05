@@ -510,4 +510,165 @@
             { q: "Simți des un „nod în gât” sau o strângere de piept fără un motiv evident?", options: [{ t: "Nu, niciodată. 🧘‍♂️", v: 0 }, { t: "Doar dacă am ceva mega important de făcut. 😐", v: 1 }, { t: "Foarte des, ca o presiune fizică constantă. 🥀", v: 3 }] },
             { q: "Dacă cineva se uită la tine pe stradă sau la școală, ce crezi imediat?", options: [{ t: "Nimic deosebit, trec mai departe. 🤷‍♂️", v: 0 }, { t: "Mă uit să văd dacă am ceva pe haine. 🧐", v: 1 }, { t: "Cred imediat că mă judecă, mă bârfește sau că arăt groaznic. 👁️", v: 3 }] },
             { q: "Cât de repede intri în panică atunci când planurile tale se schimbă brusc?", options: [{ t: "Mă adaptez instant, nu contează. 👌", v: 0 }, { t: "Mă deranjează puțin, dar mă regrupez. 🗺️", v: 1 }, { t: "Mă panichez complet și simt că pierd controlul. 🌀", v: 3 }] },
-            { q: "Cât de des te trezești din somn brusc, transpirat sau agitat?", options: [{ t: "Aproape niciodată. 😴", v: 0 }, { t: "Rar, după
+            { q: "Cât de des te trezești din somn brusc, transpirat sau agitat?", options: [{ t: "Aproape niciodată. 😴", v: 0 }, { t: "Rar, după un coșmar. 💤", v: 1 }, { t: "Foarte des, mă trezesc cu inima bătând la maxim. 🌋", v: 3 }] },
+            { q: "Ești obsedat să fie totul perfect (la teme, aspect, feed pe Insta)?", options: [{ t: "Nici pe departe, sunt foarte chill. 😎", v: 0 }, { t: "Îmi place să fac lucrurile bine, dar nu exagerez. ✨", v: 1 }, { t: "Dacă ceva nu iese perfect, simt o frustrare și o panică imense. ⛓️", v: 3 }] },
+            { q: "Cât de greu îți este să iei o decizie simplă (ex: ce să mănânci sau cum să te îmbraci)?", options: [{ t: "Super ușor, aleg instant. ⚡", v: 0 }, { t: "Mă gândesc un minut, dar decid repede. 🤔", v: 1 }, { t: "Mă blochez total, îmi fac o mie de griji că voi alege greșit. 🤯", v: 3 }] },
+            { q: "Simți nevoia constantă de reasigurare (să întrebi profesorii, prietenii sau părinții dacă ești ok, dacă ai greșit cu ceva)?", options: [{ t: "Nu, am destulă încredere în mine. 🙌", v: 0 }, { t: "Ocazional, când am dubii mari. ❓", v: 1 }, { t: "Zilnic, simt nevoia ca alții să-mi spună constant că totul e în regulă. 🤝", v: 3 }] },
+            { q: "Cât de des eviți să mergi la anumite locuri sau evenimente de frica de a nu te simți inconfortabil/anxios?", options: [{ t: "Niciodată, merg oriunde. 🥳", v: 0 }, { t: "Doar dacă chiar nu am chef de acei oameni. 🤐", v: 1 }, { t: "Foarte des, prefer să rămân acasă ca să mă simt în siguranță. 🚪", v: 3 }] },
+            { q: "Simți tensiune sau agitație în picioare sau mâini (să le miști întruna, să-ți rozi unghiile)?", options: [{ t: "Rar sau deloc. 🌿", v: 0 }, { t: "Când am emoții puternice. 😬", v: 1 }, { t: "Aproape tot timpul, nu pot sta liniștit. 💥", v: 3 }] },
+            { q: "Ai frici intense și bruște de care știi că sunt exagerate (ex: teama că se va prăbuși liftul, că te vei îmbolnăvi grav din senin)?", options: [{ t: "Nu am astfel de gânduri. 🛡️", v: 0 }, { t: "Rar, dar le alung repede. 💭", v: 1 }, { t: "Da, mă blochează și îmi domină mintea uneori. 🌪️", v: 3 }] },
+            { q: "Te îngrijorează exagerat sănătatea sau siguranța celor dragi din senin?", options: [{ t: "Nu, cred în siguranța lor. 👨‍👩‍👦", v: 0 }, { t: "Doar dacă știu că sunt într-o situație riscantă. ⚠️", v: 1 }, { t: "Da, dacă nu răspund la telefon o dată cred imediat că s-a întâmplat o tragedie. 🚨", v: 3 }] },
+            { q: "Simți uneori că realitatea din jur e ciudată, ca într-un vis sau ca și cum tu n-ai fi cu totul acolo?", options: [{ t: "Nu, niciodată. 🌐", v: 0 }, { t: "Foarte rar, când sunt extrem de obosit. 🥱", v: 1 }, { t: "Da, se numește derealizare și mă sperie teribil când se întâmplă. 🌫️", v: 3 }] },
+            { q: "Cât de des crezi că nu vei putea face față viitorului sau provocărilor mari?", options: [{ t: "Sunt sigur că mă descurc. 🚀", v: 0 }, { t: "Mă sperie puțin, dar știu că voi trece peste. 🙂", v: 1 }, { t: "Sunt convins că o să eșuez în tot și mă blochez complet de frică. 📉", v: 3 }] }
+        ];
+
+        let currentAnxQuestion = 0;
+        let totalAnxScore = 0;
+
+        function startAnxietyQuiz() {
+            currentAnxQuestion = 0;
+            totalAnxScore = 0;
+            loadAnxietyQuestion();
+            showPage('anxiety-quiz-page');
+        }
+
+        function loadAnxietyQuestion() {
+            const qData = anxietyQuestions[currentAnxQuestion];
+            document.getElementById('anxiety-progress').innerText = `Întrebarea ${currentAnxQuestion + 1} din ${anxietyQuestions.length}`;
+            document.getElementById('anxiety-question').innerText = qData.q;
+            const optionsDiv = document.getElementById('anxiety-options');
+            optionsDiv.innerHTML = "";
+            qData.options.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = "quiz-option";
+                btn.innerText = opt.t;
+                btn.onclick = () => { totalAnxScore += opt.v; currentAnxQuestion++; if(currentAnxQuestion < anxietyQuestions.length) loadAnxietyQuestion(); else showAnxietyResult(); };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function showAnxietyResult() {
+            // Scorul maxim este 45 de puncte (15 intrebari x 3 pct maxim)
+            const percentage = Math.round((totalAnxScore / 45) * 100);
+            document.getElementById('anxiety-result-score').innerText = percentage + "%";
+            let emoji = "🧘‍♂️", desc = "";
+            
+            if (percentage <= 25) {
+                emoji = "😎";
+                desc = `<p><b>ANX-VIBE: MINTE LINȘTITĂ! 😎</b></p>
+                <p>Nivelul tău de anxietate e foarte scăzut. Ai un sistem de alarmă mental extrem de bine calibrat. Știi să trăiești în prezent și nu te lași copleșit de frici fictive.</p>
+                <p><b>Sfaturi utile:</b>
+                <br>• Continuă să respiri conștient și să-ți păstrezi obiceiurile sănătoase de viață.
+                <br>• Fii un sprijin pentru prietenii tăi care par mai agitați.</p>`;
+            } else if (percentage <= 55) {
+                emoji = "📈";
+                desc = `<p><b>ANX-VIBE: ALARMĂ MODERATĂ ⚡</b></p>
+                <p>Anxietatea își cam face de cap în mintea ta în anumite momente (în special la școală sau în situații sociale). Uneori ești prea critic cu tine.</p>
+                <p><b>Sfaturi utile:</b>
+                <br>• <b>Practică tehnica 5-4-3-2-1:</b> Când simți panică, numește în minte 5 lucruri pe care le vezi, 4 pe care le poți atinge, 3 pe care le auzi, 2 pe care le poți mirosi și 1 gust. Te va ancora instant!
+                <br>• Nu te mai compara cu ce vezi pe social media. Fiecare are luptele lui în spate.</p>`;
+            } else if (percentage <= 80) {
+                emoji = "🚨";
+                desc = `<p><b>ANX-VIBE: ZONĂ AGITATĂ! 🌋</b></p>
+                <p>Nivelul tău de anxietate este destul de ridicat. Îți consumă multă energie zilnic și te face să eviți chestii care altfel ți-ar plăcea. Corpul tău e mereu în alertă.</p>
+                <p><b>Sfaturi utile:</b>
+                <br>• <b>Învață să contești gândurile catastrofale:</b> Când creierul îți zice „Voi eșua complet!”, întreabă-te: „Ce dovezi reale am pentru asta? Care e cel mai bun scenariu posibil?”.
+                <br>• Redu consumul de cafea sau energizante (ele imită fizic panica și îți agită inima degeaba).</p>`;
+            } else {
+                emoji = "🤯";
+                desc = `<p><b>ANX-VIBE: COD ROȘU DE PANICĂ! 🆘</b></p>
+                <p>Anxietatea a pus stăpânire pe viața ta. Te simți captiv în propriul corp și în propriile gânduri. Este un chin obositor și extrem de real.</p>
+                <p><b>Sfaturi utile:</b>
+                <br>• <b>Nu ești singur și nu ești „stricat”!</b> Anxietatea se tratează excelent.
+                <br>• <b>Vorbește cu un specialist:</b> Cel mai bun și curajos lucru pe care îl poți face acum este să mergi la psihologul școlii sau la un terapeut. Ei te vor învăța tehnici speciale (terapia cognitiv-comportamentală) pentru a dezactiva definitiv alarma.</p>`;
+            }
+            document.getElementById('anx-result-emoji').innerText = emoji;
+            document.getElementById('anxiety-result-desc').innerHTML = desc;
+            showPage('anxiety-result-page');
+        }
+
+
+        // --- CHAT INTERACTIV PENTRU COMUNITATE (Anonim & Stocat local) ---
+        // Stochează mesajele în localStorage-ul telefonului fiecăruia pentru a fi persistente.
+        // În viața reală, pe viitor, se poate conecta la un server Cloud gratuit (Firebase).
+        let chatMessages = [
+            { user: "MindVibeBot ☀️", text: "Bine ai venit în chat-ul comunității! Aici poți discuta liber și anonim despre tot ce simți.", isSystem: true },
+            { user: "CoolPanda", text: "Are cineva chef de niște sfaturi pentru testul de istorie de mâine? Sunt terminat..." },
+            { user: "ZenCat", text: "Încearcă să înveți în reprize de 20 de minute cu pauze de 5 minute. Pe mine mă salvează mereu!" }
+        ];
+
+        function loadChatMessages() {
+            const savedChat = localStorage.getItem('mindvibeChat');
+            if (savedChat) {
+                chatMessages = JSON.parse(savedChat);
+            }
+            renderChat();
+        }
+
+        function renderChat() {
+            const chatDisplay = document.getElementById('chat-box-display');
+            chatDisplay.innerHTML = "";
+            chatMessages.forEach(msg => {
+                const msgCard = document.createElement('div');
+                msgCard.className = "chat-msg";
+                if (msg.user === document.getElementById('chat-user-input').value && msg.user !== "") {
+                    msgCard.classList.add('me');
+                }
+                msgCard.innerHTML = `<div class="chat-user">${msg.user}</div><div class="chat-text">${msg.text}</div>`;
+                chatDisplay.appendChild(msgCard);
+            });
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            const userField = document.getElementById('chat-user-input');
+            const msgField = document.getElementById('chat-msg-input');
+            const username = userField.value.trim() || "Anonim";
+            const messageText = msgField.value.trim();
+
+            if (messageText === "") return;
+
+            chatMessages.push({ user: username, text: messageText });
+            localStorage.setItem('mindvibeChat', JSON.stringify(chatMessages));
+            msgField.value = "";
+            renderChat();
+        }
+
+        function handleChatKey(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function clearGlobalChat() {
+            chatMessages = [{ user: "MindVibeBot ☀️", text: "Chatul a fost resetat de un moderator.", isSystem: true }];
+            localStorage.setItem('mindvibeChat', JSON.stringify(chatMessages));
+            alert("Chat-ul a fost curățat!");
+            renderChat();
+        }
+
+        // Logică Admin
+        function login() {
+            if(document.getElementById('admin-pass').value === 'mindvibe2024') {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dash').style.display = 'block';
+                document.getElementById('edit-msg').value = document.getElementById('main-message').innerText;
+            } else { alert("Greșit!"); }
+        }
+
+        function saveMsg() {
+            const m = document.getElementById('edit-msg').value;
+            localStorage.setItem('localMsg', m);
+            document.getElementById('main-message').innerText = m;
+            alert("Salvat pe acest telefon!");
+            showPage('home-page');
+        }
+
+        window.onload = function() {
+            const s = localStorage.getItem('localMsg');
+            if(s) document.getElementById('main-message').innerText = s;
+        }
+    </script>
+
+</body>
+</html>
