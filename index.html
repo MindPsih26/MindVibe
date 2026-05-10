@@ -22,23 +22,24 @@
         .home-circle { width: 160px; height: 160px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s; cursor: pointer; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 4px solid rgba(255,255,255,0.1); }
         .home-circle:hover { transform: scale(1.1); border-color: white; }
         
-        .main-menu-trigger { position: fixed; top: 20px; right: 20px; z-index: 100; background: #6366f1; width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+        .main-menu-trigger { position: fixed; top: 20px; right: 20px; z-index: 100; background: #6366f1; width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         #menu-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; }
         .menu-item { font-size: 2rem; font-weight: 700; margin: 15px 0; cursor: pointer; }
         
-        /* CHAT LAYOUT */
-        .chat-container { display: grid; grid-template-columns: 250px 1fr; gap: 20px; height: 65vh; }
+        /* CHAT SYSTEM */
+        .chat-container { display: grid; grid-template-columns: 280px 1fr; gap: 20px; height: 65vh; }
         @media (max-width: 768px) { .chat-container { grid-template-columns: 1fr; } .friends-list { display: none; } }
         
         .friends-list { background: rgba(30, 41, 59, 0.5); border-radius: 30px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); overflow-y: auto; }
-        .friend-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 15px; cursor: pointer; transition: 0.2s; margin-bottom: 8px; }
-        .friend-item:hover { background: rgba(99, 102, 241, 0.2); }
+        .friend-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-radius: 15px; background: rgba(255,255,255,0.05); margin-bottom: 8px; }
         
-        .chat-bubble { border-radius: 20px; padding: 10px 16px; margin: 4px 0; max-width: 80%; position: relative; }
+        .chat-bubble { border-radius: 20px; padding: 10px 16px; margin: 4px 0; max-width: 80%; }
         .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; opacity: 0.8; }
         .mine { background: #6366f1; align-self: flex-end; border-bottom-right-radius: 4px; }
         .theirs { background: #334155; align-self: flex-start; border-bottom-left-radius: 4px; }
         
+        #spam-alert { display: none; background: #ef4444; color: white; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 10px; font-weight: bold; }
+
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
@@ -48,110 +49,82 @@
         <span>😎</span><span>⚡</span><span>🌈</span><span>🚀</span><span>🎨</span><span>💎</span><span>🍀</span><span>🍕</span>
     </div>
 
-    <!-- 🔐 AUTH SECTION -->
+    <!-- 🔐 LOGIN SECTION -->
     <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
-        <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl text-center">
-            <h2 id="auth-title" class="fredoka text-4xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
-            <p id="auth-subtitle" class="text-slate-400 mb-8">Creează-ți profilul obligatoriu</p>
-            
-            <form id="auth-form" class="flex flex-col gap-4 text-left">
+        <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl">
+            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
+            <form id="auth-form" class="flex flex-col gap-4 mt-6">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Parolă" required>
                 <div id="extra-fields" class="flex flex-col gap-4">
-                    <input type="number" id="age" placeholder="Vârsta ta" min="10" max="25">
-                    <select id="gender">
-                        <option value="">Alege Sexul</option>
-                        <option value="M">Masculin</option>
-                        <option value="F">Feminin</option>
-                        <option value="Altul">Altul</option>
-                    </select>
+                    <input type="number" id="age" placeholder="Vârstă">
+                    <select id="gender"><option value="M">Masculin</option><option value="F">Feminin</option></select>
                 </div>
-                <div class="flex items-center gap-2 px-2 py-1 text-sm text-slate-300">
-                    <input type="checkbox" id="remember-me" style="width: 18px !important; height: 18px !important; cursor: pointer;">
-                    <label for="remember-me" class="cursor-pointer">Ține-mă logat 30 de zile</label>
+                <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <input type="checkbox" id="remember-me" class="w-4 h-4 cursor-pointer">
+                    <label for="remember-me">Rămâi logat 30 zile</label>
                 </div>
-                <button type="submit" id="auth-submit-btn" class="bg-indigo-600 py-4 rounded-xl font-bold text-lg mt-2">Creează Profil</button>
+                <button type="submit" id="auth-submit-btn" class="bg-indigo-600 py-4 rounded-xl font-bold">Intră în Squad</button>
             </form>
-            <p class="mt-6 text-slate-400">
-                <span id="auth-switch-text">Ai deja cont?</span> 
-                <button onclick="switchAuthMode()" class="text-indigo-400 font-bold underline" id="auth-switch-btn">Loghează-te</button>
-            </p>
+            <button onclick="switchAuthMode()" class="w-full mt-4 text-indigo-400 text-sm" id="auth-switch-btn">Ai deja cont? Loghează-te</button>
         </div>
     </section>
 
     <!-- 📱 MAIN APP -->
     <div id="main-app" style="display: none;">
         <div class="main-menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars text-white"></i></div>
-
         <div id="menu-overlay" onclick="toggleMenu()">
             <div class="menu-item fredoka" onclick="navigateTo('home')">Acasă 🏠</div>
-            <div class="menu-item fredoka" onclick="navigateTo('chat-section')">Chat & Friends 💬</div>
-            <div class="menu-item fredoka" onclick="navigateTo('tests-hub')">Arena Testelor 🎮</div>
-            <div class="menu-item fredoka" onclick="navigateTo('cool-tips')">Hacks & Tips ✨</div>
-            <div class="menu-item fredoka" onclick="navigateTo('confidence-zone')">Fii Încrezător 🚀</div>
+            <div class="menu-item fredoka" onclick="navigateTo('chat-section')">Chat Reali 💬</div>
+            <div class="menu-item fredoka" onclick="navigateTo('tests-hub')">Teste 🎮</div>
             <div class="menu-item fredoka text-red-400" onclick="logout()">Logout 🚪</div>
         </div>
 
         <!-- HOME -->
         <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
-            <header class="mb-10">
-                <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
-                <p id="welcome-user" class="text-white text-xl mt-4">Salut! 👋</p>
-                <div class="mt-6 bg-white/10 p-4 rounded-2xl border border-dashed border-white/30 inline-block">
-                    <p class="text-xs uppercase font-bold text-indigo-300 mb-2 tracking-widest">Link de invitație:</p>
-                    <code id="invite-link" class="text-pink-400 font-bold break-all"></code>
-                    <button onclick="copyInvite()" class="ml-2 text-white bg-indigo-500 px-3 py-1 rounded-lg text-xs font-bold">COPY</button>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500"><i class="fas fa-comments text-2xl mb-1"></i><span>Chat</span></div>
-                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600"><i class="fas fa-gamepad text-2xl mb-1"></i><span>Teste</span></div>
-                <div onclick="navigateTo('cool-tips')" class="home-circle bg-cyan-500"><i class="fas fa-bolt text-2xl mb-1"></i><span>Hacks</span></div>
-                <div onclick="navigateTo('confidence-zone')" class="home-circle bg-orange-500"><i class="fas fa-rocket text-2xl mb-1"></i><span>Încredere</span></div>
+            <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
+            <p id="welcome-user" class="text-white text-xl mt-4 italic"></p>
+            <div class="grid grid-cols-2 gap-6 mt-12">
+                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500"><i class="fas fa-users text-2xl"></i><span>Chat</span></div>
+                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600"><i class="fas fa-brain text-2xl"></i><span>Teste</span></div>
             </div>
         </section>
 
-        <!-- CHAT SECTION (DOAR PERSOANE REALE) -->
+        <!-- CHAT SECTION -->
         <section id="chat-section" class="section-content max-w-6xl mx-auto py-10 p-6">
-            <h2 class="text-4xl font-bold fredoka text-center mb-10 text-pink-400">Squad Chat 💬</h2>
+            <div id="spam-alert">⚠️ SPAM DETECTAT! Încă un mesaj și vei fi blocat 3 ore!</div>
             <div class="chat-container">
                 <div class="friends-list">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-4 tracking-widest">Persoane Reale Online</p>
-                    <div class="friend-item">
-                        <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center font-bold">M</div>
-                        <div><p class="text-sm font-bold">Matei (Admin)</p><p class="text-[10px] text-green-400">Verificat ✓</p></div>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-4 tracking-widest">Membri Online (Reali)</p>
+                    <div id="real-users-list" class="space-y-2">
+                        <!-- Aici apar doar cei logați -->
+                        <div class="text-xs text-slate-500 italic">Niciun alt utilizator online...</div>
                     </div>
                 </div>
                 <div class="flex flex-col bg-slate-900/80 rounded-[40px] p-6 border border-white/10">
-                    <div id="chat-box" class="flex-1 overflow-y-auto flex flex-col mb-4 space-y-2 h-[50vh]">
-                        <div class="chat-bubble theirs">
-                            <p class="sender-name text-pink-400">Matei (Admin)</p>
-                            <p>Bun venit! Doar membrii înregistrați pot scrie aici. Fără boți, doar noi! 🙌</p>
-                        </div>
+                    <div id="chat-box" class="flex-1 overflow-y-auto flex flex-col space-y-2 h-[50vh] mb-4">
+                        <div class="text-center text-slate-500 text-xs my-4">Conversația este acum privată și securizată.</div>
                     </div>
                     <div class="flex gap-2">
-                        <input id="chat-msg" type="text" placeholder="Scrie un mesaj real..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none ring-indigo-500 focus:ring-2">
-                        <button onclick="sendMsg()" class="bg-indigo-500 w-14 h-14 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-paper-plane"></i></button>
+                        <input id="chat-msg" type="text" placeholder="Scrie ceva..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none">
+                        <button id="send-btn" onclick="sendMsg()" class="bg-indigo-500 w-14 h-14 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ARENA TESTELOR (COMPLETE) -->
+        <!-- ARENA TESTELOR -->
         <section id="tests-hub" class="section-content max-w-5xl mx-auto py-10 p-6">
             <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Arena Testelor</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer hover:scale-105 transition">😰 Test Anxietate (20 Q)</div>
-                <div onclick="initTest('emotivity')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-pink-400 cursor-pointer hover:scale-105 transition">🥺 Test Emotivitate (15 Q)</div>
-                <div onclick="initTest('burnout')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-orange-500 cursor-pointer hover:scale-105 transition">🔥 Test Burnout (15 Q)</div>
-                <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer hover:scale-105 transition">🛑 Test Bullying (20 Q)</div>
+                <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer">😰 Test Anxietate</div>
+                <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer">🛑 Test Bullying</div>
             </div>
         </section>
 
-        <!-- TEST RUNNER & RESULT (PASTRATE) -->
+        <!-- TEST RUNNER & RESULTS (PASTRATE) -->
         <section id="test-runner" class="section-content max-w-2xl mx-auto py-20 p-6">
-            <div class="bg-slate-800 p-10 rounded-[50px] text-center border-4 border-indigo-500/30">
+            <div class="bg-slate-800 p-10 rounded-[50px] text-center">
                 <div id="q-count" class="text-indigo-400 font-bold mb-4"></div>
                 <h4 id="q-text" class="text-2xl font-bold mb-12"></h4>
                 <div class="grid grid-cols-1 gap-4">
@@ -161,50 +134,52 @@
             </div>
         </section>
 
-        <section id="test-result" class="section-content max-w-2xl mx-auto py-20 p-6">
-            <div class="bg-slate-800 p-10 rounded-[50px] text-center">
+        <section id="test-result" class="section-content max-w-2xl mx-auto py-20 p-6 text-center">
+            <div class="bg-slate-800 p-10 rounded-[50px]">
                 <h2 class="text-3xl font-bold text-yellow-400 mb-6">Rezultat</h2>
                 <p id="res-text" class="text-xl mb-10 font-bold"></p>
-                <div class="bg-slate-900 p-8 rounded-[30px] text-left border-l-8 border-indigo-500">
-                    <ul id="res-tips" class="space-y-3"></ul>
-                </div>
-                <button onclick="navigateTo('home')" class="mt-12 bg-pink-500 px-12 py-4 rounded-full font-bold">Meniu Principal</button>
+                <button onclick="navigateTo('home')" class="bg-pink-500 px-12 py-4 rounded-full font-bold">Gata</button>
             </div>
-        </section>
-
-        <!-- HACKS & TIPS (PASTRATE) -->
-        <section id="cool-tips" class="section-content max-w-4xl mx-auto py-10 p-6">
-            <h2 class="text-4xl font-bold fredoka text-center mb-10 text-cyan-400">Anti-Adictii & Hacks</h2>
-            <div id="hacks-container" class="space-y-6"></div>
-        </section>
-
-        <!-- CONFIDENCE ZONE (PASTRATA) -->
-        <section id="confidence-zone" class="section-content max-w-4xl mx-auto py-10 p-6 text-center">
-            <h2 class="text-4xl font-bold fredoka mb-10 text-orange-400">Fii Încrezător!</h2>
-            <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"></div>
         </section>
     </div>
 
     <script>
-        // --- SETUP INITIAL ---
         let currentUser = null;
-        document.getElementById('invite-link').innerText = window.location.origin + window.location.pathname;
+        let msgHistory = []; // Pentru anti-spam
+        const BAN_TIME = 3 * 60 * 60 * 1000; // 3 ore
 
+        // --- VERIFICARE BAN & SESIUNE ---
         window.onload = function() {
+            checkBanStatus();
             const session = JSON.parse(localStorage.getItem('active_session'));
             if (session && (new Date().getTime() - session.loginDate < 30 * 24 * 60 * 60 * 1000)) {
                 loginSuccess(session.userData);
             }
         };
 
-        // --- AUTH LOGIC (30 ZILE) ---
+        function checkBanStatus() {
+            const banUntil = localStorage.getItem('chat_ban_until');
+            if (banUntil && new Date().getTime() < banUntil) {
+                disableChat("Ești blocat pentru spam. Revino mai târziu.");
+            }
+        }
+
+        function disableChat(msg) {
+            const input = document.getElementById('chat-msg');
+            const btn = document.getElementById('send-btn');
+            input.disabled = true;
+            input.placeholder = msg;
+            btn.disabled = true;
+            btn.style.opacity = "0.5";
+        }
+
+        // --- AUTH ---
         let isLoginMode = false;
         function switchAuthMode() {
             isLoginMode = !isLoginMode;
-            document.getElementById('auth-title').innerText = isLoginMode ? "Bine ai revenit!" : "MindPsih26";
+            document.getElementById('auth-title').innerText = isLoginMode ? "Logare" : "MindPsih26";
             document.getElementById('extra-fields').style.display = isLoginMode ? "none" : "flex";
             document.getElementById('auth-submit-btn').innerText = isLoginMode ? "Loghează-te" : "Creează Profil";
-            document.getElementById('auth-switch-btn').innerText = isLoginMode ? "Înregistrează-te" : "Loghează-te";
         }
 
         document.getElementById('auth-form').addEventListener('submit', (e) => {
@@ -216,7 +191,7 @@
             if (isLoginMode) {
                 const saved = JSON.parse(localStorage.getItem(`user_${user}`));
                 if (saved && saved.pass === pass) loginSuccess(saved, remember);
-                else alert("Date incorecte! Doar persoanele reale pot intra.");
+                else alert("Eroare de logare!");
             } else {
                 const userData = { user, pass, age: document.getElementById('age').value, gender: document.getElementById('gender').value };
                 localStorage.setItem(`user_${user}`, JSON.stringify(userData));
@@ -229,40 +204,57 @@
             if (remember) localStorage.setItem('active_session', JSON.stringify({ userData, loginDate: new Date().getTime() }));
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('welcome-user').innerText = `Salut, ${userData.user}! 👋 (${userData.age} ani, ${userData.gender})`;
+            document.getElementById('welcome-user').innerText = `Squad Member: ${userData.user}`;
             navigateTo('home');
         }
 
         function logout() { localStorage.removeItem('active_session'); location.reload(); }
 
-        // --- CHAT LOGIC (ANTI-BOT) ---
+        // --- CHAT LOGIC (ANTI-MATEI, ANTI-SPAM, PRIVAT) ---
         function sendMsg() {
             const input = document.getElementById('chat-msg');
-            
-            // Securitate: Verificăm dacă utilizatorul este real/logat
-            if(!currentUser || !currentUser.user) {
-                alert("Eroare: Trebuie să fii o persoană reală logată pentru a scrie!");
-                return;
-            }
+            const alertBox = document.getElementById('spam-alert');
+            const now = new Date().getTime();
 
             if(!input.value.trim()) return;
 
+            // ANTI-SPAM LOGIC
+            msgHistory.push(now);
+            msgHistory = msgHistory.filter(t => now - t < 2000); // Reține mesajele din ultimele 2 secunde
+
+            if (msgHistory.length === 3) {
+                alertBox.style.display = "block";
+            } else if (msgHistory.length > 3) {
+                const banUntil = now + BAN_TIME;
+                localStorage.setItem('chat_ban_until', banUntil);
+                disableChat("BLOCAT 3 ORE PENTRU SPAM!");
+                alertBox.style.display = "none";
+                return;
+            }
+
+            // Trimitere Mesaj
             const box = document.getElementById('chat-box');
             const div = document.createElement('div');
             div.className = 'chat-bubble mine';
-            // Afișăm numele real al persoanei
-            div.innerHTML = `<p class="sender-name text-indigo-200">Eu (${currentUser.user})</p><p>${input.value}</p>`;
+            div.innerHTML = `<p class="sender-name">Eu (${currentUser.user})</p><p>${input.value}</p>`;
             box.appendChild(div);
+            
             input.value = '';
             box.scrollTop = box.scrollHeight;
+            
+            if (msgHistory.length < 3) alertBox.style.display = "none";
         }
 
-        // --- NAVIGARE & INTERFATA ---
+        // Simulare Invitatie Privat
+        function invitePrivate(name) {
+            alert(`Invitație trimisă lui ${name}. Așteaptă acceptul pentru chat privat.`);
+        }
+
+        // --- NAVIGARE ---
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('section-active'));
             document.getElementById(id).classList.add('section-active');
             document.getElementById('menu-overlay').style.display = 'none';
-            window.scrollTo(0, 0);
         }
 
         function toggleMenu() {
@@ -270,33 +262,15 @@
             m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function copyInvite() {
-            navigator.clipboard.writeText(document.getElementById('invite-link').innerText).then(() => alert("Link copiat!"));
-        }
-
-        // --- TESTE PSIHOLOGICE (COMPLETE) ---
+        // --- TESTE ---
         const tests = {
-            anxiety: { qs: ["Neliniștit des?", "Nod în gât?", "Inimă rapidă?", "Teamă de viitor?", "Somn greu?", "Agitat?", "Amețeli?", "Copleșit?", "Verifici des?", "Transpiri des?", "Teamă de greșeli?", "Coșmaruri?", "Tensiune umeri?", "Eviți locuri?", "Control total?", "Concentrare grea?", "Obosit mereu?", "Irascibil?", "Lipsă aer?", "Gânduri despre alții?"], result: (s) => s > 14 ? "Anxietate mare." : "Ești Zen.", tips: ["Respirație 4-4-4", "Fără cafea", "Scrie ce simți"] },
-            emotivity: { qs: ["Plângi ușor?", "Roșești?", "Te dor criticile?", "Teamă de telefoane?", "Pui la suflet?", "Nu poți refuza?", "Fluturi în stomac?", "Teama de tablă?", "Atașament rapid?", "Simți durerea altora?", "Te simți observat?", "Impulsiv la tristețe?", "Nevoie de laude?", "Teamă de autoritate?", "Vremea te schimbă?"], result: (s) => s > 10 ? "Super emotiv." : "Echilibrat.", tips: ["Numără până la 10", "Sport", "Fără grabă"] },
-            burnout: { qs: ["Obosit la trezire?", "Fără chef de școală?", "Cinic cu colegii?", "Te simți inutil?", "Dureri de cap?", "Mereu în urmă?", "Fără pasiuni?", "Uiți des?", "Te simți blocat?", "Vrei să fugi?", "Mănânci pe stres?", "Irascibil dimineața?", "Nu te deconectezi?", "Vinovat că nu înveți?", "Munca ta nu contează?"], result: (s) => s > 11 ? "Burnout alert!" : "Stresat dar ok.", tips: ["Pauze de 10 min", "Somn 8h", "Cere ajutor"] },
-            bullying: { qs: ["Teamă de liceu?", "Râde cineva de tine?", "Exclus din grupuri?", "Mesaje urâte?", "Teamă de pauze?", "Furturi?", "Amenințări?", "Minciuni?", "Porecle?", "Eviți zone?", "Singur în clasă?", "Vrei altă școală?", "Lovit/Împins?", "Ținta glumelor net?", "Neajutorat?", "Forțat la bani?", "Rușine?", "Niciun prieten?", "Stres în pauză?", "Profesori indiferenți?"], result: (s) => s > 12 ? "Ești victimă bullying." : "Mediu sigur.", tips: ["Vorbește cu un adult", "Blochează agresorii", "Nu e vina ta"] }
+            anxiety: { qs: ["Te simți neliniștit?", "Ai palpitații?", "Ți-e teamă de viitor?"], result: (s) => s > 1 ? "Anxietate sesizată." : "Ești ok." },
+            bullying: { qs: ["Ești jignit la școală?", "Ești exclus din grupuri?", "Primești mesaje urâte?"], result: (s) => s > 1 ? "Cere ajutor, e bullying!" : "Mediu sigur." }
         };
-
-        let curTest = null, curIdx = 0, score = 0;
-        function initTest(k) { curTest = tests[k]; curIdx = 0; score = 0; navigateTo('test-runner'); showQ(); }
-        function showQ() { document.getElementById('q-count').innerText = `${curIdx + 1}/${curTest.qs.length}`; document.getElementById('q-text').innerText = curTest.qs[curIdx]; }
-        function answer(v) { score += v; curIdx++; if(curIdx < curTest.qs.length) showQ(); else { navigateTo('test-result'); document.getElementById('res-text').innerText = curTest.result(score); document.getElementById('res-tips').innerHTML = curTest.tips.map(t => `<li>🔹 ${t}</li>`).join(''); } }
-
-        // --- CONTENT HACKS ---
-        const hacks = [
-            { t: "Vaping 🚭", s: ["Aruncă device-ul.", "Apă rece.", "Fidget spinner.", "Sport intens."] },
-            { t: "Screen Addiction 📱", s: ["Mod Alb-Negru.", "Fără telefon în dormitor.", "Limită 30m TikTok."] },
-            { t: "Social Anxiety 🤝", s: ["Salută un coleg.", "Contact vizual.", "Scenariu în minte."] }
-        ];
-        document.getElementById('hacks-container').innerHTML = hacks.map(h => `<div class="bg-slate-800 p-8 rounded-[35px] border-l-8 border-cyan-400"><h3 class="text-2xl font-bold mb-4">${h.t}</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300">${h.s.map(s => `<p>✨ ${s}</p>`).join('')}</div></div>`).join('');
-
-        const conf = ["Spune 'NU'.", "Postură dreaptă.", "Mersi la complimente.", "Nu te scuza degeaba.", "Skill nou.", "Ordine în cameră.", "Ochii în ochii lor.", "Zâmbește.", "Eșec = Lecție.", "Ești suficient de bun!"];
-        document.getElementById('conf-list').innerHTML = conf.map(c => `<div class="bg-slate-800 p-5 rounded-2xl border-orange-500 border-l-4">${c}</div>`).join('');
+        let curT, curI, sc;
+        function initTest(k) { curT = tests[k]; curI = 0; sc = 0; navigateTo('test-runner'); showQ(); }
+        function showQ() { document.getElementById('q-count').innerText = `${curI+1}/${curT.qs.length}`; document.getElementById('q-text').innerText = curT.qs[curI]; }
+        function answer(v) { sc += v; curI++; if(curI < curT.qs.length) showQ(); else { navigateTo('test-result'); document.getElementById('res-text').innerText = curT.result(sc); } }
     </script>
 </body>
 </html>
