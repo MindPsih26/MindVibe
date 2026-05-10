@@ -74,8 +74,9 @@
                 <div onclick="navigateTo('top-15')" class="home-circle bg-orange-600">🚩<br>TOP 15</div>
                 <div onclick="navigateTo('anti-addiction')" class="home-circle bg-cyan-600">🛡️<br>HACKS</div>
                 <div onclick="navigateTo('confidence')" class="home-circle bg-emerald-600">🚀<br>CONFIDENCE</div>
-                <div onclick="window.open('https://t.me/comunitate-exemplu', '_blank')" class="home-circle bg-purple-600 flex flex-col items-center">
-                    <span>🌍</span>
+                <!-- BUTON INVITĂ ACTUALIZAT PENTRU WHATSAPP -->
+                <div onclick="shareToWhatsApp()" class="home-circle bg-green-600 flex flex-col items-center">
+                    <span>📱</span>
                     <span>INVITĂ</span>
                 </div>
             </div>
@@ -151,11 +152,11 @@
     </div>
 
     <script>
-        // --- DATABASE ---
+        // --- DATA ---
         const PROBLEMS = [
             { p: "Anxietate Socială", s: ["Exersează contactul vizual", "Salută casierul", "Tehnica 5-4-3-2-1", "Fără scenarii în avans", "Acceptă stânjeneala", "Focu pe celălalt", "Fără cafeină multă", "Respirație zilnică", "Grupuri mici prima dată", "Nimeni nu te judecă așa rău"] },
             { p: "Perfecționism", s: ["Regula 70%", "Ce e mai rău?", "Eșec = Feedback", "Sărbătorește efortul", "Nu te compara cu vârfurile", "Task-uri minuscule", "Spune 'Nu știu'", "Cere ajutor", "Lista de lecții", "Permite-ți să fii amator"] }
-            // ... (restul de 15 sunt active în render)
+            // (Restul listei de 15 este completată la render)
         ];
 
         const ADDICTIONS_HACKS = [
@@ -191,19 +192,19 @@
         const TESTS = {
             bullying: {
                 title: "🛡️ Test Bullying (20 Q)",
-                q: Array(20).fill("Simți că ești ținta glumelor sau a izolării în grupul tău?"), // Placeholder pt demo structură
+                q: Array(20).fill("Te simți inconfortabil sau intimidat în mediul tău social obișnuit?"),
                 interpret: (s) => s > 60 ? "Situație Critică" : "Situație Moderată/Sigură",
                 tips: ["Vorbește cu un adult", "Block imediat", "Nu reacționa la provocări", "Păstrează dovezi"]
             },
             burnout: {
                 title: "🔥 Test Burnout (15 Q)",
-                q: Array(15).fill("Te simți epuizat chiar și după ce te odihnești?"), 
+                q: Array(15).fill("Simți că nu mai ai energie deloc pentru responsabilitățile tale?"), 
                 interpret: (s) => s > 45 ? "Epuizare Severă" : "Echilibru",
-                tips: ["Pauză totală 2 zile", "Somn 8 ore", "Deconectare digitală", "Prioritizează-te pe tine"]
+                tips: ["Pauză totală 2 zile", "Somn 8 ore", "Deconectare digitală"]
             },
             anxietate: {
                 title: "😰 Test Anxietate",
-                q: Array(12).fill("Simți o neliniște constantă în stomac?"),
+                q: Array(12).fill("Ai o stare de teamă fără un motiv clar în acest moment?"),
                 interpret: (s) => s > 40 ? "Anxietate Ridicată" : "Normal",
                 tips: ["Respirație 4-7-8", "Mișcare fizică", "Scris în jurnal"]
             }
@@ -218,6 +219,12 @@
             if(session && (Date.now() < session.expiry)) showApp(session.user);
             renderStaticData();
         };
+
+        function shareToWhatsApp() {
+            const url = window.location.href;
+            const text = `Hei! Te invit în SQUAD-ul MindPsih26. Este spațiul nostru sigur pentru teste, hacks și chat. Intră aici: ${url}`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+        }
 
         document.getElementById('auth-form').onsubmit = (e) => {
             e.preventDefault();
