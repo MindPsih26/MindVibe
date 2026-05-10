@@ -3,158 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindPsih26 | Level Up Your Life</title>
+    <title>MindPsih26 | Safe Space & Wellness</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-btn { transition: all 0.3s ease; }
-        .nav-btn:hover { transform: translateY(-2px); background: rgba(56, 189, 248, 0.2); }
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hidden-section { display: none; }
-        .active-section { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .active-section { display: block; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-bubble { border-radius: 18px; padding: 10px 15px; margin-bottom: 8px; max-width: 80%; }
+        .mine { background: #3b82f6; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .theirs { background: #334155; align-self: flex-start; border-bottom-left-radius: 4px; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="pb-20">
 
-    <!-- NAVIGATION MENU -->
-    <nav class="max-w-4xl mx-auto mb-10 flex flex-wrap justify-center gap-4">
-        <button onclick="showSection('home')" class="nav-btn px-6 py-2 glass-card font-semibold"><i class="fas fa-home mr-2 text-sky-400"></i>Home</button>
-        <button onclick="showSection('recharge')" class="nav-btn px-6 py-2 glass-card font-semibold"><i class="fas fa-battery-full mr-2 text-green-400"></i>Reset & Recharge</button>
-        <button onclick="showSection('real-talk')" class="nav-btn px-6 py-2 glass-card font-semibold"><i class="fas fa-exclamation-triangle mr-2 text-red-400"></i>Real Talk</button>
-        <button onclick="showSection('tests-menu')" class="nav-btn px-6 py-2 glass-card font-semibold"><i class="fas fa-tasks mr-2 text-purple-400"></i>Arena Testelor</button>
-        <button onclick="showSection('confidence')" class="nav-btn px-6 py-2 glass-card font-semibold"><i class="fas fa-rocket mr-2 text-orange-400"></i>Fii sigur pe tine</button>
-    </nav>
+    <!-- HEADER / LOGO -->
+    <header class="p-6 text-center">
+        <h1 class="text-4xl font-extrabold gradient-text tracking-tight">MindPsih26</h1>
+        <p class="text-slate-400 text-sm">Your Digital Mental Health Hub</p>
+    </header>
 
-    <!-- SECTION: HOME -->
-    <section id="home" class="active-section max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl font-bold mb-6 gradient-text">MindPsih26</h1>
-        <p class="text-xl text-slate-400 mb-8">Platforma ta de safe-space, dezvoltare și vibe bun. Explorează, testează-te și dă un upgrade creierului tău.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-6 border-l-4 border-sky-500">
-                <h3 class="font-bold text-xl mb-2">🔥 Nou pe site</h3>
-                <p class="text-sm">Ghidul complet pentru a scăpa de emoțiile vorbitului în public.</p>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-4xl mx-auto px-4">
+        
+        <!-- SECTION: HOME -->
+        <section id="home" class="active-section space-y-6">
+            <div class="glass-card p-8 text-center bg-gradient-to-br from-slate-800 to-slate-900">
+                <h2 class="text-2xl font-bold mb-4">Salut! 👋 Ești gata de un upgrade?</h2>
+                <p class="text-slate-300">Aici e locul unde lăsăm stresul la ușă. Explorează secțiunile, fă-ți testele și intră în comunitate.</p>
             </div>
-            <div class="glass-card p-6 border-l-4 border-purple-500">
-                <h3 class="font-bold text-xl mb-2">🧠 Testează-te</h3>
-                <p class="text-sm">Află dacă ești dependent de ecrane sau cum să gestionezi bullying-ul.</p>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div onclick="showSection('recharge')" class="glass-card p-4 text-center cursor-pointer hover:scale-105 transition shadow-lg shadow-sky-500/10">
+                    <i class="fas fa-battery-full text-sky-400 text-3xl mb-2"></i>
+                    <p class="font-semibold">Reset Energy</p>
+                </div>
+                <div onclick="showSection('tests-menu')" class="glass-card p-4 text-center cursor-pointer hover:scale-105 transition shadow-lg shadow-purple-500/10">
+                    <i class="fas fa-brain text-purple-400 text-3xl mb-2"></i>
+                    <p class="font-semibold">Arena Teste</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECTION: RESET & RECHARGE -->
-    <section id="recharge" class="hidden-section max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-6 text-green-400">Reset & Recharge: Arta de a fi bine</h2>
-        <div class="glass-card p-8 space-y-6">
-            <div>
-                <h3 class="text-xl font-semibold text-sky-300">💤 Somn & Creier</h3>
-                <p class="text-slate-300 mt-2">Creierul tău face "curățenie generală" noaptea. Fără 8h de somn, e ca și cum ai rula un PC cu 1% baterie. Închide telefonul cu o oră înainte – lumina albastră e inamicul melatoninei.</p>
-            </div>
-            <hr class="opacity-10">
-            <div>
-                <h3 class="text-xl font-semibold text-sky-300">📢 Public Speaking (10 Hacks)</h3>
-                <ul class="list-disc list-inside text-slate-400 mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <li>Vizualizează succesul</li><li>Regula de 3 secunde</li><li>Fixează un prieten în public</li><li>Respiră din abdomen</li><li>Acceptă adrenalina</li><li>Stai drept (Power Pose)</li><li>Bea apă călduță</li><li>Fă pauze dramatice</li><li>Nu citi de pe slide-uri</li><li>Fii tu însuți!</li>
+        <!-- SECTION: RECHARGE (Somn, Public Speaking) -->
+        <section id="recharge" class="hidden-section space-y-6">
+            <h2 class="text-3xl font-bold text-green-400">Reset & Recharge</h2>
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold text-sky-300 mb-3">🌙 Arta Somnului Bun</h3>
+                <ul class="space-y-3 text-slate-300">
+                    <li>✨ **Brain Dump:** Scrie tot ce te stresează pe o foaie înainte de culcare.</li>
+                    <li>✨ **Ecrane OFF:** Cu 60 min înainte de somn, telefonul moare. Cititul e noul scroll.</li>
+                    <li>✨ **Deep Breathing:** 4 secunde inspir, 4 secunde pauză, 4 secunde expir.</li>
                 </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- SECTION: REAL TALK -->
-    <section id="real-talk" class="hidden-section max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-6 text-red-500">Real Talk: Ce îți prăjește viitorul</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-6 border-t-4 border-red-500">
-                <h3 class="font-bold text-xl text-red-400">💨 Vape & Droguri</h3>
-                <p class="text-sm text-slate-400 mt-2">Nicotina din vape acționează ca un "hacker" pentru creierul tău aflat în dezvoltare (până la 25 de ani). Îți distruge capacitatea de concentrare și te face sclavul unui abur.</p>
-            </div>
-            <div class="glass-card p-6 border-t-4 border-yellow-500">
-                <h3 class="font-bold text-xl text-yellow-400">⚡ Energizante & Alcool</h3>
-                <p class="text-sm text-slate-400 mt-2">Inima ta nu e motor de curse. Energizantele dau anxietate și crash-uri masive de energie. Alcoolul? Îți "deconectează" logica și îți distruge somnul de calitate.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: TESTS MENU -->
-    <section id="tests-menu" class="hidden-section max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-8 text-purple-400">Arena Testelor</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div onclick="startTest('bullying')" class="glass-card p-8 cursor-pointer hover:bg-slate-800 transition">
-                <i class="fas fa-shield-alt text-4xl mb-4 text-purple-400"></i>
-                <h3 class="text-2xl font-bold">Test Bullying</h3>
-                <p class="text-slate-400">15 întrebări despre siguranța ta socială.</p>
-            </div>
-            <div onclick="startTest('tech')" class="glass-card p-8 cursor-pointer hover:bg-slate-800 transition">
-                <i class="fas fa-mobile-alt text-4xl mb-4 text-sky-400"></i>
-                <h3 class="text-2xl font-bold">Dependența de Ecrane</h3>
-                <p class="text-slate-400">20 întrebări: Te stăpânește telefonul?</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: CONFIDENCE -->
-    <section id="confidence" class="hidden-section max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-6 text-orange-400">Fii sigur pe tine</h2>
-        <div class="glass-card p-8">
-            <h3 class="text-2xl font-bold mb-4">Lasă timiditatea în urmă!</h3>
-            <p class="text-slate-300 mb-6">Timiditatea nu e o sentință, e doar o lipsă de exercițiu social. Iată cum să devii "Main Character" în viața ta:</p>
-            <div class="space-y-4">
-                <div class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-orange-500">
-                    <p><strong>1. Regula de 3 secunde:</strong> Nu lăsa creierul să analizeze frica. Ai văzut pe cineva? Abordează în 3 secunde.</p>
+            <div class="glass-card p-6 bg-slate-800/50">
+                <h3 class="text-xl font-bold text-orange-400 mb-3">🎤 10 Sfaturi Public Speaking</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-300">
+                    <p>1. Acceptă emoția (e doar adrenalină).</p>
+                    <p>2. Fixează un punct/prieten în public.</p>
+                    <p>3. Vorbește rar, fă pauze.</p>
+                    <p>4. Hidratează-te (apă, nu suc!).</p>
+                    <p>5. Stai drept (Power Posing).</p>
+                    <p>6. Glumește la început.</p>
+                    <p>7. Nu citi de pe foaie.</p>
+                    <p>8. Mișcă-ți mâinile natural.</p>
+                    <p>9. Vizualizează succesul.</p>
+                    <p>10. Greșeala e ok, treci peste!</p>
                 </div>
-                <div class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-orange-500">
-                    <p><strong>2. Contact vizual:</strong> Nu te uita în jos. Uită-te la culoarea ochilor oamenilor când vorbești.</p>
-                </div>
-                <div class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-orange-500">
-                    <p><strong>3. Grupurile:</strong> Nu întreba "Pot să stau?". Apropie-te și fă o remarcă despre ce se discută.</p>
-                </div>
-                <p class="text-center font-bold text-orange-400 mt-6">Share platforma dacă te-a ajutat! 🚀</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- TEST INTERFACE (Dynamic) -->
-    <section id="test-container" class="hidden-section max-w-2xl mx-auto glass-card p-8 mt-10">
-        <div id="test-content">
-            <!-- Questions load here -->
-        </div>
-    </section>
+        <!-- SECTION: ARENA TESTELOR (Toate cele 4 teste) -->
+        <section id="tests-menu" class="hidden-section space-y-6">
+            <h2 class="text-3xl font-bold text-purple-400 text-center">Arena Testelor</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Test Bullying -->
+                <div onclick="openTest('bullying')" class="glass-card p-6 border-l-4 border-red-500 cursor-pointer hover:bg-slate-800">
+                    <h4 class="font-bold">🚫 Test Bullying</h4>
+                    <p class="text-xs text-slate-400">Află dacă ești într-un mediu toxic. (15 întrebări)</p>
+                </div>
+                <!-- Test Tehnologie -->
+                <div onclick="openTest('tech')" class="glass-card p-6 border-l-4 border-sky-500 cursor-pointer hover:bg-slate-800">
+                    <h4 class="font-bold">📱 Screen Addiction</h4>
+                    <p class="text-xs text-slate-400">Ești stăpânul ecranului sau invers? (20 întrebări)</p>
+                </div>
+                <!-- Test Anxietate -->
+                <div onclick="openTest('anxiety')" class="glass-card p-6 border-l-4 border-yellow-500 cursor-pointer hover:bg-slate-800">
+                    <h4 class="font-bold">😰 Test Anxietate</h4>
+                    <p class="text-xs text-slate-400">Verifică nivelul tău de stres interior.</p>
+                </div>
+                <!-- Test Burnout -->
+                <div onclick="openTest('burnout')" class="glass-card p-6 border-l-4 border-orange-600 cursor-pointer hover:bg-slate-800">
+                    <h4 class="font-bold">🔥 Școala fără Burnout</h4>
+                    <p class="text-xs text-slate-400">Ești epuizat de teme și examene?</p>
+                </div>
+            </div>
+        </section>
 
-    <footer class="mt-20 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 MindPsih26. Construit pentru Gen Z.</p>
-        <p class="mt-2 italic">Site creat pentru suport educațional și wellness.</p>
-    </footer>
+        <!-- SECTION: CHAT PRIVAT (Messenger Style) -->
+        <section id="chat" class="hidden-section h-[70vh] flex flex-col">
+            <div class="glass-card flex-1 p-4 flex flex-col overflow-hidden">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                    <div>
+                        <p class="font-bold leading-tight">Grup Privat: Mind Squad</p>
+                        <p class="text-[10px] text-green-400">● Online acum</p>
+                    </div>
+                </div>
+                <!-- Mesaje -->
+                <div id="chat-messages" class="flex-1 overflow-y-auto flex flex-col p-2 space-y-2">
+                    <div class="chat-bubble theirs">Salut! Bine ai venit în chat-ul privat. Aici poți vorbi orice.</div>
+                    <div class="chat-bubble mine">Hey! Ce tare arată interfața asta.</div>
+                </div>
+                <!-- Input -->
+                <div class="mt-4 flex gap-2">
+                    <input id="chat-input" type="text" placeholder="Scrie un mesaj..." class="flex-1 bg-slate-800 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none">
+                    <button onclick="sendMessage()" class="bg-sky-500 w-10 h-10 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
 
+        <!-- SECTION: FII SIGUR PE TINE -->
+        <section id="confidence" class="hidden-section space-y-6">
+            <h2 class="text-3xl font-bold text-orange-400">Lăsă timiditatea în urmă</h2>
+            <div class="glass-card p-6 space-y-4">
+                <p class="text-slate-300">Timiditatea e doar un scut pe care nu mai trebuie să îl porți. Iată pașii tăi de eliberare:</p>
+                <div class="bg-slate-800/40 p-4 rounded-xl border-l-2 border-orange-500 italic text-sm">
+                    "Nu ești ceea ce crezi tu că ești, ci ești ceea ce crezi tu că ceilalți cred că ești. Eliberează-te de opinia lor!"
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Abordarea de 3 secunde:** Nu lăsa creierul să fabrice frici. Vezi pe cineva? Mergi și salută în primele 3 secunde.</span></li>
+                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Power Pose:** Stai 2 minute cu mâinile în șolduri înainte de o prezentare. Scade cortizolul!</span></li>
+                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Conversația:** Nu trebuie să fii interesant, trebuie să fii interesat. Pune întrebări celuilalt.</span></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM TAB NAVIGATION (Like Instagram/TikTok) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50">
+        <button onclick="showSection('home')" class="flex flex-col items-center text-slate-400 focus:text-sky-400">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-[10px]">Home</span>
+        </button>
+        <button onclick="showSection('tests-menu')" class="flex flex-col items-center text-slate-400 focus:text-purple-400">
+            <i class="fas fa-vial text-xl"></i>
+            <span class="text-[10px]">Teste</span>
+        </button>
+        <button onclick="showSection('chat')" class="flex flex-col items-center text-slate-400 focus:text-green-400">
+            <i class="fas fa-comment-dots text-xl"></i>
+            <span class="text-[10px]">Chat</span>
+        </button>
+        <button onclick="showSection('confidence')" class="flex flex-col items-center text-slate-400 focus:text-orange-400">
+            <i class="fas fa-user-shield text-xl"></i>
+            <span class="text-[10px]">Profil</span>
+        </button>
+    </nav>
+
+    <!-- SCRIPTS -->
     <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
-            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
-            document.getElementById(sectionId).classList.remove('hidden-section');
-            document.getElementById(sectionId).classList.add('active-section');
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(s => {
+                s.classList.add('hidden-section');
+                s.classList.remove('active-section');
+            });
+            const active = document.getElementById(id);
+            active.classList.remove('hidden-section');
+            active.classList.add('active-section');
             window.scrollTo(0,0);
         }
 
-        function startTest(type) {
-            showSection('test-container');
-            const container = document.getElementById('test-content');
-            
-            if(type === 'bullying') {
-                container.innerHTML = `<h2 class="text-2xl font-bold mb-4">Test Bullying</h2>
-                <p>Acest test are 15 întrebări. Pentru fiecare răspuns "DA", adaugă 1 punct.</p>
-                <div class="space-y-4 text-left mt-6">
-                    <p>1. Te simți anxios înainte de școală?</p>
-                    <p>2. Cineva face glume pe seama ta constant?</p>
-                    <p>3. Primești mesaje urâte pe social media?</p>
-                    <!-- ... restul de 15 întrebări ... -->
-                </div>
-                <button onclick="showSection('tests-menu')" class="mt-8 bg-purple-600 px-6 py-2 rounded-full">Finalizează & Vezi Interpretarea</button>`;
-            } else {
-                container.innerHTML = `<h2 class="text-2xl font-bold mb-4">Dependența de Ecrane</h2>
-                <p>20 de întrebări despre viața ta digitală.</p>
-                <button onclick="showSection('tests-menu')" class="mt-8 bg-sky-600 px-6 py-2 rounded-full">Finalizează & Vezi Interpretarea</button>`;
+        function openTest(type) {
+            alert("Începem testul pentru: " + type.toUpperCase() + "\nPregătește-te de interpretare la final!");
+            // Aici poti injecta codul de intrebari specific fiecarui test
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const container = document.getElementById('chat-messages');
+            if(input.value.trim() !== "") {
+                const msg = document.createElement('div');
+                msg.className = "chat-bubble mine";
+                msg.innerText = input.value;
+                container.appendChild(msg);
+                input.value = "";
+                container.scrollTop = container.scrollHeight;
             }
         }
     </script>
