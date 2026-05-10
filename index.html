@@ -9,149 +9,139 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@400;700&display=swap');
         body { font-family: 'Poppins', sans-serif; background: #0f172a; color: white; margin: 0; overflow-x: hidden; }
-        .emoji-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; font-size: 3.5rem; opacity: 0.25; pointer-events: none; }
         .fredoka { font-family: 'Fredoka', sans-serif; }
         .section-content { display: none; }
-        .section-active { display: block; animation: zoomIn 0.3s ease; }
+        .section-active { display: block; }
         .auth-container { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.1); }
-        input, select { background: #334155 !important; border: 1px solid #475569 !important; color: white !important; border-radius: 12px !important; padding: 12px !important; }
-        .home-circle { width: 150px; height: 150px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s; cursor: pointer; border: 4px solid rgba(255,255,255,0.1); }
-        .home-circle:hover { transform: scale(1.1); border-color: white; }
-        .main-menu-trigger { position: fixed; top: 20px; right: 20px; z-index: 100; background: #6366f1; width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        #menu-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; }
-        .menu-item { font-size: 2rem; font-weight: 700; margin: 15px 0; cursor: pointer; }
+        input, select { background: #334155 !important; border: 1px solid #475569 !important; color: white !important; padding: 12px !important; }
+        .home-circle { width: 150px; height: 150px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; border: 2px solid rgba(255,255,255,0.1); }
         .chat-bubble { border-radius: 20px; padding: 10px 16px; margin: 4px 0; max-width: 80%; }
         .mine { background: #6366f1; align-self: flex-end; }
         .theirs { background: #334155; align-self: flex-start; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .share-card { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); padding: 20px; border-radius: 25px; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="emoji-bg"><span>😎</span><span>⚡</span><span>🌈</span><span>🚀</span><span>🎨</span><span>💎</span><span>🍀</span><span>🍕</span></div>
-
     <!-- 🔐 AUTH SECTION -->
     <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
-        <div class="auth-container w-full max-w-md p-8 rounded-[40px]">
-            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-400">MindPsih26</h2>
-            <div id="invite-alert" class="hidden bg-green-500/20 text-green-400 text-sm p-3 rounded-xl mt-4 text-center border border-green-500/30">✨ Ai fost invitat în Squad!</div>
-            <form id="auth-form" class="flex flex-col gap-4 mt-6">
+        <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl">
+            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-6 text-indigo-400">MindPsih26</h2>
+            <form id="auth-form" class="flex flex-col gap-4">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Parolă" required>
                 <div id="extra-fields" class="flex flex-col gap-4">
-                    <input type="number" id="age" placeholder="Vârsta ta" min="10" max="25">
-                    <select id="gender"><option value="">Sexul</option><option value="M">Masculin</option><option value="F">Feminin</option></select>
+                    <input type="number" id="age" placeholder="Vârsta" min="10" max="25">
                 </div>
-                <button type="submit" id="auth-submit-btn" class="bg-indigo-600 py-4 rounded-xl font-bold">Creează Profil</button>
+                <button type="submit" class="bg-indigo-600 py-4 rounded-xl font-bold">Intră în Squad</button>
             </form>
-            <button onclick="switchAuthMode()" class="w-full mt-4 text-indigo-400 text-sm" id="auth-switch-btn">Ai deja cont?</button>
+            <p class="text-center mt-4 text-sm opacity-60">Pentru link-ul de distribuire: folosește URL-ul curent adăugând #join</p>
         </div>
     </section>
 
-    <!-- 📱 MAIN APP -->
+    <!-- 📱 APP CONTENT -->
     <div id="main-app" style="display: none;">
-        <div class="main-menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div id="menu-overlay" onclick="toggleMenu()">
-            <div class="menu-item" onclick="navigateTo('home')">Acasă</div>
-            <div class="menu-item" onclick="navigateTo('teen-problems')">Top 10 Probleme</div>
-            <div class="menu-item" onclick="navigateTo('chat-section')">Chat Squad</div>
-            <div class="menu-item" onclick="navigateTo('tests-hub')">Arena Testelor</div>
-            <div class="menu-item text-red-400" onclick="logout()">Logout</div>
-        </div>
+        <nav class="p-6 flex justify-between items-center">
+            <h1 class="fredoka text-2xl font-bold text-indigo-400">MindPsih26</h1>
+            <button onclick="logout()" class="text-red-400 text-sm">Logout</button>
+        </nav>
 
-        <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
-            <h1 class="fredoka text-6xl font-bold text-indigo-400">MindPsih26</h1>
+        <section id="home" class="section-content section-active p-6">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <div onclick="navigateTo('teen-problems')" class="home-circle bg-red-500">🆘 Probleme</div>
+                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600">🎮 Teste</div>
+                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500">💬 Chat</div>
+            </div>
             
-            <div class="share-card w-full max-w-sm">
-                <p class="text-[10px] font-bold uppercase mb-2">Trimite prietenilor (Join direct):</p>
-                <div class="flex bg-black/30 rounded-lg p-2 gap-2">
-                    <input id="share-link-input" readonly type="text" class="bg-transparent text-[10px] w-full" value="https://site-ul-tau.ro/#join">
-                    <button onclick="copyInvite()" class="bg-white text-indigo-600 px-3 py-1 rounded text-[10px] font-bold">COPY</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-6 mt-12">
-                <div onclick="navigateTo('teen-problems')" class="home-circle bg-red-500"><i class="fas fa-exclamation-triangle"></i><span>Probleme</span></div>
-                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600"><i class="fas fa-gamepad"></i><span>Teste</span></div>
+            <div class="mt-10 bg-slate-800 p-6 rounded-2xl text-center">
+                <h3 class="font-bold mb-2">Distribuie pe WhatsApp</h3>
+                <input type="text" id="share-link" class="w-full text-center" readonly>
+                <button onclick="copyLink()" class="mt-2 bg-green-500 px-6 py-2 rounded-lg text-sm">Copiază Link Invitație</button>
             </div>
         </section>
 
-        <!-- PROBLEME ADOLESCENTI -->
-        <section id="teen-problems" class="section-content max-w-4xl mx-auto py-10 p-6">
-            <h2 class="text-3xl font-bold fredoka text-center mb-10 text-red-400">Top 10 Probleme</h2>
-            <div id="problems-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <!-- TOP 10 PROBLEME -->
+        <section id="teen-problems" class="section-content p-6">
+            <h2 class="text-2xl font-bold mb-6">Top 10 Probleme</h2>
+            <div id="problems-list" class="grid gap-4"></div>
         </section>
 
-        <!-- TESTE HUB -->
-        <section id="tests-hub" class="section-content max-w-4xl mx-auto py-10 p-6">
-            <h2 class="text-3xl font-bold fredoka text-center mb-10 text-indigo-400">Arena Testelor</h2>
-            <div id="test-list" class="grid grid-cols-1 gap-4"></div>
+        <!-- CHAT -->
+        <section id="chat-section" class="section-content p-6 h-[70vh]">
+            <div id="chat-box" class="h-[80%] overflow-y-auto flex flex-col mb-4"></div>
+            <div class="flex gap-2">
+                <input id="msg-input" class="flex-1 rounded-full px-4" placeholder="Mesajul tău...">
+                <button onclick="sendMsg()" class="bg-indigo-600 px-6 rounded-full">Trimite</button>
+            </div>
         </section>
-        
-        <!-- RESTUL UI: Chat, Test Runner, etc. (Păstrate din varianta inițială) -->
     </div>
 
     <script>
-        // INIT & INVITE
-        window.onload = function() {
-            if (window.location.hash === "#join") {
-                document.getElementById('invite-alert').classList.remove('hidden');
-                isLoginMode = false; switchAuthMode();
-            }
-            renderProblems();
-            const session = JSON.parse(localStorage.getItem('active_session'));
-            if (session) loginSuccess(session.userData);
+        // Init logic
+        window.onload = () => {
+            document.getElementById('share-link').value = window.location.origin + window.location.pathname + "#join";
+            if(window.location.hash === "#join") alert("Bun venit! Invită-ți și prietenii!");
+            
+            const session = JSON.parse(localStorage.getItem('user_session'));
+            if(session && (Date.now() - session.date < 30 * 24 * 60 * 60 * 1000)) loginApp(session.user);
         };
 
-        function copyInvite() {
-            const input = document.getElementById('share-link-input');
-            input.select(); document.execCommand("copy"); alert("Link copiat!");
-        }
-
-        // PROBLEME DATA
-        const topProblems = [
-            { t: "Imaginea Corpului 🪞", s: ["Nu te compara cu filtrele.", "Sport pt energie.", "Acceptă-te."] },
-            { t: "Presiunea Grupului 👯", s: ["Spune Nu.", "Alege prieteni reali.", "Fii tu."] },
-            { t: "Performanța Școlară 📚", s: ["Notele nu te definesc.", "Metoda Pomodoro.", "Cere ajutor."] },
-            { t: "Relația cu Părinții 👨‍👩‍👦", s: ["Comunică calm.", "Arată responsabilitate.", "Ascultă-i."] },
-            { t: "Anxietate Socială 😟", s: ["Pași mici.", "Nu te judecă nimeni.", "Exersează."] },
-            { t: "Dependența de Ecrane 📱", s: ["Fără notificări.", "Hobby offline.", "Detox."] },
-            { t: "Stima de Sine 📉", s: ["Listă de reușite.", "Fără voce critică.", "Ajută pe alții."] },
-            { t: "Bulling 🛑", s: ["Raportează.", "Nu e vina ta.", "Blochează agresorul."] },
-            { t: "Prima Dragoste 💔", s: ["E ok să doară.", "Timpul vindecă.", "Nu te izola."] },
-            { t: "Viitorul 🚀", s: ["E ok să nu știi încă.", "Explorează.", "Urmează-ți pasiunea."] }
-        ];
-
-        function renderProblems() {
-            document.getElementById('problems-grid').innerHTML = topProblems.map(p => `
-                <div class="bg-slate-800 p-6 rounded-[30px] border-l-4 border-red-500">
-                    <h3 class="font-bold mb-3 text-white">${p.t}</h3>
-                    <ul class="text-xs space-y-1 text-slate-400">${p.s.map(s => `<li>• ${s}</li>`).join('')}</ul>
-                </div>`).join('');
-        }
-
-        // NAVIGARE & AUTH (Păstrate)
-        let isLoginMode = false;
-        function switchAuthMode() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('auth-title').innerText = isLoginMode ? "Logare" : "MindPsih26";
-            document.getElementById('extra-fields').style.display = isLoginMode ? "none" : "flex";
-        }
-        function loginSuccess(ud) {
+        function loginApp(user) {
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
+            renderProblems();
         }
-        function logout() { localStorage.removeItem('active_session'); location.reload(); }
+
+        document.getElementById('auth-form').onsubmit = (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            localStorage.setItem('user_session', JSON.stringify({user, date: Date.now()}));
+            loginApp(user);
+        };
+
+        // Anti-Spam
+        let lastMsgs = [];
+        function sendMsg() {
+            const banUntil = localStorage.getItem('ban_until');
+            if(banUntil && Date.now() < banUntil) return alert("Ești blocat 3 ore din cauza spam-ului!");
+
+            const now = Date.now();
+            lastMsgs = lastMsgs.filter(t => now - t < 2000);
+            lastMsgs.push(now);
+
+            if(lastMsgs.length > 4) {
+                localStorage.setItem('ban_until', now + (3 * 60 * 60 * 1000));
+                alert("SPAM DETECTAT! Blocat 3 ore.");
+                return;
+            }
+
+            const input = document.getElementById('msg-input');
+            const box = document.getElementById('chat-box');
+            box.innerHTML += `<div class="chat-bubble mine">${input.value}</div>`;
+            input.value = '';
+        }
+
+        function renderProblems() {
+            const list = document.getElementById('problems-list');
+            const probs = ["Imaginea corporală", "Presiunea grupului", "Note școlare", "Relația cu părinții", "Anxietate socială", "Dependența de ecrane", "Stima de sine", "Bullying", "Prima dragoste", "Viitorul"];
+            list.innerHTML = probs.map(p => `
+                <div class="bg-slate-800 p-4 rounded-xl border-l-4 border-red-500">
+                    <h3 class="font-bold">${p}</h3>
+                    <p class="text-xs text-slate-400 mt-1">Sfat 1: Comunică deschis • Sfat 2: Nu te compara cu alții • Sfat 3: Cere ajutor specializat.</p>
+                </div>
+            `).join('');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(document.getElementById('share-link').value);
+            alert("Link copiat! Trimite-l pe WhatsApp.");
+        }
+
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('section-active'));
             document.getElementById(id).classList.add('section-active');
-            document.getElementById('menu-overlay').style.display = 'none';
         }
-        function toggleMenu() {
-            const m = document.getElementById('menu-overlay');
-            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-        }
+
+        function logout() { localStorage.clear(); location.reload(); }
     </script>
 </body>
 </html>
