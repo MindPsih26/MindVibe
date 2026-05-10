@@ -13,20 +13,19 @@
         .emoji-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; font-size: 3.5rem; opacity: 0.25; pointer-events: none; user-select: none; }
         .fredoka { font-family: 'Fredoka', sans-serif; }
         
-        /* Navigare */
         .section-content { display: none; }
         .section-active { display: block; animation: zoomIn 0.3s ease; }
         
-        /* Auth Styles */
         .auth-container { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.1); }
         input, select { background: #334155 !important; border: 1px solid #475569 !important; color: white !important; border-radius: 12px !important; padding: 12px !important; }
 
-        /* Restul stilurilor existente */
         .home-circle { width: 180px; height: 180px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s; cursor: pointer; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 4px solid rgba(255,255,255,0.1); }
         .home-circle:hover { transform: scale(1.1); border-color: white; }
+        
         .main-menu-trigger { position: fixed; top: 20px; right: 20px; z-index: 100; background: #6366f1; width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
         #menu-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; }
         .menu-item { font-size: 2rem; font-weight: 700; margin: 15px 0; cursor: pointer; }
+        
         .chat-bubble { border-radius: 20px; padding: 12px 18px; margin: 5px 0; max-width: 85%; }
         .mine { background: #818cf8; align-self: flex-end; }
         .theirs { background: #334155; align-self: flex-start; }
@@ -40,14 +39,13 @@
         <span>😎</span><span>⚡</span><span>🌈</span><span>🚀</span><span>🎨</span><span>💎</span><span>🍀</span><span>🍕</span>
     </div>
 
-    <!-- 🔐 SECTIUNE LOGARE / INREGISTRARE -->
     <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
         <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl">
-            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">Alătură-te Squad-ului</h2>
-            <p id="auth-subtitle" class="text-slate-400 text-center mb-8">Creează-ți profilul MindPsih26</p>
+            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
+            <p id="auth-subtitle" class="text-slate-400 text-center mb-8">Creează-ți profilul obligatoriu</p>
             
             <form id="auth-form" class="flex flex-col gap-4">
-                <input type="text" id="username" placeholder="Username ales" required>
+                <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Parolă" required>
                 
                 <div id="extra-fields" class="flex flex-col gap-4">
@@ -56,7 +54,7 @@
                         <option value="">Alege Sexul</option>
                         <option value="M">Masculin</option>
                         <option value="F">Feminin</option>
-                        <option value="Altul">Altul / Privat</option>
+                        <option value="Altul">Altul</option>
                     </select>
                 </div>
 
@@ -70,7 +68,6 @@
         </div>
     </section>
 
-    <!-- 📱 INTERFATA PRINCIPALA (Ascunsă inițial) -->
     <div id="main-app" style="display: none;">
         
         <div class="main-menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars text-white"></i></div>
@@ -84,16 +81,15 @@
             <div class="menu-item fredoka text-red-400" onclick="logout()">Logout 🚪</div>
         </div>
 
-        <!-- HOME -->
         <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
             <header class="mb-10">
                 <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
-                <p id="welcome-user" class="text-white text-xl mt-4">Salut, Explorer! 👋</p>
-                <!-- LINK INVITATIE -->
-                <div class="mt-6 bg-white/10 p-3 rounded-2xl border border-dashed border-white/30 inline-block">
-                    <p class="text-xs uppercase font-bold text-indigo-300 mb-1">Invită-ți prietenii în comunitate:</p>
-                    <code id="invite-link" class="text-pink-400 font-bold">https://mindpsih26.github.io/squad</code>
-                    <button onclick="copyInvite()" class="ml-2 text-white bg-indigo-500 px-2 py-1 rounded text-xs">Copy</button>
+                <p id="welcome-user" class="text-white text-xl mt-4">Salut! 👋</p>
+                
+                <div class="mt-6 bg-white/10 p-4 rounded-2xl border border-dashed border-white/30 inline-block">
+                    <p class="text-xs uppercase font-bold text-indigo-300 mb-2">Trimite acest link prietenilor:</p>
+                    <code id="invite-link" class="text-pink-400 font-bold break-all"></code>
+                    <button onclick="copyInvite()" class="ml-2 text-white bg-indigo-500 px-3 py-1 rounded-lg text-xs font-bold">COPIAZĂ LINK</button>
                 </div>
             </header>
 
@@ -105,21 +101,20 @@
             </div>
         </section>
 
-        <!-- SECTIUNILE EXISTENTE (Păstrate intacte) -->
         <section id="tests-hub" class="section-content max-w-5xl mx-auto py-10 p-6">
             <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Arena Testelor</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer">😰 Test Anxietate (20 Q)</div>
-                <div onclick="initTest('emotivity')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-pink-400 cursor-pointer">🥺 Test Emotivitate (15 Q)</div>
-                <div onclick="initTest('burnout')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-orange-500 cursor-pointer">🔥 Test Burnout (15 Q)</div>
-                <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer">🛑 Test Bullying (20 Q)</div>
+                <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer">😰 Anxietate (20 Q)</div>
+                <div onclick="initTest('emotivity')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-pink-400 cursor-pointer">🥺 Emotivitate (15 Q)</div>
+                <div onclick="initTest('burnout')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-orange-500 cursor-pointer">🔥 Burnout (15 Q)</div>
+                <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer">🛑 Bullying (20 Q)</div>
             </div>
         </section>
 
         <section id="test-runner" class="section-content max-w-2xl mx-auto py-20 p-6">
             <div class="bg-slate-800 p-10 rounded-[50px] text-center border-4 border-indigo-500/30">
-                <div id="q-count" class="text-indigo-400 font-bold mb-4">1/20</div>
-                <h4 id="q-text" class="text-2xl font-bold mb-12">...</h4>
+                <div id="q-count" class="text-indigo-400 font-bold mb-4"></div>
+                <h4 id="q-text" class="text-2xl font-bold mb-12"></h4>
                 <div class="grid grid-cols-1 gap-4">
                     <button onclick="answer(1)" class="bg-indigo-600 p-6 rounded-2xl font-bold">DA</button>
                     <button onclick="answer(0)" class="bg-slate-700 p-6 rounded-2xl font-bold">NU</button>
@@ -134,7 +129,7 @@
                 <div class="bg-slate-900 p-8 rounded-[30px] text-left border-l-8 border-indigo-500">
                     <ul id="res-tips" class="space-y-3"></ul>
                 </div>
-                <button onclick="navigateTo('home')" class="mt-12 bg-pink-500 px-12 py-4 rounded-full">Meniu</button>
+                <button onclick="navigateTo('home')" class="mt-12 bg-pink-500 px-12 py-4 rounded-full">Meniu Principal</button>
             </div>
         </section>
 
@@ -149,7 +144,7 @@
         </section>
 
         <section id="chat-section" class="section-content max-w-2xl mx-auto py-10 p-6">
-            <div id="chat-box" class="bg-slate-900/80 rounded-[40px] p-6 h-[60vh] overflow-y-auto flex flex-col mb-6 border border-white/10"></div>
+            <div id="chat-box" class="bg-slate-900/80 rounded-[40px] p-6 h-[60vh] overflow-y-auto flex flex-col mb-6"></div>
             <div class="flex gap-2">
                 <input id="chat-msg" type="text" placeholder="Mesaj..." class="flex-1 bg-slate-800 rounded-full px-6 py-4">
                 <button onclick="sendMsg()" class="bg-pink-500 w-14 h-14 rounded-full shadow-lg"><i class="fas fa-paper-plane"></i></button>
@@ -158,37 +153,30 @@
     </div>
 
     <script>
+        // REPARARE LINK INVITATIE: Ia automat URL-ul curent al site-ului
+        document.getElementById('invite-link').innerText = window.location.origin + window.location.pathname;
+
         let isLoginMode = false;
-        const authForm = document.getElementById('auth-form');
         
         function switchAuthMode() {
             isLoginMode = !isLoginMode;
-            document.getElementById('auth-title').innerText = isLoginMode ? "Bine ai revenit!" : "Alătură-te Squad-ului";
-            document.getElementById('auth-subtitle').innerText = isLoginMode ? "Introdu datele de logare" : "Creează-ți profilul MindPsih26";
+            document.getElementById('auth-title').innerText = isLoginMode ? "Bine ai revenit!" : "MindPsih26";
             document.getElementById('extra-fields').style.display = isLoginMode ? "none" : "flex";
             document.getElementById('auth-submit-btn').innerText = isLoginMode ? "Loghează-te" : "Creează Profil";
-            document.getElementById('auth-switch-text').innerText = isLoginMode ? "Nu ai cont?" : "Ai deja cont?";
             document.getElementById('auth-switch-btn').innerText = isLoginMode ? "Înregistrează-te" : "Loghează-te";
         }
 
-        authForm.addEventListener('submit', (e) => {
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
 
             if (isLoginMode) {
-                const savedUser = JSON.parse(localStorage.getItem(`user_${user}`));
-                if (savedUser && savedUser.pass === pass) {
-                    loginSuccess(savedUser);
-                } else {
-                    alert("Date incorecte!");
-                }
+                const saved = JSON.parse(localStorage.getItem(`user_${user}`));
+                if (saved && saved.pass === pass) loginSuccess(saved);
+                else alert("Date incorecte!");
             } else {
-                const userData = {
-                    user, pass, 
-                    age: document.getElementById('age').value,
-                    gender: document.getElementById('gender').value
-                };
+                const userData = { user, pass, age: document.getElementById('age').value, gender: document.getElementById('gender').value };
                 localStorage.setItem(`user_${user}`, JSON.stringify(userData));
                 loginSuccess(userData);
             }
@@ -197,21 +185,15 @@
         function loginSuccess(userData) {
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('welcome-user').innerText = `Salut, ${userData.user} (${userData.age} ani, ${userData.gender})! 👋`;
+            document.getElementById('welcome-user').innerText = `Salut, ${userData.user}! (${userData.age} ani, ${userData.gender})`;
             navigateTo('home');
         }
 
-        function logout() { location.reload(); }
-
         function copyInvite() {
             const link = document.getElementById('invite-link').innerText;
-            navigator.clipboard.writeText(link);
-            alert("Link-ul de invitație a fost copiat!");
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('menu-overlay');
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+            navigator.clipboard.writeText(link).then(() => {
+                alert("Link-ul a fost copiat! Trimite-l prietenilor.");
+            });
         }
 
         function navigateTo(id) {
@@ -221,19 +203,14 @@
             window.scrollTo(0, 0);
         }
 
-        // CHAT & TEST LOGIC (Păstrate din versiunea anterioară)
-        function sendMsg() {
-            const i = document.getElementById('chat-msg');
-            if(!i.value) return;
-            const b = document.getElementById('chat-box');
-            const d = document.createElement('div');
-            d.className = 'chat-bubble mine';
-            d.innerText = i.value;
-            b.appendChild(d);
-            i.value = '';
-            b.scrollTop = b.scrollHeight;
+        function toggleMenu() {
+            const menu = document.getElementById('menu-overlay');
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        function logout() { location.reload(); }
+
+        // LOGICA TESTE SI CHAT (PĂSTRATĂ)
         const tests = {
             anxiety: { qs: ["Neliniștit des?", "Nod în gât?", "Inimă rapidă?", "Teamă de viitor?", "Somn greu?", "Agitat?", "Amețeli?", "Copleșit?", "Verifici des?", "Transpiri des?", "Teamă de greșeli?", "Coșmaruri?", "Tensiune umeri?", "Eviți locuri?", "Control total?", "Concentrare grea?", "Obosit mereu?", "Irascibil?", "Lipsă aer?", "Gânduri despre alții?"], result: (s) => s > 14 ? "Anxietate mare." : "Ești Zen.", tips: ["Respirație 4-4-4", "Fără cafea", "Scrie ce simți"] },
             emotivity: { qs: ["Plângi ușor?", "Roșești?", "Te dor criticile?", "Teamă de telefoane?", "Pui la suflet?", "Nu poți refuza?", "Fluturi în stomac?", "Teama de tablă?", "Atașament rapid?", "Simți durerea altora?", "Te simți observat?", "Impulsiv la tristețe?", "Nevoie de laude?", "Teamă de autoritate?", "Vremea te schimbă?"], result: (s) => s > 10 ? "Super emotiv." : "Echilibrat.", tips: ["Numără până la 10", "Sport", "Fără grabă"] },
@@ -255,6 +232,18 @@
 
         const conf = ["Spune 'NU'.", "Postură dreaptă.", "Mersi la complimente.", "Nu te scuza degeaba.", "Skill nou.", "Ordine în cameră.", "Ochii în ochii lor.", "Zâmbește.", "Eșec = Lecție.", "Ești suficient de bun!"];
         document.getElementById('conf-list').innerHTML = conf.map(c => `<div class="bg-slate-800 p-5 rounded-2xl border-orange-500 border-l-4">${c}</div>`).join('');
+
+        function sendMsg() {
+            const i = document.getElementById('chat-msg');
+            if(!i.value) return;
+            const b = document.getElementById('chat-box');
+            const d = document.createElement('div');
+            d.className = 'chat-bubble mine';
+            d.innerText = i.value;
+            b.appendChild(d);
+            i.value = '';
+            b.scrollTop = b.scrollHeight;
+        }
     </script>
 </body>
 </html>
