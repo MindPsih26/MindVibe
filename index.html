@@ -171,30 +171,97 @@
             "Termină ce începi", "Fără bârfe", "Abilitate nouă", "Punctualitate", "Ajută discret", "Jurnal recunoștință", "Spațiu curat", "Fără filtre IG", "Dialog interior pozitiv", "Acceptă defectele"
         ];
 
+        // --- TESTE CU ÎNTREBĂRI UNICE ---
         const TESTS = {
             anxietate: {
-                title: "😰 Test Anxietate",
-                q: Array(12).fill("Ai o stare de teamă fără un motiv clar în acest moment?"),
+                title: "😰 Test Anxietate (12 Q)",
+                q: [
+                    "Te simți adesea tensionat sau neliniștit fără un motiv clar?",
+                    "Ai dificultăți în a te relaxa chiar și în timpul liber?",
+                    "Te îngrijorezi excesiv pentru evenimente viitoare?",
+                    "Simți adesea un nod în gât sau fluturi în stomac?",
+                    "Ai probleme cu somnul din cauza gândurilor care nu se opresc?",
+                    "Te temi de situații noi sau necunoscute?",
+                    "Simți nevoia de a verifica lucrurile de mai multe ori?",
+                    "Ai momente de panică bruscă sau respirație accelerată?",
+                    "Eviți anumite locuri de teamă că te-ai putea simți rău?",
+                    "Te simți iritabil din cauza stării de agitație?",
+                    "Ai dificultăți de concentrare din cauza grijilor?",
+                    "Simți că nu poți controla fluxul de gânduri negative?"
+                ],
                 interpret: (s) => s > 40 ? "Anxietate Ridicată" : "Normal",
-                tips: ["Respirație 4-7-8", "Mișcare fizică", "Scris în jurnal"]
+                tips: ["Practică respirația 4-7-8", "Limitează consumul de cafeină", "Încearcă să scrii în jurnal grijile"]
             },
             emotivitate: {
                 title: "🎭 Test Emotivitate (15 Q)",
-                q: Array(15).fill("Simți că emoțiile te copleșesc în situații noi sau neprevăzute?"),
+                q: [
+                    "Te emoționezi ușor când urmărești un film sau citești o carte?",
+                    "Pui la suflet criticile, chiar dacă sunt constructive?",
+                    "Te simți copleșit în medii foarte zgomotoase sau aglomerate?",
+                    "Reacționezi intens la evenimente neașteptate?",
+                    "Îți este greu să-ți ascunzi sentimentele față de ceilalți?",
+                    "Te simți ușor rănit de vorbele altora?",
+                    "Ești foarte empatic față de suferința altora?",
+                    "Ai tendința de a analiza excesiv interacțiunile sociale?",
+                    "Te simți vinovat după ce ai luat o decizie dificilă?",
+                    "Ai stări de spirit care se schimbă rapid?",
+                    "Te simți adesea neînțeles de cei din jur?",
+                    "Îți este greu să vorbești în fața unui grup mare?",
+                    "Simți nevoia de timp singur după o zi plină de interacțiuni?",
+                    "Ești foarte atent la detaliile din mediul tău?",
+                    "Te simți adânc mișcat de artă sau muzică?"
+                ],
                 interpret: (s) => s > 45 ? "Sensibilitate Ridicată" : "Echilibru Emoțional",
-                tips: ["Practică meditația", "Identifică declanșatorii", "Nu pune presiune pe tine"]
+                tips: ["Acceptă-ți emoțiile ca pe o superputere", "Stabilește limite sănătoase", "Practică mindfulness-ul zilnic"]
             },
             bullying: {
                 title: "🛡️ Test Bullying (20 Q)",
-                q: Array(20).fill("Te simți inconfortabil sau intimidat în mediul tău social obișnuit?"),
+                q: [
+                    "Ești adesea ținta glumelor răutăcioase la școală sau online?",
+                    "Te simți exclus intenționat din activitățile de grup?",
+                    "Ai primit mesaje amenințătoare sau jignitoare pe rețelele sociale?",
+                    "Ți-e teamă să mergi în anumite locuri din școală?",
+                    "Simți că ești judecat constant pentru felul în care arăți?",
+                    "Au fost lansate zvonuri false despre tine?",
+                    "Ți-au fost luate sau deteriorate obiecte personale fără acordul tău?",
+                    "Te simți mic sau neimportant în prezența anumitor persoane?",
+                    "Eviți să postezi online de teama comentariilor negative?",
+                    "Ai simțit vreodată presiunea de a face ceva ce nu voiai?",
+                    "Te simți singur chiar și când ești înconjurat de colegi?",
+                    "Cineva încearcă să-ți controleze prieteniile?",
+                    "Ești ignorat când încerci să participi la discuții?",
+                    "Primești porecle care te deranjează?",
+                    "Cineva face gesturi de intimidare la adresa ta?",
+                    "Te simți vinovat pentru lucruri pe care nu le-ai făcut?",
+                    "Ai fost vreodată împins sau lovit 'în joacă'?",
+                    "Te simți stresat înainte de a începe ziua de școală?",
+                    "Simți că nu ai cui să ceri ajutorul în situații dificile?",
+                    "Ai observat o scădere a încrederii în tine în ultima perioadă?"
+                ],
                 interpret: (s) => s > 60 ? "Situație Critică" : "Sigur",
-                tips: ["Vorbește cu un adult", "Păstrează dovezi"]
+                tips: ["Vorbește cu un adult de încredere", "Salvează dovezi dacă e bullying online", "Nu reacționa la provocări"]
             },
             burnout: {
                 title: "🔥 Test Burnout (15 Q)",
-                q: Array(15).fill("Simți că nu mai ai energie deloc pentru responsabilitățile tale?"), 
+                q: [
+                    "Te simți obosit chiar și după ce te-ai odihnit?",
+                    "Ai pierdut interesul pentru hobby-urile care îți plăceau?",
+                    "Te simți detașat sau cinic față de responsabilitățile tale?",
+                    "Simți că munca ta nu are nicio valoare?",
+                    "Ești mai iritabil cu prietenii sau familia?",
+                    "Ai dificultăți în a începe noi proiecte?",
+                    "Simți o lipsă de satisfacție după ce ai realizat ceva?",
+                    "Ai frecvent dureri de cap sau de stomac fără cauză medicală?",
+                    "Simți că ești sub o presiune constantă?",
+                    "Ai probleme de memorie sau de concentrare?",
+                    "Eviți să vorbești despre școală sau proiectele tale?",
+                    "Te simți copleșit de sarcinile zilnice mărunte?",
+                    "Simți că nu ai control asupra propriei vieți?",
+                    "Ai tendința de a te izola social mai mult ca înainte?",
+                    "Simți că resursele tale de energie sunt complet epuizate?"
+                ],
                 interpret: (s) => s > 45 ? "Epuizare Severă" : "Echilibru",
-                tips: ["Pauză totală 2 zile", "Somn 8 ore"]
+                tips: ["Ia o pauză digitală totală", "Prioritizează somnul", "Învață să spui 'Nu' sarcinilor suplimentare"]
             }
         };
 
