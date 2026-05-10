@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindPsih26 | Your Fun Space</title>
+    <title>MindPsih26 | Squad Space</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             overflow-x: hidden;
         }
 
-        /* Fundal cu Emoji-uri mai vizibile */
+        /* Fundal cu Emoji-uri vibrante */
         .emoji-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -50,7 +50,52 @@
         .home-circle:hover { transform: scale(1.1); border-color: white; }
         .home-circle i { font-size: 3rem; margin-bottom: 8px; }
 
-        /* Navigare - Ascundere sectiuni */
+        /* Meniu Principal (Floating Button) */
+        .main-menu-trigger {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: #6366f1;
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .main-menu-trigger:hover { transform: rotate(90deg); background: #818cf8; }
+
+        /* Overlay Meniu Full */
+        #menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .menu-item {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #94a3b8;
+        }
+        .menu-item:hover { color: white; transform: scale(1.1); }
+        .menu-item.active { color: #818cf8; }
+
+        /* Navigare */
         .section-content { display: none; }
         .section-active { display: block; animation: zoomIn 0.3s ease; }
         
@@ -58,6 +103,7 @@
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .chat-bubble { border-radius: 20px; padding: 12px 18px; margin: 5px 0; max-width: 85%; }
         .mine { background: #818cf8; align-self: flex-end; border-bottom-right-radius: 2px; }
@@ -66,7 +112,6 @@
 </head>
 <body>
 
-    <!-- FUNDAL EMOJI VIBRANT -->
     <div class="emoji-bg">
         <span style="position:absolute; top:5%; left:5%;">😎</span>
         <span style="position:absolute; top:15%; left:85%;">⚡</span>
@@ -78,58 +123,63 @@
         <span style="position:absolute; top:65%; left:40%;">🍕</span>
     </div>
 
-    <!-- 🏠 HOME SECTION -->
-    <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6">
-        <header class="text-center mb-16">
+    <div class="main-menu-trigger" onclick="toggleMenu()">
+        <i class="fas fa-grid-2" id="menu-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        </i>
+    </div>
+
+    <div id="menu-overlay" onclick="toggleMenu()">
+        <h2 class="fredoka text-indigo-400 text-xl mb-10">Unde mergem? ⚡</h2>
+        <div class="menu-item fredoka" onclick="navigateTo('home')">Acasă 🏠</div>
+        <div class="menu-item fredoka" onclick="navigateTo('chat-section')">Chat & Fun 💬</div>
+        <div class="menu-item fredoka" onclick="navigateTo('tests-hub')">Arena Testelor 🎮</div>
+        <div class="menu-item fredoka" onclick="navigateTo('cool-tips')">Hacks & Tips ✨</div>
+        <div class="menu-item fredoka" onclick="navigateTo('confidence-zone')">Fii Încrezător 🚀</div>
+        <button class="mt-10 text-slate-500 font-bold uppercase tracking-widest text-sm">Închide x</button>
+    </div>
+
+    <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <header class="mb-16">
             <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 via-yellow-300 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
             <p class="text-white text-xl mt-4 bg-black/30 px-4 py-1 rounded-full inline-block">Welcome to the Squad! 👋</p>
         </header>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500">
-                <i class="fas fa-comments"></i>
+                <i class="fas fa-comments text-white"></i>
                 <span class="font-bold fredoka text-lg leading-tight">Chat & Fun</span>
             </div>
-
             <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600">
-                <i class="fas fa-gamepad"></i>
+                <i class="fas fa-gamepad text-white"></i>
                 <span class="font-bold fredoka text-lg leading-tight">Arena Testelor</span>
             </div>
-
             <div onclick="navigateTo('cool-tips')" class="home-circle bg-cyan-500">
-                <i class="fas fa-bolt"></i>
+                <i class="fas fa-bolt text-white"></i>
                 <span class="font-bold fredoka text-lg leading-tight">Hacks & Tips</span>
             </div>
-
             <div onclick="navigateTo('confidence-zone')" class="home-circle bg-orange-500">
-                <i class="fas fa-rocket"></i>
+                <i class="fas fa-rocket text-white"></i>
                 <span class="font-bold fredoka text-lg leading-tight">Fii Încrezător</span>
             </div>
         </div>
     </section>
 
-    <!-- 🎮 ARENA TESTELOR -->
     <section id="tests-hub" class="section-content max-w-5xl mx-auto py-10 p-6">
-        <button onclick="navigateTo('home')" class="bg-white/10 p-3 rounded-full mb-8 hover:bg-white/20 transition"><i class="fas fa-arrow-left"></i> Acasă</button>
-        <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Alege un test:</h2>
-        
+        <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Ce testăm azi?</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Anxietate -->
             <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer hover:bg-slate-700">
                 <h3 class="text-2xl font-bold">😰 Test Anxietate</h3>
                 <p class="text-slate-400 mt-2">20 întrebări despre liniștea ta interioară.</p>
             </div>
-            <!-- Emotivitate -->
             <div onclick="initTest('emotivity')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-pink-400 cursor-pointer hover:bg-slate-700">
                 <h3 class="text-2xl font-bold">🥺 Test Emotivitate</h3>
                 <p class="text-slate-400 mt-2">15 întrebări despre cum reacționezi la emoții.</p>
             </div>
-            <!-- Burnout -->
             <div onclick="initTest('burnout')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-orange-500 cursor-pointer hover:bg-slate-700">
                 <h3 class="text-2xl font-bold">🔥 Test Burnout</h3>
                 <p class="text-slate-400 mt-2">15 întrebări: Cât de epuizat ești de școală?</p>
             </div>
-            <!-- Bullying -->
             <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer hover:bg-slate-700">
                 <h3 class="text-2xl font-bold">🛑 Test Bullying</h3>
                 <p class="text-slate-400 mt-2">20 întrebări despre siguranța ta în grupuri.</p>
@@ -137,7 +187,6 @@
         </div>
     </section>
 
-    <!-- 📝 TEST ENGINE -->
     <section id="test-runner" class="section-content max-w-2xl mx-auto py-20 p-6">
         <div class="bg-slate-800 p-10 rounded-[50px] text-center shadow-2xl border-4 border-indigo-500/30">
             <div id="q-count" class="text-indigo-400 font-bold mb-4 text-xl">1/20</div>
@@ -149,7 +198,6 @@
         </div>
     </section>
 
-    <!-- 🏆 TEST RESULT -->
     <section id="test-result" class="section-content max-w-2xl mx-auto py-20 p-6">
         <div class="bg-slate-800 p-10 rounded-[50px] text-center">
             <h2 class="text-3xl font-bold fredoka text-yellow-400 mb-6">Interpretare:</h2>
@@ -162,43 +210,50 @@
         </div>
     </section>
 
-    <!-- ⭐ COOL TIPS -->
     <section id="cool-tips" class="section-content max-w-4xl mx-auto py-10 p-6">
-        <button onclick="navigateTo('home')" class="mb-8"><i class="fas fa-arrow-left"></i></button>
         <h2 class="text-4xl font-bold fredoka text-center mb-10 text-cyan-400">Anti-Adictii & Super Hacks 🛠️</h2>
         <div id="hacks-container" class="space-y-6"></div>
     </section>
 
-    <!-- 🚀 CONFIDENCE -->
-    <section id="confidence-zone" class="section-content max-w-4xl mx-auto py-10 p-6">
-        <button onclick="navigateTo('home')" class="mb-8"><i class="fas fa-arrow-left"></i></button>
-        <h2 class="text-4xl font-bold fredoka text-center mb-10 text-orange-400">Fii Încrezător! 🚀</h2>
-        <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    <section id="confidence-zone" class="section-content max-w-4xl mx-auto py-10 p-6 text-center">
+        <h2 class="text-4xl font-bold fredoka mb-10 text-orange-400">Fii Încrezător! 🚀</h2>
+        <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"></div>
     </section>
 
-    <!-- 💬 CHAT -->
     <section id="chat-section" class="section-content max-w-2xl mx-auto py-10 p-6">
-        <button onclick="navigateTo('home')" class="mb-6"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="fredoka text-2xl text-center mb-6">MindVibe Chat 💬</h2>
         <div id="chat-box" class="bg-slate-900/80 rounded-[40px] p-6 h-[60vh] overflow-y-auto flex flex-col mb-6 border border-white/10">
             <div class="chat-bubble theirs">Cine e pe recepție? Invită-ți prietenii la un chat privat! 🤙</div>
         </div>
         <div class="flex gap-2">
             <input id="chat-msg" type="text" placeholder="Scrie ceva cool..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none border border-pink-500/30">
-            <button onclick="sendMsg()" class="bg-pink-500 w-14 h-14 rounded-full shadow-lg"><i class="fas fa-paper-plane"></i></button>
+            <button onclick="sendMsg()" class="bg-pink-500 w-14 h-14 rounded-full shadow-lg"><i class="fas fa-paper-plane text-white flex items-center justify-center"></i></button>
         </div>
     </section>
 
     <script>
-        // NAVIGARE - ASCUNDE TOT IN AFARA DE SECTIUNEA CERUTA
+        // TOGGLE MENIU OVERLAY
+        function toggleMenu() {
+            const menu = document.getElementById('menu-overlay');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        // NAVIGARE
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => {
                 s.classList.remove('section-active');
             });
             const target = document.getElementById(id);
             target.classList.add('section-active');
-            window.scrollTo(0, 0); // Te duce sus automat
+            document.getElementById('menu-overlay').style.display = 'none';
+            window.scrollTo(0, 0);
         }
 
+        // CHAT
         function sendMsg() {
             const i = document.getElementById('chat-msg');
             if(!i.value) return;
@@ -255,7 +310,7 @@
             }
         }
 
-        // HACKS CONTENT
+        // HACKS
         const hacks = [
             { t: "Vaping & Smoking 🚭", s: ["Aruncă device-ul/pachetul.", "Bea apă rece cu paiul.", "Ține mâinile ocupate cu un fidget spinner.", "Fă sport intens 15 min.", "Evită anturajul toxic o perioadă.", "Pune banii economisiți deoparte."] },
             { t: "Screen Addiction 📱", s: ["Ecranul pe Alb-Negru (Grayscale).", "Fără telefon în dormitor noaptea.", "Limitează TikTok la 30 min.", "Șterge app-urile pe care nu le folosești.", "Ieși la plimbare fără telefon.", "Găsește un hobby offline (desen, sport)."] },
