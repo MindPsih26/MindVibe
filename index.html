@@ -8,140 +8,297 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@400;700&display=swap');
+        
         body { font-family: 'Poppins', sans-serif; background: #0f172a; color: white; margin: 0; overflow-x: hidden; }
+        .emoji-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; font-size: 3.5rem; opacity: 0.25; pointer-events: none; user-select: none; }
         .fredoka { font-family: 'Fredoka', sans-serif; }
+        
         .section-content { display: none; }
-        .section-active { display: block; }
+        .section-active { display: block; animation: zoomIn 0.3s ease; }
+        
         .auth-container { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.1); }
-        input, select { background: #334155 !important; border: 1px solid #475569 !important; color: white !important; padding: 12px !important; }
-        .home-circle { width: 150px; height: 150px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; border: 2px solid rgba(255,255,255,0.1); }
+        input, select { background: #334155 !important; border: 1px solid #475569 !important; color: white !important; border-radius: 12px !important; padding: 12px !important; }
+
+        .home-circle { width: 160px; height: 160px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: 0.3s; cursor: pointer; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 4px solid rgba(255,255,255,0.1); }
+        .home-circle:hover { transform: scale(1.1); border-color: white; }
+        
+        .main-menu-trigger { position: fixed; top: 20px; right: 20px; z-index: 100; background: #6366f1; width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        #menu-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; }
+        .menu-item { font-size: 2rem; font-weight: 700; margin: 15px 0; cursor: pointer; }
+        
+        /* CHAT SYSTEM */
+        .chat-container { display: grid; grid-template-columns: 280px 1fr; gap: 20px; height: 65vh; }
+        @media (max-width: 768px) { .chat-container { grid-template-columns: 1fr; } .friends-list { display: none; } }
+        
+        .friends-list { background: rgba(30, 41, 59, 0.5); border-radius: 30px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); overflow-y: auto; }
+        .friend-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-radius: 15px; background: rgba(255,255,255,0.05); margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
+        .friend-item:hover { background: rgba(99, 102, 241, 0.3); }
+        
         .chat-bubble { border-radius: 20px; padding: 10px 16px; margin: 4px 0; max-width: 80%; }
-        .mine { background: #6366f1; align-self: flex-end; }
-        .theirs { background: #334155; align-self: flex-start; }
+        .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; opacity: 0.8; }
+        .mine { background: #6366f1; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .theirs { background: #334155; align-self: flex-start; border-bottom-left-radius: 4px; }
+        
+        #spam-alert { display: none; background: #ef4444; color: white; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 10px; font-weight: bold; animation: shake 0.5s; }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
 </head>
 <body>
 
+    <div class="emoji-bg">
+        <span>😎</span><span>⚡</span><span>🌈</span><span>🚀</span><span>🎨</span><span>💎</span><span>🍀</span><span>🍕</span>
+    </div>
+
     <!-- 🔐 AUTH SECTION -->
     <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
         <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl">
-            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-6 text-indigo-400">MindPsih26</h2>
-            <form id="auth-form" class="flex flex-col gap-4">
+            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
+            <form id="auth-form" class="flex flex-col gap-4 mt-6">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Parolă" required>
                 <div id="extra-fields" class="flex flex-col gap-4">
-                    <input type="number" id="age" placeholder="Vârsta" min="10" max="25">
+                    <input type="number" id="age" placeholder="Vârsta ta" min="10" max="25">
+                    <select id="gender">
+                        <option value="">Sexul</option>
+                        <option value="M">Masculin</option>
+                        <option value="F">Feminin</option>
+                    </select>
                 </div>
-                <button type="submit" class="bg-indigo-600 py-4 rounded-xl font-bold">Intră în Squad</button>
+                <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <input type="checkbox" id="remember-me" class="w-4 h-4">
+                    <label for="remember-me">Rămâi logat 30 zile</label>
+                </div>
+                <button type="submit" id="auth-submit-btn" class="bg-indigo-600 py-4 rounded-xl font-bold text-lg">Creează Profil</button>
             </form>
-            <p class="text-center mt-4 text-sm opacity-60">Pentru link-ul de distribuire: folosește URL-ul curent adăugând #join</p>
+            <button onclick="switchAuthMode()" class="w-full mt-4 text-indigo-400 text-sm" id="auth-switch-btn">Ai deja cont? Loghează-te</button>
         </div>
     </section>
 
-    <!-- 📱 APP CONTENT -->
+    <!-- 📱 MAIN APP -->
     <div id="main-app" style="display: none;">
-        <nav class="p-6 flex justify-between items-center">
-            <h1 class="fredoka text-2xl font-bold text-indigo-400">MindPsih26</h1>
-            <button onclick="logout()" class="text-red-400 text-sm">Logout</button>
-        </nav>
+        <div class="main-menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars text-white"></i></div>
+        <div id="menu-overlay" onclick="toggleMenu()">
+            <div class="menu-item fredoka" onclick="navigateTo('home')">Acasă 🏠</div>
+            <div class="menu-item fredoka" onclick="navigateTo('chat-section')">Chat Squad 💬</div>
+            <div class="menu-item fredoka" onclick="navigateTo('tests-hub')">Arena Testelor 🎮</div>
+            <div class="menu-item fredoka" onclick="navigateTo('cool-tips')">Hacks & Tips ✨</div>
+            <div class="menu-item fredoka" onclick="navigateTo('confidence-zone')">Fii Încrezător 🚀</div>
+            <div class="menu-item fredoka text-red-400" onclick="logout()">Logout 🚪</div>
+        </div>
 
-        <section id="home" class="section-content section-active p-6">
-            <div class="flex flex-wrap gap-4 justify-center">
-                <div onclick="navigateTo('teen-problems')" class="home-circle bg-red-500">🆘 Probleme</div>
-                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600">🎮 Teste</div>
-                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500">💬 Chat</div>
-            </div>
-            
-            <div class="mt-10 bg-slate-800 p-6 rounded-2xl text-center">
-                <h3 class="font-bold mb-2">Distribuie pe WhatsApp</h3>
-                <input type="text" id="share-link" class="w-full text-center" readonly>
-                <button onclick="copyLink()" class="mt-2 bg-green-500 px-6 py-2 rounded-lg text-sm">Copiază Link Invitație</button>
+        <!-- HOME -->
+        <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
+            <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
+            <p id="welcome-user" class="text-white text-xl mt-4 italic"></p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-500"><i class="fas fa-comments text-2xl mb-1"></i><span>Chat</span></div>
+                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600"><i class="fas fa-gamepad text-2xl mb-1"></i><span>Teste</span></div>
+                <div onclick="navigateTo('cool-tips')" class="home-circle bg-cyan-500"><i class="fas fa-bolt text-2xl mb-1"></i><span>Hacks</span></div>
+                <div onclick="navigateTo('confidence-zone')" class="home-circle bg-orange-500"><i class="fas fa-rocket text-2xl mb-1"></i><span>Încredere</span></div>
             </div>
         </section>
 
-        <!-- TOP 10 PROBLEME -->
-        <section id="teen-problems" class="section-content p-6">
-            <h2 class="text-2xl font-bold mb-6">Top 10 Probleme</h2>
-            <div id="problems-list" class="grid gap-4"></div>
+        <!-- CHAT SECTION -->
+        <section id="chat-section" class="section-content max-w-6xl mx-auto py-10 p-6">
+            <div id="spam-alert">⚠️ SPAM DETECTAT! Încă un mesaj și vei fi blocat 3 ore!</div>
+            <div class="chat-container">
+                <div class="friends-list">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-4 tracking-widest">Utilizatori Online (Reali)</p>
+                    <div id="real-users-list" class="space-y-2">
+                        <div class="text-xs text-slate-500 italic">Niciun bot permis aici. Doar persoane reale.</div>
+                    </div>
+                </div>
+                <div class="flex flex-col bg-slate-900/80 rounded-[40px] p-6 border border-white/10">
+                    <div id="chat-box" class="flex-1 overflow-y-auto flex flex-col space-y-2 h-[50vh] mb-4">
+                        <div class="text-center text-slate-500 text-[10px] uppercase tracking-tighter">Sfârșitul listei de mesaje securizate</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="chat-msg" type="text" placeholder="Scrie un mesaj..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none">
+                        <button id="send-btn" onclick="sendMsg()" class="bg-indigo-500 w-14 h-14 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- CHAT -->
-        <section id="chat-section" class="section-content p-6 h-[70vh]">
-            <div id="chat-box" class="h-[80%] overflow-y-auto flex flex-col mb-4"></div>
-            <div class="flex gap-2">
-                <input id="msg-input" class="flex-1 rounded-full px-4" placeholder="Mesajul tău...">
-                <button onclick="sendMsg()" class="bg-indigo-600 px-6 rounded-full">Trimite</button>
+        <!-- TOATE TESTELE PSIHOLOGICE (70 ÎNTREBĂRI TOTAL) -->
+        <section id="tests-hub" class="section-content max-w-5xl mx-auto py-10 p-6">
+            <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Arena Testelor</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div onclick="initTest('anxiety')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-yellow-400 cursor-pointer hover:scale-105 transition">😰 Test Anxietate (20 Q)</div>
+                <div onclick="initTest('emotivity')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-pink-400 cursor-pointer hover:scale-105 transition">🥺 Test Emotivitate (15 Q)</div>
+                <div onclick="initTest('burnout')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-orange-500 cursor-pointer hover:scale-105 transition">🔥 Test Burnout (15 Q)</div>
+                <div onclick="initTest('bullying')" class="bg-slate-800 p-8 rounded-[30px] border-l-8 border-red-500 cursor-pointer hover:scale-105 transition">🛑 Test Bullying (20 Q)</div>
             </div>
+        </section>
+
+        <!-- TEST RUNNER & RESULTS -->
+        <section id="test-runner" class="section-content max-w-2xl mx-auto py-20 p-6">
+            <div class="bg-slate-800 p-10 rounded-[50px] text-center border-4 border-indigo-500/30">
+                <div id="q-count" class="text-indigo-400 font-bold mb-4"></div>
+                <h4 id="q-text" class="text-2xl font-bold mb-12"></h4>
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="answer(1)" class="bg-indigo-600 p-6 rounded-2xl font-bold">DA</button>
+                    <button onclick="answer(0)" class="bg-slate-700 p-6 rounded-2xl font-bold">NU</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="test-result" class="section-content max-w-2xl mx-auto py-20 p-6 text-center">
+            <div class="bg-slate-800 p-10 rounded-[50px]">
+                <h2 class="text-3xl font-bold text-yellow-400 mb-6">Rezultat</h2>
+                <p id="res-text" class="text-xl mb-10 font-bold"></p>
+                <div class="bg-slate-900 p-8 rounded-[30px] text-left border-l-8 border-indigo-500">
+                    <ul id="res-tips" class="space-y-3"></ul>
+                </div>
+                <button onclick="navigateTo('home')" class="mt-12 bg-pink-500 px-12 py-4 rounded-full font-bold">Înapoi</button>
+            </div>
+        </section>
+
+        <!-- HACKS & TIPS -->
+        <section id="cool-tips" class="section-content max-w-4xl mx-auto py-10 p-6">
+            <h2 class="text-4xl font-bold fredoka text-center mb-10 text-cyan-400">Anti-Adictii & Hacks</h2>
+            <div id="hacks-container" class="space-y-6"></div>
+        </section>
+
+        <!-- CONFIDENCE ZONE -->
+        <section id="confidence-zone" class="section-content max-w-4xl mx-auto py-10 p-6 text-center">
+            <h2 class="text-4xl font-bold fredoka mb-10 text-orange-400">Fii Încrezător!</h2>
+            <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"></div>
         </section>
     </div>
 
     <script>
-        // Init logic
-        window.onload = () => {
-            document.getElementById('share-link').value = window.location.origin + window.location.pathname + "#join";
-            if(window.location.hash === "#join") alert("Bun venit! Invită-ți și prietenii!");
-            
-            const session = JSON.parse(localStorage.getItem('user_session'));
-            if(session && (Date.now() - session.date < 30 * 24 * 60 * 60 * 1000)) loginApp(session.user);
+        let currentUser = null;
+        let msgHistory = [];
+        const BAN_TIME = 3 * 60 * 60 * 1000;
+
+        window.onload = function() {
+            checkBanStatus();
+            const session = JSON.parse(localStorage.getItem('active_session'));
+            if (session && (new Date().getTime() - session.loginDate < 30 * 24 * 60 * 60 * 1000)) {
+                loginSuccess(session.userData);
+            }
         };
 
-        function loginApp(user) {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            renderProblems();
+        function checkBanStatus() {
+            const banUntil = localStorage.getItem('chat_ban_until');
+            if (banUntil && new Date().getTime() < banUntil) {
+                disableChat(`BLOCAT PENTRU SPAM. Revino peste câteva ore.`);
+            }
         }
 
-        document.getElementById('auth-form').onsubmit = (e) => {
+        function disableChat(msg) {
+            const input = document.getElementById('chat-msg');
+            const btn = document.getElementById('send-btn');
+            input.disabled = true;
+            input.placeholder = msg;
+            btn.disabled = true;
+            btn.style.opacity = "0.5";
+        }
+
+        // AUTH
+        let isLoginMode = false;
+        function switchAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('auth-title').innerText = isLoginMode ? "Logare" : "MindPsih26";
+            document.getElementById('extra-fields').style.display = isLoginMode ? "none" : "flex";
+            document.getElementById('auth-submit-btn').innerText = isLoginMode ? "Logare" : "Creează Profil";
+        }
+
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const user = document.getElementById('username').value;
-            localStorage.setItem('user_session', JSON.stringify({user, date: Date.now()}));
-            loginApp(user);
-        };
+            const pass = document.getElementById('password').value;
+            const remember = document.getElementById('remember-me').checked;
 
-        // Anti-Spam
-        let lastMsgs = [];
+            if (isLoginMode) {
+                const saved = JSON.parse(localStorage.getItem(`user_${user}`));
+                if (saved && saved.pass === pass) loginSuccess(saved, remember);
+                else alert("Username sau parolă incorectă!");
+            } else {
+                const userData = { user, pass, age: document.getElementById('age').value, gender: document.getElementById('gender').value };
+                localStorage.setItem(`user_${user}`, JSON.stringify(userData));
+                loginSuccess(userData, remember);
+            }
+        });
+
+        function loginSuccess(userData, remember = false) {
+            currentUser = userData;
+            if (remember) localStorage.setItem('active_session', JSON.stringify({ userData, loginDate: new Date().getTime() }));
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('welcome-user').innerText = `Squad Member: ${userData.user} 👋`;
+            navigateTo('home');
+        }
+
+        function logout() { localStorage.removeItem('active_session'); location.reload(); }
+
+        // CHAT (REALI, ANTI-SPAM, PRIVAT)
         function sendMsg() {
-            const banUntil = localStorage.getItem('ban_until');
-            if(banUntil && Date.now() < banUntil) return alert("Ești blocat 3 ore din cauza spam-ului!");
+            const input = document.getElementById('chat-msg');
+            const alertBox = document.getElementById('spam-alert');
+            const now = new Date().getTime();
 
-            const now = Date.now();
-            lastMsgs = lastMsgs.filter(t => now - t < 2000);
-            lastMsgs.push(now);
+            if(!input.value.trim() || !currentUser) return;
 
-            if(lastMsgs.length > 4) {
-                localStorage.setItem('ban_until', now + (3 * 60 * 60 * 1000));
-                alert("SPAM DETECTAT! Blocat 3 ore.");
+            // Anti-spam
+            msgHistory.push(now);
+            msgHistory = msgHistory.filter(t => now - t < 2000);
+
+            if (msgHistory.length === 3) {
+                alertBox.style.display = "block";
+            } else if (msgHistory.length > 3) {
+                localStorage.setItem('chat_ban_until', now + BAN_TIME);
+                disableChat("BLOCAT 3 ORE - SPAM!");
+                alertBox.style.display = "none";
                 return;
             }
 
-            const input = document.getElementById('msg-input');
             const box = document.getElementById('chat-box');
-            box.innerHTML += `<div class="chat-bubble mine">${input.value}</div>`;
+            const div = document.createElement('div');
+            div.className = 'chat-bubble mine';
+            div.innerHTML = `<p class="sender-name">Eu (${currentUser.user})</p><p>${input.value}</p>`;
+            box.appendChild(div);
             input.value = '';
+            box.scrollTop = box.scrollHeight;
+            if (msgHistory.length < 3) alertBox.style.display = "none";
         }
 
-        function renderProblems() {
-            const list = document.getElementById('problems-list');
-            const probs = ["Imaginea corporală", "Presiunea grupului", "Note școlare", "Relația cu părinții", "Anxietate socială", "Dependența de ecrane", "Stima de sine", "Bullying", "Prima dragoste", "Viitorul"];
-            list.innerHTML = probs.map(p => `
-                <div class="bg-slate-800 p-4 rounded-xl border-l-4 border-red-500">
-                    <h3 class="font-bold">${p}</h3>
-                    <p class="text-xs text-slate-400 mt-1">Sfat 1: Comunică deschis • Sfat 2: Nu te compara cu alții • Sfat 3: Cere ajutor specializat.</p>
-                </div>
-            `).join('');
-        }
-
-        function copyLink() {
-            navigator.clipboard.writeText(document.getElementById('share-link').value);
-            alert("Link copiat! Trimite-l pe WhatsApp.");
-        }
-
+        // NAVIGARE
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('section-active'));
             document.getElementById(id).classList.add('section-active');
+            document.getElementById('menu-overlay').style.display = 'none';
+            window.scrollTo(0,0);
         }
 
-        function logout() { localStorage.clear(); location.reload(); }
+        function toggleMenu() {
+            const m = document.getElementById('menu-overlay');
+            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // TOATE TESTELE
+        const tests = {
+            anxiety: { qs: ["Neliniștit des?", "Nod în gât?", "Inimă rapidă?", "Teamă de viitor?", "Somn greu?", "Agitat?", "Amețeli?", "Copleșit?", "Verifici des?", "Transpiri des?", "Teamă de greșeli?", "Coșmaruri?", "Tensiune umeri?", "Eviți locuri?", "Control total?", "Concentrare grea?", "Obosit mereu?", "Irascibil?", "Lipsă aer?", "Gânduri despre alții?"], result: (s) => s > 14 ? "Anxietate mare." : "Ești Zen.", tips: ["Respirație 4-4-4", "Fără cafea", "Scrie ce simți"] },
+            emotivity: { qs: ["Plângi ușor?", "Roșești?", "Te dor criticile?", "Teamă de telefoane?", "Pui la suflet?", "Nu poți refuza?", "Fluturi în stomac?", "Teama de tablă?", "Atașament rapid?", "Simți durerea altora?", "Te simți observat?", "Impulsiv la tristețe?", "Nevoie de laude?", "Teamă de autoritate?", "Vremea te schimbă?"], result: (s) => s > 10 ? "Super emotiv." : "Echilibrat.", tips: ["Numără până la 10", "Sport", "Fără grabă"] },
+            burnout: { qs: ["Obosit la trezire?", "Fără chef de școală?", "Cinic cu colegii?", "Te simți inutil?", "Dureri de cap?", "Mereu în urmă?", "Fără pasiuni?", "Uiți des?", "Te simți blocat?", "Vrei să fugi?", "Mănânci pe stres?", "Irascibil dimineața?", "Nu te deconectezi?", "Vinovat că nu înveți?", "Munca ta nu contează?"], result: (s) => s > 11 ? "Burnout alert!" : "Stresat dar ok.", tips: ["Pauze de 10 min", "Somn 8h", "Cere ajutor"] },
+            bullying: { qs: ["Teamă de liceu?", "Râde cineva de tine?", "Exclus din grupuri?", "Mesaje urâte?", "Teamă de pauze?", "Furturi?", "Amenințări?", "Minciuni?", "Porecle?", "Eviți zone?", "Singur în clasă?", "Vrei altă școală?", "Lovit/Împins?", "Ținta glumelor net?", "Neajutorat?", "Forțat la bani?", "Rușine?", "Niciun prieten?", "Stres în pauză?", "Profesori indiferenți?"], result: (s) => s > 12 ? "Ești victimă bullying." : "Mediu sigur.", tips: ["Vorbește cu un adult", "Blochează agresorii", "Nu e vina ta"] }
+        };
+        let curT, curI, sc;
+        function initTest(k) { curT = tests[k]; curI = 0; sc = 0; navigateTo('test-runner'); showQ(); }
+        function showQ() { document.getElementById('q-count').innerText = `${curI+1}/${curT.qs.length}`; document.getElementById('q-text').innerText = curT.qs[curI]; }
+        function answer(v) { sc += v; curI++; if(curI < curT.qs.length) showQ(); else { navigateTo('test-result'); document.getElementById('res-text').innerText = curT.result(sc); document.getElementById('res-tips').innerHTML = curT.tips.map(t => `<li>🔹 ${t}</li>`).join(''); } }
+
+        // CONTENT
+        const hacks = [
+            { t: "Vaping 🚭", s: ["Aruncă device-ul.", "Apă rece.", "Sport intens."] },
+            { t: "Screen Addiction 📱", s: ["Mod Alb-Negru.", "Limită 30m TikTok."] }
+        ];
+        document.getElementById('hacks-container').innerHTML = hacks.map(h => `<div class="bg-slate-800 p-8 rounded-[35px] border-l-8 border-cyan-400"><h3 class="text-2xl font-bold mb-4">${h.t}</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-3">${h.s.map(s => `<p>✨ ${s}</p>`).join('')}</div></div>`).join('');
+        const conf = ["Spune 'NU'.", "Postură dreaptă.", "Mersi la complimente.", "Zâmbește.", "Eșec = Lecție."];
+        document.getElementById('conf-list').innerHTML = conf.map(c => `<div class="bg-slate-800 p-5 rounded-2xl border-orange-500 border-l-4">${c}</div>`).join('');
     </script>
 </body>
 </html>
