@@ -109,17 +109,17 @@
 
         <!-- ARENA TESTELOR -->
         <section id="tests-hub" class="section-content p-6">
-            <h2 class="text-2xl font-black mb-6">Test Runner</h2>
+            <h2 class="text-2xl font-black mb-6">Arena Testelor</h2>
             <div id="tests-grid" class="grid gap-4"></div>
         </section>
 
-        <!-- TOP 15 PROBLEME -->
+        <!-- TOP 15 -->
         <section id="top-15" class="section-content p-6">
-            <h2 class="text-2xl font-black mb-6 text-orange-500 italic">Top 15 Probleme Adolescenți</h2>
-            <div id="list-15" class="space-y-6"></div>
+            <h2 class="text-2xl font-black mb-6 text-orange-500">Top 15 Probleme</h2>
+            <div id="list-15" class="space-y-4"></div>
         </section>
 
-        <!-- HACKS (ANTI-ADDICT) -->
+        <!-- HACKS -->
         <section id="anti-addiction" class="section-content p-6">
             <h2 class="text-2xl font-black mb-6 text-cyan-400 italic">🛡️ Anti-Adicții Hacks</h2>
             <div id="addict-list" class="grid gap-4 md:grid-cols-2"></div>
@@ -151,21 +151,14 @@
     <script>
         // --- DATABASE ---
         const PROBLEMS = [
-            {p: "Acceptarea Aspectului Fizic", s: ["Focalizează-te pe ce poate face corpul tău", "Haine care te fac să te simți comod", "Fără filtre în poze o săptămână", "Sport pentru energie, nu pentru look", "Spune-ți ceva bun în oglindă", "Limitează conturile 'fitspo'", "Perfecțiunea nu există", "Îmbracă-te cum îți place ție", "Fii blând cu tine", "Aspectul e doar o parte din tine"]},
-            {p: "Notele și Presiunea Școlară", s: ["Metoda Pomodoro", "Stabilește priorități zilnice", "Notele nu definesc valoarea ta", "Dormi 8 ore pentru memorie", "Cere ajutor profesorilor", "Învață logic, nu pe de rost", "Plan de învățare realist", "Nu te compara cu cei care tocesc", "Pauze de deconectare totală", "Ești la școală să înveți, nu să fii robot"]},
-            {p: "Conflictul cu Părinții", s: ["Explică-le calm cum te simți", "Folosește 'Eu simt că'", "Propune un compromis ulterior", "Ascultă și varianta lor", "Cere timp pentru tine", "Arată responsabilitate în lucruri mici", "Nu reacționa impulsiv", "Caută un moment neutru pentru discuții", "Explică nevoia de autonomie", "Vor să te protejeze, chiar dacă greșesc"]},
-            {p: "Dependența de Smartphone", s: ["Limite de timp pe aplicații", "Fără telefon înainte de somn", "Lasă telefonul în altă cameră când înveți", "Găsește un hobby fizic", "O zi pe săptămână 'Digital Detox'", "Dezactivează notificările inutile", "Ecran în modul alb-negru", "Fără telefon la masă", "Lasă-l în geantă cu prietenii", "Recunoaște când e doar plictiseală"]},
-            {p: "Frica de Judecata Altor", s: ["Oamenii se gândesc mai mult la ei", "Fii autentic, criticile vin oricum", "Înconjoară-te de oameni pozitivi", "Exersează vorbitul în oglindă", "Nu căuta validare online", "Nu poți plăcea tuturor", "Fă ce îți place ție", "Cei care judecă au nesiguranțe", "Încrederea crește prin decizii proprii", "Nu te scuza pentru cine ești"]},
-            {p: "Anxietate și Panică", s: ["Respirație 4-7-8", "Tehnica împământării 5-4-3-2-1", "Redu zahărul și cafeaua", "Vorbește cu un consilier", "Scrie în jurnal temerile", "Acceptă anxietatea ca pe o emoție", "Sportul consumă adrenalina", "Ascultă muzică calmă", "Nu evita locurile, gestionează-le", "Va trece, ai încredere"]},
-            {p: "Dragostea și Despărțirile", s: ["Plânsul e normal, dă-ți timp", "Șterge pozele care te dor temporar", "Nu urmări fostul/fosta pe net", "Ieși cu prietenii", "Focalizează-te pe tine", "Nu intra în altă relație imediat", "Scrie ce simți și arde hârtia", "E o experiență de învățare", "Nu te învinovăți", "Timpul vindecă tot"]},
-            {p: "Lipsa de Motivație", s: ["Fă pași mici (5 minute)", "Recompensează-te", "Ascultă muzică energică", "Fă ordine la birou", "Gândește-te la 'De ce'-ul tău", "Notează progresul", "Acceptă zilele proaste", "Începe fără să aștepți inspirația", "Obiective pe termen scurt", "Odihnește-te când ești ars"]},
-            {p: "Bullying / Cyberbullying", s: ["Block și Report imediat", "Anunță un adult", "Nu intra în jocul lor", "Salvează dovezi (screenshots)", "Ești valoros, nu crede ce spun", "Nu răspunde cu violență", "Stai în grupuri sigure", "Nu lăsa jignirile să intre la inimă", "Caută sprijin la școală", "Nu e vina ta niciodată"]},
-            {p: "Sentimentul de Singurătate", s: ["Ieși la evenimente locale", "Înscrie-te la un grup/curs", "Salută tu primul", "Fii tu un prieten bun întâi", "Voluntariatul deschide uși", "Acceptă invitațiile", "Nu te izola complet", "Comunități online sănătoase", "Ești o persoană valoroasă", "Răbdare cu noile prietenii"]},
-            {p: "Oboseala Cronică", s: ["Rutină fixă de somn", "Fără ecrane înainte de culcare", "Bea suficientă apă", "Aerisește camera", "Verifică Vitamina D/Fierul", "Fără cofeină după-amiaza", "Stretching ușor", "Elimină zgomotele de fundal", "Ascultă-ți corpul", "Echilibrează studiul cu odihna"]},
-            {p: "Frica de Viitor", s: ["Trăiește în prezent", "E ok să nu știi totul acum", "Explorează ce îți place", "Vorbește cu adulți din diverse domenii", "Planuri pe termen scurt", "Viața e imprevizibilă, e normal", "Succesul e un drum", "Învață abilități noi", "Nu te compara cu adulții", "Te vei adapta, ai încredere"]},
-            {p: "Invidia față de alții", s: ["Fiecare are lupte ascunse", "Fii recunoscător pentru ce ai", "Dezinstalează aplicații frustrante", "Fiecare are ritmul lui", "Transformă invidia în ambiție", "Nu te compara cu poze editate", "Focalizează-te pe progresul tău", "Tu ești unicul tău rival", "Apreciază efortul altora", "Ai calități unice"]},
-            {p: "Confuzia de Identitate", s: ["E ok să experimentezi stiluri", "Citește cărți diverse", "Nu te grăbi cu etichetele", "Fii sincer cu nevoile tale", "Explorează pasiuni noi", "Ascultă-te pe tine", "Ești în continuă schimbare", "E ok să te răzgândești", "Acceptă schimbarea de gusturi", "Află ce te face fericit"]},
-            {p: "Lipsa Banilor", s: ["Învață bazele economisirii", "Mici joburi sezoniere/online", "Vinde ce nu folosești", "Apreciază experiențele, nu obiectele", "Planifică cheltuielile", "Diferențiază nevoi de dorințe", "Gătește acasă", "Evită impulsul de a cumpăra", "Fă un buget săptămânal", "Banii nu definesc fericirea"]}
+            {p: "Acceptarea Aspectului Fizic", s: "Focalizează-te pe ce poate face corpul tău, nu pe cum arată. Redu filtrele."},
+            {p: "Presiunea Notelor", s: "Metoda Pomodoro: 25 min studiu / 5 min pauză. Notele nu sunt valoarea ta."},
+            {p: "Conflictul cu Părinții", s: "Folosește 'Eu simt că...' în loc de 'Voi faceți...'. Caută compromisul."},
+            {p: "Frica de Judecată", s: "Oamenii se gândesc la ei 90% din timp. Fii autentic, criticile trec."},
+            {p: "Anxietate", s: "Tehnica 5-4-3-2-1 (5 lucruri pe care le vezi, 4 pe care le atingi etc.)"},
+            {p: "Despărțiri", s: "Dă-ți timp să plângi. Șterge temporar pozele care dor. Timpul chiar vindecă."},
+            {p: "Singurătate", s: "Salută tu primul. Înscrie-te la un curs de hobby unde vin oameni cu interese comune."},
+            {p: "Cyberbullying", s: "Block & Report imediat. Salvează screenshots. Nu riposta."}
         ];
 
         const ADDICTIONS = {
@@ -181,8 +174,10 @@
         ];
 
         const TESTS = {
-            stima: { title: "Stima de Sine", q: ["Te simți demn de respect?", "Ai curaj să încerci lucruri noi?", "Îți accepți greșelile?"] },
-            bullying: { title: "Test Bullying", q: ["Te temi de anumite persoane la școală?", "Ești exclus din grupuri intenționat?"] }
+            stima: { title: "💎 Stima de Sine", q: ["Simți că ai calități bune?", "Te compari des cu alții de pe net?", "Te simți demn de respect?", "Îți accepți greșelile?"] },
+            bullying: { title: "🛡️ Test Bullying", q: ["Te temi de persoane la școală?", "Ești exclus din grupuri?", "Se râde de tine în public?"] },
+            emotivitate: { title: "🥺 Test Emotivitate", q: ["Plângi ușor la filme?", "Te simți rănit de glume?", "Ești atent la tonul vocii?", "Analizezi gesturi mărunte?"] },
+            anxietate: { title: "😰 Test Anxietate", q: ["Te simți tensionat fără motiv?", "Ai dificultăți de respirație dese?", "Îți faci griji pentru viitor?"] }
         };
 
         let navigationHistory = [];
@@ -200,9 +195,8 @@
         document.getElementById('auth-form').onsubmit = (e) => {
             e.preventDefault();
             const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value; 
+            const p = document.getElementById('password').value;
             const keep = document.getElementById('keep-logged').checked;
-            
             const expiry = keep ? Date.now() + (30 * 24 * 60 * 60 * 1000) : Date.now() + (2 * 60 * 60 * 1000);
             localStorage.setItem('mind_session_2k26', JSON.stringify({user: u, expiry: expiry, pass: btoa(p)}));
             showApp(u);
@@ -211,23 +205,20 @@
         function showApp(u) {
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('user-welcome').innerText = `Salut, ${u}! Ești în zona sigură.`;
+            document.getElementById('user-welcome').innerText = `Salut, ${u}!`;
             navigateTo('home');
         }
 
         function navigateTo(id) {
             if (currentSection !== id) navigationHistory.push(currentSection);
             currentSection = id;
-
             document.querySelectorAll('.section-content').forEach(s => {
                 s.classList.remove('section-active');
                 s.style.display = 'none';
             });
-
             const target = document.getElementById(id);
             target.style.display = 'block';
             setTimeout(() => target.classList.add('section-active'), 10);
-            
             document.getElementById('global-back').style.visibility = (id === 'home') ? 'hidden' : 'visible';
         }
 
@@ -247,37 +238,16 @@
         }
 
         function renderStaticData() {
-            // Probleme actualizate cu 10 SFATURI FIECARE
-            document.getElementById('list-15').innerHTML = PROBLEMS.map(item => `
-                <div class="problem-card">
-                    <h4 class="font-bold text-orange-400 text-base mb-3">${item.p}</h4>
-                    <ul class="text-[10px] text-slate-300 space-y-1 grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                        ${item.s.map(tip => `<li>• ${tip}</li>`).join('')}
-                    </ul>
-                </div>`).join('');
-
-            // Hacks
+            document.getElementById('list-15').innerHTML = PROBLEMS.map(i => `<div class="problem-card"><h4 class="font-bold text-orange-400 text-sm mb-1">${i.p}</h4><p class="text-[10px] text-slate-300">${i.s}</p></div>`).join('');
             let hackHtml = '';
             for(let key in ADDICTIONS) {
-                hackHtml += `<div class="bg-slate-800 p-4 rounded-2xl border-b-2 border-cyan-500">
-                    <h4 class="text-xs font-bold text-cyan-400 mb-2">${key}</h4>
-                    <ul class="text-[10px] space-y-1">${ADDICTIONS[key].map(h => `<li>⚡ ${h}</li>`).join('')}</ul>
-                </div>`;
+                hackHtml += `<div class="bg-slate-800 p-4 rounded-2xl border-b-2 border-cyan-500"><h4 class="text-xs font-bold text-cyan-400 mb-2">${key}</h4><ul class="text-[10px] space-y-1">${ADDICTIONS[key].map(h => `<li>⚡ ${h}</li>`).join('')}</ul></div>`;
             }
             document.getElementById('addict-list').innerHTML = hackHtml;
-
-            // Confidence
-            document.getElementById('conf-list').innerHTML = CONFIDENCE.map(c => `
-                <div class="bg-slate-800/50 p-3 rounded-xl border border-white/5 italic">✨ ${c}</div>`).join('');
-
-            // Tests Grid
-            document.getElementById('tests-grid').innerHTML = Object.keys(TESTS).map(k => `
-                <button onclick="runTest('${k}')" class="bg-slate-800 p-6 rounded-2xl border-l-4 border-indigo-500 text-left">
-                    <div class="font-bold">${TESTS[k].title}</div>
-                </button>`).join('');
+            document.getElementById('conf-list').innerHTML = CONFIDENCE.map(c => `<div class="bg-slate-800/50 p-3 rounded-xl border border-white/5 italic">✨ ${c}</div>`).join('');
+            document.getElementById('tests-grid').innerHTML = Object.keys(TESTS).map(k => `<button onclick="runTest('${k}')" class="bg-slate-800 p-6 rounded-2xl border-l-4 border-indigo-500 text-left hover:bg-slate-700 transition-all"><div class="font-bold">${TESTS[k].title}</div></button>`).join('');
         }
 
-        // --- TEST ENGINE ---
         let currentTest = null;
         let qIdx = 0;
         let score = 0;
@@ -294,9 +264,7 @@
 
         function showQ() {
             document.getElementById('question-text').innerText = currentTest.q[qIdx];
-            document.getElementById('test-options').innerHTML = [1,3,5].map(v => `
-                <button onclick="handleAns(${v})" class="bg-slate-800 p-4 rounded-xl hover:bg-indigo-600 transition-all">Nota ${v}</button>
-            `).join('');
+            document.getElementById('test-options').innerHTML = [1,3,5].map(v => `<button onclick="handleAns(${v})" class="bg-slate-800 p-4 rounded-xl hover:bg-indigo-600 transition-all">Nota ${v}</button>`).join('');
         }
 
         function handleAns(v) {
@@ -306,36 +274,27 @@
                 document.getElementById('question-container').classList.add('hidden');
                 document.getElementById('test-result').classList.remove('hidden');
                 document.getElementById('result-score').innerText = score > (currentTest.q.length * 3) ? "Nivel Ridicat" : "Nivel Echilibrat";
-                document.getElementById('result-tip').innerText = "Squad-ul îți recomandă să discuți cu cineva dacă simți presiune.";
+                document.getElementById('result-tip').innerText = "Acesta este un indicator rapid. Dacă te simți copleșit, cere sfatul unui specialist.";
             }
         }
 
-        // --- CHAT & OTHERS ---
         function sendMsg() {
             const input = document.getElementById('chat-msg');
             if(!input.value) return;
             const chat = document.getElementById('chat-box');
-            chat.innerHTML += `<div class="bg-indigo-600/20 p-3 rounded-2xl self-end ml-10 border border-indigo-500/20">
-                <p class="text-[9px] text-indigo-400 font-bold mb-1">TU</p>
-                <p class="text-xs">${input.value}</p>
-            </div>`;
+            chat.innerHTML += `<div class="bg-indigo-600/20 p-3 rounded-2xl self-end ml-10 border border-indigo-500/20"><p class="text-[9px] text-indigo-400 font-bold mb-1">TU</p><p class="text-xs">${input.value}</p></div>`;
             input.value = '';
             chat.scrollTop = chat.scrollHeight;
         }
 
-        function privateInvite(user) {
-            alert(`Cerere trimisă către ${user}. Așteaptă acceptul pentru canalul privat securizat.`);
-        }
+        function privateInvite(user) { alert(`Cerere trimisă către ${user}.`); }
 
         function setMood(m, btn) {
             document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
 
-        function logout() {
-            localStorage.removeItem('mind_session_2k26');
-            location.reload();
-        }
+        function logout() { localStorage.removeItem('mind_session_2k26'); location.reload(); }
     </script>
 </body>
 </html>
