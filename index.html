@@ -2,123 +2,260 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>MindPsih26 | Squad Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindPsih26 | Official Squad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: #0f172a; color: white; margin: 0; }
         .section-content { display: none; }
         .section-active { display: block; }
-        body { background: #0f172a; color: white; font-family: sans-serif; }
+        .home-circle { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.3s; font-weight: bold; border: 2px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
+        .home-circle:hover { transform: scale(1.1); border-color: #6366f1; }
+        input, select { background: #1e293b !important; border: 1px solid #475569 !important; color: white !important; border-radius: 12px; padding: 12px; }
+        .chat-container { height: 400px; background: #020617; border-radius: 20px; padding: 15px; overflow-y: auto; }
     </style>
 </head>
 <body>
-    <!-- AUTH -->
-    <section id="auth-section" class="section-content section-active p-10">
-        <form id="auth-form" class="max-w-sm mx-auto bg-slate-800 p-8 rounded-2xl">
-            <h2 class="text-2xl font-bold mb-4">Login MindPsih26</h2>
-            <input type="text" id="user" placeholder="Username" class="w-full mb-4 p-2 text-black">
-            <label><input type="checkbox" id="keep"> 30 zile</label>
-            <button type="submit" class="w-full bg-indigo-600 mt-4 p-2">Intră</button>
-        </form>
+
+    <!-- AUTH SECTION -->
+    <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
+        <div class="bg-slate-800 p-8 rounded-[40px] w-full max-w-md shadow-2xl border border-white/10">
+            <h2 class="text-3xl font-extrabold text-center mb-6 text-indigo-400">MindPsih26</h2>
+            <form id="auth-form" class="flex flex-col gap-4">
+                <input type="text" id="username" placeholder="Username" required>
+                <div class="flex gap-2">
+                    <input type="number" id="age" placeholder="Vârstă" class="w-1/2" required>
+                    <select id="gender" class="w-1/2" required>
+                        <option value="">Sex</option>
+                        <option value="M">Masculin</option>
+                        <option value="F">Feminin</option>
+                    </select>
+                </div>
+                <input type="password" id="password" placeholder="Parolă" required>
+                <label class="text-xs text-slate-400 flex items-center gap-2">
+                    <input type="checkbox" id="keep-logged" checked> Rămâi logat 30 zile
+                </label>
+                <button type="submit" class="bg-indigo-600 py-4 rounded-xl font-bold hover:bg-indigo-500">Creează Profil / Intră</button>
+            </form>
+        </div>
     </section>
 
-    <!-- MAIN APP -->
-    <div id="main-app" style="display: none;" class="p-6">
-        <nav class="flex gap-4 mb-6">
-            <button onclick="navigateTo('home')">Home</button>
-            <button onclick="navigateTo('chat-section')">Chat Squad</button>
-            <button onclick="navigateTo('tests-hub')">Teste</button>
-            <button onclick="navigateTo('anti-addiction')">Adicții</button>
+    <!-- APP MAIN -->
+    <div id="main-app" style="display: none;">
+        <nav class="p-5 flex justify-between items-center border-b border-white/10">
+            <span class="font-black text-xl text-indigo-400" onclick="navigateTo('home')" style="cursor:pointer">MindPsih26</span>
+            <div id="user-display" class="text-xs text-slate-400"></div>
+            <button onclick="logout()" class="text-red-500 text-xs font-bold uppercase">Logout</button>
         </nav>
 
-        <section id="home" class="section-content section-active">
-            <h1 class="text-3xl font-bold">Bun venit, Squad!</h1>
-            <input type="text" id="wa-link" readonly class="w-full mt-4 p-2 text-black">
-            <button onclick="copyLink()" class="bg-green-600 p-2 mt-2">Copy Link WhatsApp</button>
+        <!-- MENU HOME -->
+        <section id="home" class="section-content section-active p-6">
+            <div class="grid grid-cols-2 gap-6 justify-items-center mb-10">
+                <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-600">💬 CHAT<br>SQUAD</div>
+                <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600">🎮 ARENA<br>TESTELOR</div>
+                <div onclick="navigateTo('top-15')" class="home-circle bg-orange-600">🚩 TOP 15<br>PROBLEME</div>
+                <div onclick="navigateTo('anti-addiction')" class="home-circle bg-cyan-600">🛡️ ANTI<br>ADICȚII</div>
+                <div onclick="navigateTo('confidence')" class="home-circle bg-emerald-600">🚀 ÎNCREDERE</div>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-3xl text-center">
+                <p class="text-xs mb-3 text-slate-400">Link logare directă WhatsApp:</p>
+                <button onclick="copyLink()" class="bg-green-600 px-6 py-2 rounded-xl font-bold text-sm">COPIAZĂ LINK INVITAȚIE</button>
+            </div>
         </section>
 
         <!-- CHAT -->
-        <section id="chat-section" class="section-content">
-            <div class="flex">
-                <div class="w-1/4 border-r pr-4">
-                    <h3 class="font-bold mb-2">Online</h3>
-                    <ul id="users-list"><li>User1 (Online)</li><li>User2 (Online)</li></ul>
+        <section id="chat-section" class="section-content p-6">
+            <div class="flex gap-4">
+                <div class="w-1/3 bg-slate-900 rounded-2xl p-4 border border-white/5">
+                    <h4 class="text-xs font-bold text-indigo-400 mb-4 uppercase">Membri Online</h4>
+                    <ul id="online-users" class="text-sm space-y-3">
+                        <li class="flex justify-between items-center">Alex_22 <button class="text-[10px] bg-slate-700 px-2 rounded">Privat</button></li>
+                        <li class="flex justify-between items-center">Maria_Squad <button class="text-[10px] bg-slate-700 px-2 rounded">Privat</button></li>
+                    </ul>
                 </div>
-                <div class="w-3/4 pl-4">
-                    <div id="chat-box" class="h-64 overflow-y-auto bg-slate-900 p-4 mb-2"></div>
-                    <input type="text" id="msg-in" class="w-full text-black p-2" placeholder="Mesaj...">
-                    <button onclick="sendMsg()" class="bg-indigo-600 px-4 mt-2">Trimite</button>
+                <div class="w-2/3">
+                    <div id="chat-box" class="chat-container mb-4 text-sm space-y-2"></div>
+                    <div class="flex gap-2">
+                        <input id="chat-msg" type="text" placeholder="Scrie un mesaj..." class="flex-1 text-sm">
+                        <button onclick="sendMsg()" class="bg-indigo-600 px-4 rounded-xl">Trimite</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- TESTE -->
-        <section id="tests-hub" class="section-content">
-            <button onclick="runTest('stima')" class="block bg-slate-700 p-4 mb-2 w-full">Test Stima de Sine (20 Q)</button>
-            <button onclick="runTest('anxietate')" class="block bg-slate-700 p-4 mb-2 w-full">Test Anxietate (15 Q)</button>
+        <section id="tests-hub" class="section-content p-6">
+            <h2 class="text-2xl font-bold mb-6">Arena Testelor</h2>
+            <div class="grid gap-4">
+                <button onclick="runComplexTest('stima')" class="bg-slate-800 p-5 rounded-2xl border-l-4 border-pink-500 text-left">💎 Stima de Sine (20 Întrebări)</button>
+                <button onclick="runComplexTest('anxietate')" class="bg-slate-800 p-5 rounded-2xl border-l-4 border-indigo-500 text-left">😰 Test Anxietate (15 Întrebări)</button>
+                <button onclick="runComplexTest('emotivitate')" class="bg-slate-800 p-5 rounded-2xl border-l-4 border-yellow-500 text-left">🥺 Test Emotivitate (15 Întrebări)</button>
+                <button onclick="runComplexTest('bullying')" class="bg-slate-800 p-5 rounded-2xl border-l-4 border-red-500 text-left">🛡️ Test Bullying (20 Întrebări)</button>
+            </div>
         </section>
 
-        <!-- ADICȚII -->
-        <section id="anti-addiction" class="section-content">
-            <div id="addict-list"></div>
+        <!-- TOP 15 PROBLEME -->
+        <section id="top-15" class="section-content p-6">
+            <h2 class="text-2xl font-bold mb-6 text-orange-500">Top 15 Probleme Adolescenți</h2>
+            <div id="list-15" class="space-y-4"></div>
+        </section>
+
+        <!-- ANTI-ADICȚII -->
+        <section id="anti-addiction" class="section-content p-6">
+            <h2 class="text-2xl font-bold mb-6 text-cyan-500">Anti Adicții & Hacks</h2>
+            <div id="addict-list" class="space-y-6"></div>
+        </section>
+
+        <!-- CONFIDENCE -->
+        <section id="confidence" class="section-content p-6">
+            <h2 class="text-2xl font-bold mb-6 text-emerald-500">20 Sfaturi pentru Încredere</h2>
+            <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"></div>
         </section>
     </div>
 
     <script>
-        const ADDICTS = {
-            "Telefon": ["Mod Grayscale", "Fără tel la masă", "Time limits", "Aplicații de blocare", "Hobby fizic", "Notificări OFF", "Dormitor fără ecrane"],
-            "Jocuri": ["Limita de 1h/zi", "Joacă doar după task-uri", "Șterge jocurile toxice", "Sport în loc", "Socializare offline", "Nu cumpăra skin-uri", "Analizează timpul pierdut"],
-            "Zahăr": ["Elimină băuturile dulci", "Fructe în loc de bomboane", "Apă cu lămâie", "Citește etichetele", "Nu cumpăra dulciuri la shop", "Somn mai mult", "Mese regulate"]
-            // ... (restul de 10 adicții)
+        // --- DATE TESTE (INTREBARI UNICE) ---
+        const TEST_CONFIG = {
+            stima: {
+                title: "Stima de Sine",
+                q: ["Mă simt la fel de valoros ca ceilalți?", "Îmi accept defectele fizice?", "Pot spune NU fără vinovăție?", "Cred în abilitățile mele?", "Mă simt mândru de ce fac?", "Evit să mă compar cu alții?", "Îmi exprim opiniile liber?", "Mă iert repede când greșesc?", "Mă simt demn de iubire?", "Sunt optimist în privința mea?", "Accept complimentele ușor?", "Nu mă critic sever?", "Mă simt confortabil singur?", "Îmi urmez propriile visuri?", "Sunt curajos în fața provocărilor?", "Îmi pasă mai puțin de gura lumii?", "Mă consider o persoană bună?", "Îmi fac timp pentru mine?", "Mă simt stăpân pe viața mea?", "Îmi place cine sunt astăzi?"],
+                tips: "Exersează recunoștința zilnic și oprește dialogul intern negativ!"
+            },
+            anxietate: {
+                title: "Anxietate",
+                q: ["Ai des palme transpirate?", "Simți un nod în gât frecvent?", "Îți faci griji pentru viitor?", "Ai tulburări de somn?", "Ești mereu în alertă?", "Ai atacuri de panică bruște?", "Eviți locurile aglomerate?", "Simți tensiune musculară?", "Îți pierzi răsuflarea ușor?", "Ai gânduri catastrofale?", "Te temi de judecata altora?", "Ai stări de amețeală?", "Ești iritabil fără motiv?", "Verifici lucrurile de mai multe ori?", "Simți agitație în piept?"],
+                tips: "Încearcă tehnica respirației 4-7-8 și redu timpul pe ecrane."
+            },
+            emotivitate: {
+                title: "Emotivitate",
+                q: ["Plângi ușor la filme sau muzică?", "Te simți copleșit de zgomote?", "Emoțiile altora te afectează?", "Te gândești mult la ce ai spus?", "Ești foarte conștiincios?", "Te sperii ușor?", "Căutai aprobarea constant?", "Simți criticile ca pe o durere?", "Ești foarte intuitiv?", "Te deranjează lumina puternică?", "Simți nevoia de retragere?", "Ești profund mișcat de artă?", "Eviți conflictele cu orice preț?", "Te simți 'altfel' decât restul?", "Analizezi fiecare detaliu?"],
+                tips: "Ești o persoană senzitivă. Învață să transformi asta într-o putere (empatia)."
+            },
+            bullying: {
+                title: "Bullying & Reziliență",
+                q: ["Ți-e frică să mergi la școală?", "Ești exclus din grupuri intenționat?", "Ai primit mesaje jignitoare?", "S-au răspândit zvonuri despre tine?", "Te simți singur în pauze?", "Ai fost amenințat vreodată?", "Ți-au fost luate lucruri fără voie?", "Ești ținta glumelor în clasă?", "Te simți neputincios în fața lor?", "Părinții știu prin ce treci?", "Eviți anumite zone din școală?", "Te simți trist după social media?", "Ai fost bruscat fizic?", "Te simți judecat pentru haine?", "Ai pe cineva căruia să-i spui?", "Bullying-ul îți afectează notele?", "Simți că e vina ta (nu e!)?", "Vrei să te răzbuni?", "Ai gânduri de izolare totală?", "Crezi că situația se poate schimba?"],
+                tips: "Nu tăcea! Vorbește cu un consilier sau un adult de încredere imediat."
+            }
         };
 
-        const QUESTIONS = {
-            stima: ["Îmi place cum arăt?", "Mă simt capabil?", "Accept complimente?", "Am încredere în mine?", "Pot refuza favoruri?", "Mă respect?", "Sunt mândru de mine?", "Nu mă compar?", "Am curaj?", "Îmi exprim părerea?", "Sunt valoros?", "Mă iert?", "Sunt asumat?", "Am hobby-uri?", "Sunt optimist?", "Mă îngrijesc?", "Sunt autentic?", "Am limite?", "Sunt empatic cu mine?", "Sunt calm?"],
-            anxietate: ["Simți panică?", "Ai inima rapidă?", "Îți faci griji?", "Ai insomnii?", "Ești agitat?", "Respiri greu?", "Eviți oameni?", "Te simți presat?", "Ești mereu atent?", "Transpiri?", "Ești timid?", "Ai ticuri?", "Te temi de eșec?", "Ești tensionat?", "Ești copleșit?"]
+        // --- TOP 15 PROBLEME ---
+        const problemsData = [
+            {p: "Imaginea de sine", s: ["Oprește comparația socială", "Fă sport pentru stare nu look", "Afirmații pozitive", "Curăță lista de Follow", "Haine în care te simți tu"]},
+            {p: "Notele mari", s: ["Învață logic, nu pe de rost", "Metoda Pomodoro", "Somn minim 8 ore", "Notele nu definesc valoarea", "Pauze fără telefon"]},
+            {p: "Conflict cu părinții", s: ["Alege momentele de calm", "Folosește 'Eu simt că'", "Propune compromisuri", "Ascultă-le și lor frica", "Cere spațiu cu respect"]},
+            {p: "Presiunea grupului", s: ["Învață să spui 'Nu' ferm", "Caută prieteni cu valori similare", "Nu încerca să mulțumești pe toți", "Fii lider, nu urmăritor", "Părăsește mediile toxice"]},
+            {p: "Dragostea neîmpărtășită", s: ["Acceptă durerea", "Nu urmări profilul persoanei", "Focusează-te pe hobby-ul tău", "Timpul vindecă", "Ieși cu prietenii"]},
+            {p: "Viitorul profesional", s: ["Explorează mai multe domenii", "Nu trebuie să știi tot de acum", "Fă teste de aptitudini", "Vorbește cu cineva care lucrează deja", "Pași mici"]},
+            {p: "Singurătatea", s: ["Înscrie-te la un curs/voluntariat", "Salută primul", "Redu timpul pe gaming", "Fii tu un prieten bun mai întâi", "Adoptă un animal"]},
+            {p: "Dependența de ecrane", s: ["Setează limite din setări", "O oră offline înainte de somn", "Hobby-uri care implică mâinile", "Lasă tel în altă cameră", "Ieși la plimbare fără tel"]},
+            {p: "Bullying", s: ["Anunță un adult", "Blochează pe net", "Nu răspunde cu agresivitate", "Stai în grupuri de oameni buni", "Păstrează dovezi (screenshots)"]},
+            {p: "Lipsa banilor", s: ["Învață economisirea", "Vinde ce nu mai folosești", "Caută mici joburi de vară", "Fă un buget săptămânal", "Diferențiază nevoile de dorințe"]},
+            {p: "Anxietatea socială", s: ["Expunere mică repetată", "Exerciții de respirație", "Nu toată lumea se uită la tine", "Pregătește 3 subiecte de discuție", "Fii blând cu tine"]},
+            {p: "Oboseala cronică", s: ["Rutină de somn fixă", "Mai puțină cofeină", "Bea apă suficientă", "Închide ecranele la ora 22", "Verifică vitaminele"]},
+            {p: "Identitatea sexuală", s: ["Nu te grăbi să te etichetezi", "Caută grupuri de suport", "Citește experiențe similare", "Ai răbdare cu procesul tău", "Ești ok așa cum ești"]},
+            {p: "Frica de eșec", s: ["Eșecul e doar feedback", "Încearcă din nou altfel", "Nimeni nu reușește din prima", "Redefinește succesul", "Fii curajos"]},
+            {p: "Sentimentul de neapartenență", s: ["Caută grupuri de nișă (anime, sport, arta)", "Nu te schimba pentru a fi acceptat", "Fii tu însuți 100%", "Autocunoaștere", "Răbdare"]}
+        ];
+
+        // --- ANTI ADICȚII ---
+        const addictionData = {
+            "Social Media": ["Șterge aplicațiile în weekend", "Dezactivează notificările", "Mod gri la ecran", "Fără telefon la masă", "Regula de 15 min dimineața (nu tel)"],
+            "Gaming": ["Joacă doar după ce termini temele", "Setează cronometru vizibil", "Joacă jocuri single-player (mai puțin addictive)", "Fă 20 de flotări după fiecare meci", "Ieși afară zilnic 30 min"],
+            "Zahăr/Dulciuri": ["Înlocuiește sucul cu apă", "Nu cumpăra stocuri în casă", "Mănâncă fructe când ai poftă", "Citește cât zahăr are un produs", "Gătește tu deserturi sănătoase"],
+            "Pornografie": ["Instalează filtre de protecție", "Identifică momentele de plictiseală", "Nu sta cu laptopul în pat", "Învață despre efectele reale asupra creierului", "Caută ajutor specializat"],
+            "Fumat/Vaping": ["Aruncă dispozitivul ACUM", "Mestecă gumă când ai poftă", "Evită grupurile unde se fumează", "Economisește banii într-un borcan", "Bea apă rece cu paiul"],
+            "Validare de la alții": ["Nu mai cere părerea la orice postare", "Fă lucruri doar pentru tine", "Învață să te feliciți singur", "Jurnal de succese", "Stai offline 24h"],
+            "Cumpărături impulsive": ["Regula celor 48 de ore (așteaptă înainte să iei)", "Șterge cardul din aplicații", "Fă listă clară de cumpărături", "Nu ieși la mall când ești trist", "Calculează prețul în ore de muncă"],
+            "Cofeină/Energizante": ["Înlocuiește cu ceai verde", "Bea apă înainte de cafea", "Fără cofeină după ora 14:00", "Redu treptat cantitatea", "Dormi mai mult ca să ai energie reală"],
+            "Procrastinare": ["Regula de 5 secunde", "Începe cu cel mai greu task", "Închide telefonul complet", "Work-space curat", "Setează deadline-uri artificiale"],
+            "Relații toxice": ["Recunoaște semnele (control, gelozie)", "Pune limite clare", "Nu mai răspunde la mesaje nocturne", "Focalizează-te pe tine", "Cere ajutorul prietenilor buni"]
         };
 
-        function runTest(key) {
+        const confData = [
+            "Îndreaptă spatele și ridică bărbia", "Privește oamenii în ochi când vorbești", "Nu te mai scuza pentru lucruri mici", "Învață o abilitate nouă în fiecare lună", "Fă sport: corpul tău va secreta încredere", "Vorbește mai rar și mai clar", "Îmbracă-te în haine care îți vin bine", "Acceptă complimentele cu un simplu 'Mulțumesc'", "Învață să spui 'Nu' fără explicații lungi", "Stai cu oameni care te încurajează", "Ieși din zona de confort o dată pe zi", "Nu te mai plânge de defecte în gura mare", "Ai grijă de igiena ta personală impecabil", "Ține-te de promisiunile făcute ție însuți", "Citește cărți de psihologie/dezvoltare", "Învață să asculți mai mult decât vorbești", "Nu te mai compara cu pozele editate", "Fă-ți patul în fiecare dimineață", "Ajută pe cineva care are nevoie", "Zâmbește mai des, chiar și ție în oglindă"
+        ];
+
+        // --- LOGICĂ SISTEM ---
+        window.onload = () => {
+            const sess = JSON.parse(localStorage.getItem('mindpsih_sess'));
+            if(sess && (Date.now() - sess.time < 30*24*60*60*1000)) showApp(sess.u);
+            renderAll();
+        };
+
+        document.getElementById('auth-form').onsubmit = (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            localStorage.setItem('mindpsih_sess', JSON.stringify({u, time: Date.now()}));
+            showApp(u);
+        };
+
+        function showApp(u) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('user-display').innerText = `Activ: ${u}`;
+        }
+
+        function renderAll() {
+            // Probleme
+            document.getElementById('list-15').innerHTML = problemsData.map(item => `
+                <div class="bg-slate-800 p-5 rounded-2xl border-l-4 border-orange-500">
+                    <h4 class="font-bold mb-2">${item.p}</h4>
+                    <ul class="text-xs text-slate-400 space-y-1">${item.s.map(s => `<li>• ${s}</li>`).join('')}</ul>
+                </div>`).join('');
+            
+            // Adicții
+            let addHtml = '';
+            for(let key in addictionData) {
+                addHtml += `
+                <div class="bg-slate-800 p-5 rounded-2xl border-l-4 border-cyan-500">
+                    <h4 class="font-bold mb-2 text-cyan-400">${key}</h4>
+                    <ul class="text-xs text-slate-400 space-y-1">${addictionData[key].map(h => `<li>⚡ ${h}</li>`).join('')}</ul>
+                </div>`;
+            }
+            document.getElementById('addict-list').innerHTML = addHtml;
+
+            // Confidence
+            document.getElementById('conf-list').innerHTML = confData.map(c => `
+                <div class="bg-slate-800/50 p-3 rounded-xl border border-white/5">✨ ${c}</div>`).join('');
+        }
+
+        function runComplexTest(type) {
+            const data = TEST_CONFIG[type];
             let score = 0;
-            QUESTIONS[key].forEach((q, i) => {
-                let ans = prompt(`Q${i+1}: ${q} (1-4)`);
-                score += parseInt(ans || 0);
-            });
-            alert(`Scor: ${score}. Sfaturi: ${key === 'stima' ? "Învață să te iubești" : "Respiră adânc"}`);
+            alert(`Începem ${data.title}. Răspunde cu 1 (Deloc) până la 5 (Foarte mult).`);
+            for(let i=0; i<data.q.length; i++) {
+                let ans = prompt(`Întrebarea ${i+1}/${data.q.length}:\n${data.q[i]}`);
+                score += parseInt(ans || 1);
+            }
+            const final = score / data.q.length;
+            let result = final > 3.5 ? "Nivel Ridicat" : (final > 2 ? "Nivel Mediu" : "Nivel Scăzut");
+            alert(`REZULTAT: ${result}\n\nSfat: ${data.tips}`);
         }
 
         function sendMsg() {
-            const msg = document.getElementById('msg-in').value;
-            document.getElementById('chat-box').innerHTML += `<div>Tu: ${msg}</div>`;
+            const input = document.getElementById('chat-msg');
+            if(!input.value) return;
+            const box = document.getElementById('chat-box');
+            box.innerHTML += `<div class="bg-indigo-600/20 p-3 rounded-2xl border border-indigo-500/20">
+                <span class="font-bold text-indigo-400 text-xs">Tu:</span><br>${input.value}
+            </div>`;
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
         }
 
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('section-active'));
             document.getElementById(id).classList.add('section-active');
+            window.scrollTo(0,0);
         }
 
-        // Persistent Login logic
-        document.getElementById('auth-form').onsubmit = (e) => {
-            e.preventDefault();
-            localStorage.setItem('mind_sess', JSON.stringify({user: document.getElementById('user').value, date: Date.now()}));
-            location.reload();
-        };
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Link copiat! Trimite-l prietenilor tăi pe WhatsApp.");
+        }
 
-        window.onload = () => {
-            document.getElementById('wa-link').value = window.location.href + "#join";
-            const sess = JSON.parse(localStorage.getItem('mind_sess'));
-            if(sess && (Date.now() - sess.date < 30 * 24 * 60 * 60 * 1000)) {
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('main-app').style.display = 'block';
-            }
-            
-            // Populează Adicții
-            let html = "";
-            for(let a in ADDICTS) {
-                html += `<div class='mb-6'><h3 class='font-bold text-xl'>${a}</h3><ul>${ADDICTS[a].map(h => `<li>- ${h}</li>`).join('')}</ul></div>`;
-            }
-            document.getElementById('addict-list').innerHTML = html;
-        };
-        
-        function copyLink() { navigator.clipboard.writeText(document.getElementById('wa-link').value); }
+        function logout() { localStorage.clear(); location.reload(); }
     </script>
 </body>
 </html>
