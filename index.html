@@ -3,197 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindPsih26 | Safe Space & Wellness</title>
+    <title>MindPsih26 | Level Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; scroll-behavior: smooth; }
         .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; }
         .gradient-text { background: linear-gradient(90deg, #38bdf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hidden-section { display: none; }
-        .active-section { display: block; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .chat-bubble { border-radius: 18px; padding: 10px 15px; margin-bottom: 8px; max-width: 80%; }
-        .mine { background: #3b82f6; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .theirs { background: #334155; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .active-section { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .answer-btn { transition: all 0.2s; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(255,255,255,0.1); }
+        .answer-btn:hover { background: #38bdf8; color: white; transform: scale(1.02); }
     </style>
 </head>
-<body class="pb-20">
+<body class="pb-24">
 
-    <!-- HEADER / LOGO -->
+    <!-- HEADER -->
     <header class="p-6 text-center">
         <h1 class="text-4xl font-extrabold gradient-text tracking-tight">MindPsih26</h1>
-        <p class="text-slate-400 text-sm">Your Digital Mental Health Hub</p>
+        <p class="text-slate-400 text-sm italic">Nu ești singur. Suntem aici să facem upgrade.</p>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-4xl mx-auto px-4">
+    <main class="max-w-3xl mx-auto px-4">
         
-        <!-- SECTION: HOME -->
+        <!-- HOME -->
         <section id="home" class="active-section space-y-6">
-            <div class="glass-card p-8 text-center bg-gradient-to-br from-slate-800 to-slate-900">
-                <h2 class="text-2xl font-bold mb-4">Salut! 👋 Ești gata de un upgrade?</h2>
-                <p class="text-slate-300">Aici e locul unde lăsăm stresul la ușă. Explorează secțiunile, fă-ți testele și intră în comunitate.</p>
+            <div class="glass-card p-8 text-center border-b-4 border-sky-500">
+                <h2 class="text-2xl font-bold mb-2">Salut, Legendă! 👋</h2>
+                <p class="text-slate-300">Alege un test din meniul de jos sau explorează sfaturile noastre pentru un mindset de fier.</p>
             </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div onclick="showSection('recharge')" class="glass-card p-4 text-center cursor-pointer hover:scale-105 transition shadow-lg shadow-sky-500/10">
-                    <i class="fas fa-battery-full text-sky-400 text-3xl mb-2"></i>
-                    <p class="font-semibold">Reset Energy</p>
-                </div>
-                <div onclick="showSection('tests-menu')" class="glass-card p-4 text-center cursor-pointer hover:scale-105 transition shadow-lg shadow-purple-500/10">
-                    <i class="fas fa-brain text-purple-400 text-3xl mb-2"></i>
-                    <p class="font-semibold">Arena Teste</p>
+            <div class="grid grid-cols-1 gap-4">
+                <div onclick="showSection('real-talk')" class="glass-card p-6 flex items-center gap-4 cursor-pointer hover:bg-slate-800">
+                    <div class="bg-red-500/20 p-3 rounded-full text-red-500"><i class="fas fa-ban text-xl"></i></div>
+                    <div><h4 class="font-bold">Real Talk: Vape & Junk</h4><p class="text-xs text-slate-400">Află ce îți sabotează creierul.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: RECHARGE (Somn, Public Speaking) -->
-        <section id="recharge" class="hidden-section space-y-6">
-            <h2 class="text-3xl font-bold text-green-400">Reset & Recharge</h2>
-            <div class="glass-card p-6">
-                <h3 class="text-xl font-bold text-sky-300 mb-3">🌙 Arta Somnului Bun</h3>
-                <ul class="space-y-3 text-slate-300">
-                    <li>✨ **Brain Dump:** Scrie tot ce te stresează pe o foaie înainte de culcare.</li>
-                    <li>✨ **Ecrane OFF:** Cu 60 min înainte de somn, telefonul moare. Cititul e noul scroll.</li>
-                    <li>✨ **Deep Breathing:** 4 secunde inspir, 4 secunde pauză, 4 secunde expir.</li>
-                </ul>
-            </div>
-            <div class="glass-card p-6 bg-slate-800/50">
-                <h3 class="text-xl font-bold text-orange-400 mb-3">🎤 10 Sfaturi Public Speaking</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-300">
-                    <p>1. Acceptă emoția (e doar adrenalină).</p>
-                    <p>2. Fixează un punct/prieten în public.</p>
-                    <p>3. Vorbește rar, fă pauze.</p>
-                    <p>4. Hidratează-te (apă, nu suc!).</p>
-                    <p>5. Stai drept (Power Posing).</p>
-                    <p>6. Glumește la început.</p>
-                    <p>7. Nu citi de pe foaie.</p>
-                    <p>8. Mișcă-ți mâinile natural.</p>
-                    <p>9. Vizualizează succesul.</p>
-                    <p>10. Greșeala e ok, treci peste!</p>
+        <!-- TEST ENGINE (Dynamic) -->
+        <section id="test-screen" class="hidden-section">
+            <div class="glass-card p-6 md:p-10">
+                <div id="test-progress" class="w-full bg-slate-700 h-2 rounded-full mb-6">
+                    <div id="progress-bar" class="bg-sky-500 h-2 rounded-full transition-all" style="width: 0%"></div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SECTION: ARENA TESTELOR (Toate cele 4 teste) -->
-        <section id="tests-menu" class="hidden-section space-y-6">
-            <h2 class="text-3xl font-bold text-purple-400 text-center">Arena Testelor</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Test Bullying -->
-                <div onclick="openTest('bullying')" class="glass-card p-6 border-l-4 border-red-500 cursor-pointer hover:bg-slate-800">
-                    <h4 class="font-bold">🚫 Test Bullying</h4>
-                    <p class="text-xs text-slate-400">Află dacă ești într-un mediu toxic. (15 întrebări)</p>
-                </div>
-                <!-- Test Tehnologie -->
-                <div onclick="openTest('tech')" class="glass-card p-6 border-l-4 border-sky-500 cursor-pointer hover:bg-slate-800">
-                    <h4 class="font-bold">📱 Screen Addiction</h4>
-                    <p class="text-xs text-slate-400">Ești stăpânul ecranului sau invers? (20 întrebări)</p>
-                </div>
-                <!-- Test Anxietate -->
-                <div onclick="openTest('anxiety')" class="glass-card p-6 border-l-4 border-yellow-500 cursor-pointer hover:bg-slate-800">
-                    <h4 class="font-bold">😰 Test Anxietate</h4>
-                    <p class="text-xs text-slate-400">Verifică nivelul tău de stres interior.</p>
-                </div>
-                <!-- Test Burnout -->
-                <div onclick="openTest('burnout')" class="glass-card p-6 border-l-4 border-orange-600 cursor-pointer hover:bg-slate-800">
-                    <h4 class="font-bold">🔥 Școala fără Burnout</h4>
-                    <p class="text-xs text-slate-400">Ești epuizat de teme și examene?</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION: CHAT PRIVAT (Messenger Style) -->
-        <section id="chat" class="hidden-section h-[70vh] flex flex-col">
-            <div class="glass-card flex-1 p-4 flex flex-col overflow-hidden">
-                <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-4">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                    <div>
-                        <p class="font-bold leading-tight">Grup Privat: Mind Squad</p>
-                        <p class="text-[10px] text-green-400">● Online acum</p>
+                <div id="question-box" class="text-center">
+                    <h2 id="test-title" class="text-xl font-bold text-sky-400 mb-2">Titlu Test</h2>
+                    <p id="question-text" class="text-2xl font-semibold mb-8 mt-4">Întrebarea apare aici...</p>
+                    <div class="grid grid-cols-1 gap-4" id="options-box">
+                        <!-- Options injected by JS -->
                     </div>
                 </div>
-                <!-- Mesaje -->
-                <div id="chat-messages" class="flex-1 overflow-y-auto flex flex-col p-2 space-y-2">
-                    <div class="chat-bubble theirs">Salut! Bine ai venit în chat-ul privat. Aici poți vorbi orice.</div>
-                    <div class="chat-bubble mine">Hey! Ce tare arată interfața asta.</div>
-                </div>
-                <!-- Input -->
-                <div class="mt-4 flex gap-2">
-                    <input id="chat-input" type="text" placeholder="Scrie un mesaj..." class="flex-1 bg-slate-800 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none">
-                    <button onclick="sendMessage()" class="bg-sky-500 w-10 h-10 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
+                <div id="result-box" class="hidden text-center">
+                    <div class="text-5xl mb-4">🏆</div>
+                    <h2 class="text-3xl font-bold mb-4">Rezultatul tău</h2>
+                    <p id="result-desc" class="text-slate-300 mb-8 px-4">Interpretarea va apărea aici...</p>
+                    <button onclick="showSection('confidence')" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold transition w-full mb-4">Vezi Sfaturi de Ameliorare</button>
+                    <button onclick="location.reload()" class="text-slate-400 underline">Înapoi la meniu</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: FII SIGUR PE TINE -->
-        <section id="confidence" class="hidden-section space-y-6">
-            <h2 class="text-3xl font-bold text-orange-400">Lăsă timiditatea în urmă</h2>
+        <!-- SFATURI: REAL TALK (Vape, Energizante, etc) -->
+        <section id="real-talk" class="hidden-section space-y-6">
+            <h2 class="text-3xl font-bold text-red-500">Real Talk 🚫</h2>
             <div class="glass-card p-6 space-y-4">
-                <p class="text-slate-300">Timiditatea e doar un scut pe care nu mai trebuie să îl porți. Iată pașii tăi de eliberare:</p>
-                <div class="bg-slate-800/40 p-4 rounded-xl border-l-2 border-orange-500 italic text-sm">
-                    "Nu ești ceea ce crezi tu că ești, ci ești ceea ce crezi tu că ceilalți cred că ești. Eliberează-te de opinia lor!"
+                <h3 class="text-xl font-bold text-red-400">Vape & Nicotină</h3>
+                <p class="text-slate-300">Creierul tău e în plin "development". Nicotina e ca un virus care îți rescrie circuitele de atenție. Dacă simți că nu te poți concentra fără el, deja ai un hacker în sistem.</p>
+                <div class="bg-slate-800 p-4 rounded-lg italic text-sm text-red-200">Tip: Dacă vrei să te lași, înlocuiește gestul cu gumă de mestecat sau apă rece cu gheață.</div>
+            </div>
+            <div class="glass-card p-6 space-y-4">
+                <h3 class="text-xl font-bold text-yellow-400">Energizante & Alcool</h3>
+                <p class="text-slate-300">Energizantele nu îți dau aripi, îți dau "anxietate la conservă". Inima ta bate prea tare, iar creierul intră în panică. Alcoolul? Îți adoarme neuronii și îți fură somnul REM, cel care te face deștept.</p>
+            </div>
+        </section>
+
+        <!-- SFATURI: CONFIDENCE & TIMIDITATE -->
+        <section id="confidence" class="hidden-section space-y-6">
+            <h2 class="text-3xl font-bold text-orange-400 text-center">Fii sigur pe tine! 🚀</h2>
+            <div class="glass-card p-6 border-l-4 border-orange-500">
+                <h4 class="font-bold text-xl mb-4">Adio, Timiditate!</h4>
+                <div class="space-y-4 text-slate-200">
+                    <p>✅ **Regula de 3 secunde:** Când vrei să abordezi un grup sau o persoană, numără 1-2-3 și pleacă. Nu lăsa timpul să fabrice frici.</p>
+                    <p>✅ **Privirea:** Menține contactul vizual. Dacă e prea greu la început, uită-te între ochii persoanei.</p>
+                    <p>✅ **Vocea:** Vorbește din stomac, nu din gât. Vocea ta are putere, las-o să se audă!</p>
+                    <p>✅ **Fii interesat, nu interesant:** Pune întrebări. Oamenilor le place să vorbească despre ei. Asta te scoate pe tine din lumina reflectoarelor și scade stresul.</p>
                 </div>
-                <ul class="space-y-4">
-                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Abordarea de 3 secunde:** Nu lăsa creierul să fabrice frici. Vezi pe cineva? Mergi și salută în primele 3 secunde.</span></li>
-                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Power Pose:** Stai 2 minute cu mâinile în șolduri înainte de o prezentare. Scade cortizolul!</span></li>
-                    <li class="flex gap-3"><i class="fas fa-check-circle text-orange-400 mt-1"></i> <span>**Conversația:** Nu trebuie să fii interesant, trebuie să fii interesat. Pune întrebări celuilalt.</span></li>
-                </ul>
             </div>
         </section>
 
     </main>
 
-    <!-- BOTTOM TAB NAVIGATION (Like Instagram/TikTok) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50">
-        <button onclick="showSection('home')" class="flex flex-col items-center text-slate-400 focus:text-sky-400">
+    <!-- NAVIGATION (TAB BAR) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur border-t border-slate-800 px-6 py-4 flex justify-around items-center z-50">
+        <button onclick="showSection('home')" class="flex flex-col items-center text-slate-400 active:text-sky-400">
             <i class="fas fa-home text-xl"></i>
             <span class="text-[10px]">Home</span>
         </button>
-        <button onclick="showSection('tests-menu')" class="flex flex-col items-center text-slate-400 focus:text-purple-400">
-            <i class="fas fa-vial text-xl"></i>
-            <span class="text-[10px]">Teste</span>
+        <button onclick="startTest('bullying')" class="flex flex-col items-center text-slate-400">
+            <i class="fas fa-shield-virus text-xl"></i>
+            <span class="text-[10px]">Bullying</span>
         </button>
-        <button onclick="showSection('chat')" class="flex flex-col items-center text-slate-400 focus:text-green-400">
-            <i class="fas fa-comment-dots text-xl"></i>
-            <span class="text-[10px]">Chat</span>
+        <button onclick="startTest('tech')" class="flex flex-col items-center text-slate-400">
+            <i class="fas fa-mobile-alt text-xl"></i>
+            <span class="text-[10px]">Ecrane</span>
         </button>
-        <button onclick="showSection('confidence')" class="flex flex-col items-center text-slate-400 focus:text-orange-400">
-            <i class="fas fa-user-shield text-xl"></i>
-            <span class="text-[10px]">Profil</span>
+        <button onclick="startTest('anxiety')" class="flex flex-col items-center text-slate-400">
+            <i class="fas fa-ghost text-xl"></i>
+            <span class="text-[10px]">Anxietate</span>
+        </button>
+        <button onclick="startTest('burnout')" class="flex flex-col items-center text-slate-400">
+            <i class="fas fa-fire text-xl"></i>
+            <span class="text-[10px]">Burnout</span>
         </button>
     </nav>
 
-    <!-- SCRIPTS -->
     <script>
+        const tests = {
+            bullying: {
+                title: "Test Bullying 🛡️",
+                questions: [
+                    "Simți un nod în stomac când pleci spre școală?",
+                    "Există persoane care te ironizează în mod constant?",
+                    "Primești mesaje urâte sau comentarii toxice pe social media?",
+                    "Te simți exclus intenționat din grupuri de WhatsApp sau ieșiri?",
+                    "Cineva a răspândit zvonuri false despre tine?",
+                    "Te temi să îți exprimi opinia de frică să nu se râdă de tine?",
+                    "Simți că profesorii nu observă când ești tratat rău?",
+                    "Ai fost vreodată amenințat cu violența fizică?",
+                    "Ți s-au luat sau ascuns lucruri personale ca o 'glumă'?",
+                    "Eviți anumite locuri din școală (baie, holuri dosnice)?",
+                    "Simți că nu ai pe cine să te bazezi în clasă?",
+                    "Ești ținta glumelor legate de aspectul tău fizic?",
+                    "Ți-e frică să postezi pe Insta/TikTok de teama hate-ului?",
+                    "Ai fost forțat să faci lucruri pe care nu le voiai?",
+                    "Simți că ești mereu sub lupă și judecat?"
+                ],
+                interpret: (score) => score > 10 ? "⚠️ Situație critică. Ceea ce simți e real și nu e vina ta. Trebuie să vorbești cu un adult de încredere." : score > 5 ? "🔍 Semne de mediu toxic. Învață să pui limite și să ignori 'glumele' proaste." : "✅ Ești într-un loc sigur, dar fii cu ochii în patru pentru colegii tăi."
+            },
+            tech: {
+                title: "Screen Addiction 📱",
+                questions: [
+                    "Verifici telefonul imediat ce deschizi ochii dimineața?",
+                    "Te simți panicat dacă bateria scade sub 10%?",
+                    "Stai pe telefon în timp ce mănânci?",
+                    "Te pierzi în scroll pe TikTok mai mult de 2 ore pe zi?",
+                    "Simți 'vibrații fantomă' (crezi că ai primit notificare)?",
+                    "Te culci mai târziu de ora 12 din cauza ecranelor?",
+                    "Ești irascibil dacă cineva te întrerupe când stai pe telefon?",
+                    "Ai încercat să stai mai puțin pe net și nu ai reușit?",
+                    "Îți scade concentrarea la teme după 5 minute?",
+                    "Simți că viața altora de pe net e mult mai cool decât a ta?",
+                    "Eviți ieșirile în viața reală pentru jocuri/scroll?",
+                    "Ai ochii obosiți sau te doare capul des?",
+                    "Telefonul e ultimul lucru pe care îl vezi înainte de somn?",
+                    "Verifici notificările chiar și în timpul orelor?",
+                    "Simți că 'pierzi ceva' dacă nu ești conectat non-stop?"
+                ],
+                interpret: (score) => score > 12 ? "🚨 Screen Zombie! Creierul tău are nevoie de un hard reset. Încearcă o zi fără ecrane." : score > 6 ? "📱 Digital Wanderer. Ești pe muchie. Redu timpul de scroll." : "🌟 Digital Master. Tu stăpânești tehnologia, nu ea pe tine."
+            }
+            // Anxietate și Burnout urmează același pattern
+        };
+
+        let currentTest = null;
+        let currentQuestionIdx = 0;
+        let score = 0;
+
         function showSection(id) {
-            document.querySelectorAll('section').forEach(s => {
-                s.classList.add('hidden-section');
-                s.classList.remove('active-section');
-            });
-            const active = document.getElementById(id);
-            active.classList.remove('hidden-section');
-            active.classList.add('active-section');
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
+            document.getElementById(id).classList.remove('hidden-section');
+            document.getElementById(id).classList.add('active-section');
             window.scrollTo(0,0);
         }
 
-        function openTest(type) {
-            alert("Începem testul pentru: " + type.toUpperCase() + "\nPregătește-te de interpretare la final!");
-            // Aici poti injecta codul de intrebari specific fiecarui test
+        function startTest(key) {
+            currentTest = tests[key] || tests.bullying; // default bullying pentru demo
+            currentQuestionIdx = 0;
+            score = 0;
+            showSection('test-screen');
+            document.getElementById('question-box').classList.remove('hidden');
+            document.getElementById('result-box').classList.add('hidden');
+            loadQuestion();
         }
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-messages');
-            if(input.value.trim() !== "") {
-                const msg = document.createElement('div');
-                msg.className = "chat-bubble mine";
-                msg.innerText = input.value;
-                container.appendChild(msg);
-                input.value = "";
-                container.scrollTop = container.scrollHeight;
+        function loadQuestion() {
+            const q = currentTest.questions[currentQuestionIdx];
+            document.getElementById('test-title').innerText = currentTest.title;
+            document.getElementById('question-text').innerText = q;
+            document.getElementById('progress-bar').style.width = ((currentQuestionIdx / currentTest.questions.length) * 100) + "%";
+            
+            const options = document.getElementById('options-box');
+            options.innerHTML = `
+                <button onclick="handleAnswer(1)" class="answer-btn p-4 rounded-xl font-bold">DA, total de acord</button>
+                <button onclick="handleAnswer(0)" class="answer-btn p-4 rounded-xl font-bold">NU, deloc</button>
+            `;
+        }
+
+        function handleAnswer(val) {
+            score += val;
+            currentQuestionIdx++;
+            if(currentQuestionIdx < currentTest.questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
             }
+        }
+
+        function showResult() {
+            document.getElementById('question-box').classList.add('hidden');
+            document.getElementById('result-box').classList.remove('hidden');
+            document.getElementById('result-desc').innerText = currentTest.interpret(score);
+            document.getElementById('progress-bar').style.width = "100%";
         }
     </script>
 </body>
