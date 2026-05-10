@@ -48,12 +48,13 @@
         <span>😎</span><span>⚡</span><span>🌈</span><span>🚀</span><span>🎨</span><span>💎</span><span>🍀</span><span>🍕</span>
     </div>
 
+    <!-- 🔐 AUTH SECTION -->
     <section id="auth-section" class="section-content section-active min-h-screen flex items-center justify-center p-6">
-        <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl">
-            <h2 id="auth-title" class="fredoka text-4xl font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
-            <p id="auth-subtitle" class="text-slate-400 text-center mb-8">Creează-ți profilul obligatoriu</p>
+        <div class="auth-container w-full max-w-md p-8 rounded-[40px] shadow-2xl text-center">
+            <h2 id="auth-title" class="fredoka text-4xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-indigo-400 bg-clip-text text-transparent">MindPsih26</h2>
+            <p id="auth-subtitle" class="text-slate-400 mb-8">Creează-ți profilul obligatoriu</p>
             
-            <form id="auth-form" class="flex flex-col gap-4">
+            <form id="auth-form" class="flex flex-col gap-4 text-left">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Parolă" required>
                 <div id="extra-fields" class="flex flex-col gap-4">
@@ -71,13 +72,14 @@
                 </div>
                 <button type="submit" id="auth-submit-btn" class="bg-indigo-600 py-4 rounded-xl font-bold text-lg mt-2">Creează Profil</button>
             </form>
-            <p class="text-center mt-6 text-slate-400">
+            <p class="mt-6 text-slate-400">
                 <span id="auth-switch-text">Ai deja cont?</span> 
                 <button onclick="switchAuthMode()" class="text-indigo-400 font-bold underline" id="auth-switch-btn">Loghează-te</button>
             </p>
         </div>
     </section>
 
+    <!-- 📱 MAIN APP -->
     <div id="main-app" style="display: none;">
         <div class="main-menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars text-white"></i></div>
 
@@ -90,6 +92,7 @@
             <div class="menu-item fredoka text-red-400" onclick="logout()">Logout 🚪</div>
         </div>
 
+        <!-- HOME -->
         <section id="home" class="section-content section-active min-h-screen flex flex-col items-center justify-center p-6 text-center">
             <header class="mb-10">
                 <h1 class="fredoka text-6xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">MindPsih26</h1>
@@ -109,35 +112,33 @@
             </div>
         </section>
 
+        <!-- CHAT SECTION (DOAR PERSOANE REALE) -->
         <section id="chat-section" class="section-content max-w-6xl mx-auto py-10 p-6">
             <h2 class="text-4xl font-bold fredoka text-center mb-10 text-pink-400">Squad Chat 💬</h2>
             <div class="chat-container">
                 <div class="friends-list">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-4">Membri Online</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-4 tracking-widest">Persoane Reale Online</p>
                     <div class="friend-item">
                         <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center font-bold">M</div>
-                        <div><p class="text-sm font-bold">Matei (Admin)</p><p class="text-[10px] text-green-400">Online</p></div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center font-bold">A</div>
-                        <div><p class="text-sm font-bold">Andreea</p><p class="text-[10px] text-green-400">Scrie...</p></div>
+                        <div><p class="text-sm font-bold">Matei (Admin)</p><p class="text-[10px] text-green-400">Verificat ✓</p></div>
                     </div>
                 </div>
                 <div class="flex flex-col bg-slate-900/80 rounded-[40px] p-6 border border-white/10">
                     <div id="chat-box" class="flex-1 overflow-y-auto flex flex-col mb-4 space-y-2 h-[50vh]">
                         <div class="chat-bubble theirs">
-                            <p class="sender-name text-pink-400">Matei</p>
-                            <p>Salutare! Bine ai venit în comunitate! 🔥</p>
+                            <p class="sender-name text-pink-400">Matei (Admin)</p>
+                            <p>Bun venit! Doar membrii înregistrați pot scrie aici. Fără boți, doar noi! 🙌</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <input id="chat-msg" type="text" placeholder="Scrie un mesaj..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none ring-indigo-500 focus:ring-2">
-                        <button onclick="sendMsg()" class="bg-indigo-500 w-14 h-14 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
+                        <input id="chat-msg" type="text" placeholder="Scrie un mesaj real..." class="flex-1 bg-slate-800 rounded-full px-6 py-4 outline-none ring-indigo-500 focus:ring-2">
+                        <button onclick="sendMsg()" class="bg-indigo-500 w-14 h-14 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ARENA TESTELOR (COMPLETE) -->
         <section id="tests-hub" class="section-content max-w-5xl mx-auto py-10 p-6">
             <h2 class="text-4xl font-bold fredoka text-center mb-12 text-indigo-400">Arena Testelor</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -148,6 +149,7 @@
             </div>
         </section>
 
+        <!-- TEST RUNNER & RESULT (PASTRATE) -->
         <section id="test-runner" class="section-content max-w-2xl mx-auto py-20 p-6">
             <div class="bg-slate-800 p-10 rounded-[50px] text-center border-4 border-indigo-500/30">
                 <div id="q-count" class="text-indigo-400 font-bold mb-4"></div>
@@ -170,11 +172,13 @@
             </div>
         </section>
 
+        <!-- HACKS & TIPS (PASTRATE) -->
         <section id="cool-tips" class="section-content max-w-4xl mx-auto py-10 p-6">
             <h2 class="text-4xl font-bold fredoka text-center mb-10 text-cyan-400">Anti-Adictii & Hacks</h2>
             <div id="hacks-container" class="space-y-6"></div>
         </section>
 
+        <!-- CONFIDENCE ZONE (PASTRATA) -->
         <section id="confidence-zone" class="section-content max-w-4xl mx-auto py-10 p-6 text-center">
             <h2 class="text-4xl font-bold fredoka mb-10 text-orange-400">Fii Încrezător!</h2>
             <div id="conf-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"></div>
@@ -193,7 +197,7 @@
             }
         };
 
-        // --- AUTH LOGIC ---
+        // --- AUTH LOGIC (30 ZILE) ---
         let isLoginMode = false;
         function switchAuthMode() {
             isLoginMode = !isLoginMode;
@@ -212,7 +216,7 @@
             if (isLoginMode) {
                 const saved = JSON.parse(localStorage.getItem(`user_${user}`));
                 if (saved && saved.pass === pass) loginSuccess(saved, remember);
-                else alert("Username sau parolă incorectă!");
+                else alert("Date incorecte! Doar persoanele reale pot intra.");
             } else {
                 const userData = { user, pass, age: document.getElementById('age').value, gender: document.getElementById('gender').value };
                 localStorage.setItem(`user_${user}`, JSON.stringify(userData));
@@ -231,27 +235,29 @@
 
         function logout() { localStorage.removeItem('active_session'); location.reload(); }
 
-        // --- CHAT LOGIC ---
+        // --- CHAT LOGIC (ANTI-BOT) ---
         function sendMsg() {
             const input = document.getElementById('chat-msg');
-            if(!input.value || !currentUser) return;
+            
+            // Securitate: Verificăm dacă utilizatorul este real/logat
+            if(!currentUser || !currentUser.user) {
+                alert("Eroare: Trebuie să fii o persoană reală logată pentru a scrie!");
+                return;
+            }
+
+            if(!input.value.trim()) return;
+
             const box = document.getElementById('chat-box');
             const div = document.createElement('div');
             div.className = 'chat-bubble mine';
+            // Afișăm numele real al persoanei
             div.innerHTML = `<p class="sender-name text-indigo-200">Eu (${currentUser.user})</p><p>${input.value}</p>`;
             box.appendChild(div);
             input.value = '';
             box.scrollTop = box.scrollHeight;
-            setTimeout(() => {
-                const reply = document.createElement('div');
-                reply.className = 'chat-bubble theirs';
-                reply.innerHTML = `<p class="sender-name text-pink-400">Andreea</p><p>Super! Ne auzim în Squad! 🚀</p>`;
-                box.appendChild(reply);
-                box.scrollTop = box.scrollHeight;
-            }, 1000);
         }
 
-        // --- NAVIGARE ---
+        // --- NAVIGARE & INTERFATA ---
         function navigateTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('section-active'));
             document.getElementById(id).classList.add('section-active');
@@ -268,7 +274,7 @@
             navigator.clipboard.writeText(document.getElementById('invite-link').innerText).then(() => alert("Link copiat!"));
         }
 
-        // --- TESTE COMPLETE ---
+        // --- TESTE PSIHOLOGICE (COMPLETE) ---
         const tests = {
             anxiety: { qs: ["Neliniștit des?", "Nod în gât?", "Inimă rapidă?", "Teamă de viitor?", "Somn greu?", "Agitat?", "Amețeli?", "Copleșit?", "Verifici des?", "Transpiri des?", "Teamă de greșeli?", "Coșmaruri?", "Tensiune umeri?", "Eviți locuri?", "Control total?", "Concentrare grea?", "Obosit mereu?", "Irascibil?", "Lipsă aer?", "Gânduri despre alții?"], result: (s) => s > 14 ? "Anxietate mare." : "Ești Zen.", tips: ["Respirație 4-4-4", "Fără cafea", "Scrie ce simți"] },
             emotivity: { qs: ["Plângi ușor?", "Roșești?", "Te dor criticile?", "Teamă de telefoane?", "Pui la suflet?", "Nu poți refuza?", "Fluturi în stomac?", "Teama de tablă?", "Atașament rapid?", "Simți durerea altora?", "Te simți observat?", "Impulsiv la tristețe?", "Nevoie de laude?", "Teamă de autoritate?", "Vremea te schimbă?"], result: (s) => s > 10 ? "Super emotiv." : "Echilibrat.", tips: ["Numără până la 10", "Sport", "Fără grabă"] },
@@ -281,7 +287,7 @@
         function showQ() { document.getElementById('q-count').innerText = `${curIdx + 1}/${curTest.qs.length}`; document.getElementById('q-text').innerText = curTest.qs[curIdx]; }
         function answer(v) { score += v; curIdx++; if(curIdx < curTest.qs.length) showQ(); else { navigateTo('test-result'); document.getElementById('res-text').innerText = curTest.result(score); document.getElementById('res-tips').innerHTML = curTest.tips.map(t => `<li>🔹 ${t}</li>`).join(''); } }
 
-        // --- CONTENT ---
+        // --- CONTENT HACKS ---
         const hacks = [
             { t: "Vaping 🚭", s: ["Aruncă device-ul.", "Apă rece.", "Fidget spinner.", "Sport intens."] },
             { t: "Screen Addiction 📱", s: ["Mod Alb-Negru.", "Fără telefon în dormitor.", "Limită 30m TikTok."] },
