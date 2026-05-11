@@ -81,7 +81,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center mb-10">
                 <div onclick="navigateTo('chat-section')" class="home-circle bg-pink-600">💬<br>CHAT</div>
                 <div onclick="navigateTo('tests-hub')" class="home-circle bg-indigo-600">🎮<br>ARENA</div>
-                <div onclick="navigateTo('top-15')" class="home-circle bg-orange-600">🚩<br>TOP 15</div>
+                <div onclick="navigateTo('top-15')" class="home-circle bg-orange-600">🚩<br>TOP PROBLEME</div>
                 <div onclick="navigateTo('anti-addiction')" class="home-circle bg-cyan-600">🛡️<br>HACKS</div>
                 <div onclick="navigateTo('confidence')" class="home-circle bg-emerald-600">🚀<br>CONFIDENCE</div>
                 <div onclick="shareToWhatsApp()" class="home-circle bg-green-600 flex flex-col items-center">
@@ -146,11 +146,17 @@
     </div>
 
     <script>
-        // --- DATA RESTAURATĂ ---
         const PROBLEMS = [
             { p: "Anxietate Socială", s: ["Exersează contactul vizual", "Salută casierul", "Tehnica 5-4-3-2-1", "Fără scenarii în avans", "Acceptă stânjeneala", "Focu pe celălalt", "Fără cafeină multă", "Respirație zilnică", "Grupuri mici prima dată", "Nimeni nu te judecă așa rău"] },
             { p: "Perfecționism", s: ["Regula 70%", "Ce e mai rău?", "Eșec = Feedback", "Sărbătorește efortul", "Nu te compara cu vârfurile", "Task-uri minuscule", "Spune 'Nu știu'", "Cere ajutor", "Lista de lecții", "Permite-ți să fii amator"] },
-            { p: "Frica de Eșec", s: ["Eșecul e profesor", "Analizează riscul real", "Acționează cu frică", "Nu ești rezultatul tău", "Definește succesul propriu", "Vizualizează procesul", "Fă greșeli intenționate mici", "Învață din greșeli", "Răbdare cu tine", "Începe de azi"] }
+            { p: "Frica de Eșec", s: ["Eșecul e profesor", "Analizează riscul real", "Acționează cu frică", "Nu ești rezultatul tău", "Definește succesul propriu", "Vizualizează procesul", "Fă greșeli intenționate mici", "Învață din greșeli", "Răbdare cu tine", "Începe de azi"] },
+            { p: "Gândire Negativă", s: ["Identifică distorsiunea", "Caută dovezi contrare", "Regula 'Prietenului drag'", "Notează 3 reușite/zi", "Limitează știrile", "Detașare prin meditație", "Acțiune contra stării", "Afirmații realiste", "Grup de suport", "Terapie cognitivă"] },
+            { p: "Lipsă de Motivație", s: ["Regula de 2 minute", "Somn regulat", "Mici recompense", "Clarifică 'De ce-ul'", "Elimină distragerile", "Task-uri vizuale (post-it)", "Sport pentru dopamină", "Nu aștepta 'cheful'", "Partener de progres", "Viziune pe termen lung"] },
+            { p: "Dificultăți de Somn", s: ["Fără ecrane cu 1h înainte", "Cameră răcoroasă", "Ora de culcare fixă", "Fără somn după-amiaza", "Ceai de tei/mușețel", "Scrie grijile pe hârtie", "Lumină slabă seara", "Exerciții de relaxare", "Patul e doar pt somn", "Evită mesele grele"] },
+            { p: "Furia Impulsivă", s: ["Numără până la 10", "Ieși din cameră", "Exerciții de respirație", "Identifică declanșatorul", "Sport intens", "Scrie ce simți", "Ascultă muzică calmă", "Comunicare asertivă", "Nu reacționa imediat", "Iartă pentru liniștea ta"] },
+            { p: "Singurătate", s: ["Înscrie-te la un curs", "Voluntariat", "Adoptă un animal", "Sună un vechi prieten", "Ieși în locuri publice", "Inițiază conversații", "Fii bun cu tine", "Limitează social media", "Caută grupuri de hobby", "Acceptă invitațiile"] },
+            { p: "Stres Academic", s: ["Metoda Pomodoro", "Planificare săptămânală", "Pauze active", "Grup de studiu", "Cere lămuriri profilor", "Nutriție adecvată", "Învață logic, nu pe de rost", "Setează priorități", "Nu lăsa pe ultima zi", "Acceptă că nu poți tot"] },
+            { p: "Imagine de Sine", s: ["Nu te mai compara", "Haine în care te simți bine", "Postură de învingător", "Învață o abilitate nouă", "Auto-compasiune", "Fă-ți un compliment", "Stai cu oameni pozitivi", "Limitează ecranele", "Setează limite clare", "Fii mândru de progres"] }
         ];
 
         const ADDICTIONS_HACKS = [
@@ -171,101 +177,63 @@
             "Termină ce începi", "Fără bârfe", "Abilitate nouă", "Punctualitate", "Ajută discret", "Jurnal recunoștință", "Spațiu curat", "Fără filtre IG", "Dialog interior pozitiv", "Acceptă defectele"
         ];
 
-        // --- TESTE CU ÎNTREBĂRI UNICE ---
         const TESTS = {
             anxietate: {
                 title: "😰 Test Anxietate (12 Q)",
-                q: [
-                    "Te simți adesea tensionat sau neliniștit fără un motiv clar?",
-                    "Ai dificultăți în a te relaxa chiar și în timpul liber?",
-                    "Te îngrijorezi excesiv pentru evenimente viitoare?",
-                    "Simți adesea un nod în gât sau fluturi în stomac?",
-                    "Ai probleme cu somnul din cauza gândurilor care nu se opresc?",
-                    "Te temi de situații noi sau necunoscute?",
-                    "Simți nevoia de a verifica lucrurile de mai multe ori?",
-                    "Ai momente de panică bruscă sau respirație accelerată?",
-                    "Eviți anumite locuri de teamă că te-ai putea simți rău?",
-                    "Te simți iritabil din cauza stării de agitație?",
-                    "Ai dificultăți de concentrare din cauza grijilor?",
-                    "Simți că nu poți controla fluxul de gânduri negative?"
-                ],
+                q: ["Te simți adesea tensionat?", "Ai dificultăți în a te relaxa?", "Te îngrijorezi excesiv?", "Simți fluturi în stomac?", "Ai probleme cu somnul?", "Te temi de situații noi?", "Verifici lucrurile de mai multe ori?", "Ai momente de panică?", "Eviți locuri aglomerate?", "Ești iritabil?", "Dificultăți de concentrare?", "Gânduri negative de neoprit?"],
                 interpret: (s) => s > 40 ? "Anxietate Ridicată" : "Normal",
-                tips: ["Practică respirația 4-7-8", "Limitează consumul de cafeină", "Încearcă să scrii în jurnal grijile"]
+                tips: ["Practică respirația 4-7-8", "Limitează cafeina", "Scrie în jurnal"]
+            },
+            personalitate: {
+                title: "💎 Personalitate (15 Q)",
+                q: [
+                    "Preferi să petreci timpul singur pentru a te reîncărca?",
+                    "Te bazezi mai mult pe intuiție decât pe fapte?",
+                    "Îți place să ai un program bine stabilit?",
+                    "Iei decizii bazate pe logică, nu pe sentimente?",
+                    "Te simți confortabil în centrul atenției?",
+                    "Ești mai degrabă visător decât realist?",
+                    "Te deranjează schimbările de ultim moment?",
+                    "Empatizezi ușor cu problemele altora?",
+                    "Inițiezi conversații cu oameni noi?",
+                    "Analizezi profund sensul lucrurilor?",
+                    "Ești o persoană organizată?",
+                    "Eviți conflictele cu orice preț?",
+                    "Îți plac ideile abstracte?",
+                    "Te simți vinovat dacă nu ești productiv?",
+                    "Ai o imaginație foarte bogată?"
+                ],
+                interpret: (s) => s > 55 ? "Introspectiv & Creativ" : (s > 35 ? "Ambivert Echilibrat" : "Pragmatic & Energic"),
+                tips: ["Valorifică-ți punctele forte", "Respectă-ți nevoia de pauză", "Fii mândru de stilul tău"]
+            },
+            furie_test: {
+                title: "💢 Gestionarea Furiei (20 Q)",
+                q: [
+                    "Te enervezi din motive minore?", "Ridic vocea des?", "Cei din jur mă provoacă intenționat?", "Regret cuvintele spuse la nervi?", "Îmi pierd răbdarea repede?", "Lovit obiecte când sunt supărat?", "Simt tensiune fizică la furie?", "Iert greu pe alții?", "Sunt sarcastic când sunt deranjat?", "Furia mea e incontrolabilă?", "Mă gândesc mult la nedreptăți?", "Irascibil sub presiune?", "Gânduri de răzbunare?", "Judecat pentru reacțiile mele?", "Vreau ultimul cuvânt mereu?", "Recunosc greu când greșesc?", "Mă enervează cozile/traficul?", "Viața e nedreaptă cu mine?", "Eviți discuțiile, preferi să taci supărat?", "Simt o descărcare după explozii?"
+                ],
+                interpret: (s) => s > 70 ? "Furia necesită atenție" : (s > 40 ? "Gestiune Moderată" : "Control Excelent"),
+                tips: ["Tehnica Time-out", "Sport pentru descărcare", "Numără până la 10"]
             },
             emotivitate: {
                 title: "🎭 Test Emotivitate (15 Q)",
-                q: [
-                    "Te emoționezi ușor când urmărești un film sau citești o carte?",
-                    "Pui la suflet criticile, chiar dacă sunt constructive?",
-                    "Te simți copleșit în medii foarte zgomotoase sau aglomerate?",
-                    "Reacționezi intens la evenimente neașteptate?",
-                    "Îți este greu să-ți ascunzi sentimentele față de ceilalți?",
-                    "Te simți ușor rănit de vorbele altora?",
-                    "Ești foarte empatic față de suferința altora?",
-                    "Ai tendința de a analiza excesiv interacțiunile sociale?",
-                    "Te simți vinovat după ce ai luat o decizie dificilă?",
-                    "Ai stări de spirit care se schimbă rapid?",
-                    "Te simți adesea neînțeles de cei din jur?",
-                    "Îți este greu să vorbești în fața unui grup mare?",
-                    "Simți nevoia de timp singur după o zi plină de interacțiuni?",
-                    "Ești foarte atent la detaliile din mediul tău?",
-                    "Te simți adânc mișcat de artă sau muzică?"
-                ],
+                q: ["Te emoționezi la filme?", "Pui la suflet criticile?", "Copleșit de zgomot?", "Reacționezi intens la surprize?", "Ascunzi greu sentimentele?", "Rănit ușor de vorbe?", "Empatie mare?", "Analizezi interacțiunile?", "Vinovat după decizii?", "Stări schimbătoare?", "Neînțeles de alții?", "Greu de vorbit în grup?", "Nevoie de singurătate?", "Atent la detalii?", "Mișcat de artă?"],
                 interpret: (s) => s > 45 ? "Sensibilitate Ridicată" : "Echilibru Emoțional",
-                tips: ["Acceptă-ți emoțiile ca pe o superputere", "Stabilește limite sănătoase", "Practică mindfulness-ul zilnic"]
+                tips: ["Acceptă-ți emoțiile", "Stabilește limite", "Mindfulness"]
             },
             bullying: {
                 title: "🛡️ Test Bullying (20 Q)",
-                q: [
-                    "Ești adesea ținta glumelor răutăcioase la școală sau online?",
-                    "Te simți exclus intenționat din activitățile de grup?",
-                    "Ai primit mesaje amenințătoare sau jignitoare pe rețelele sociale?",
-                    "Ți-e teamă să mergi în anumite locuri din școală?",
-                    "Simți că ești judecat constant pentru felul în care arăți?",
-                    "Au fost lansate zvonuri false despre tine?",
-                    "Ți-au fost luate sau deteriorate obiecte personale fără acordul tău?",
-                    "Te simți mic sau neimportant în prezența anumitor persoane?",
-                    "Eviți să postezi online de teama comentariilor negative?",
-                    "Ai simțit vreodată presiunea de a face ceva ce nu voiai?",
-                    "Te simți singur chiar și când ești înconjurat de colegi?",
-                    "Cineva încearcă să-ți controleze prieteniile?",
-                    "Ești ignorat când încerci să participi la discuții?",
-                    "Primești porecle care te deranjează?",
-                    "Cineva face gesturi de intimidare la adresa ta?",
-                    "Te simți vinovat pentru lucruri pe care nu le-ai făcut?",
-                    "Ai fost vreodată împins sau lovit 'în joacă'?",
-                    "Te simți stresat înainte de a începe ziua de școală?",
-                    "Simți că nu ai cui să ceri ajutorul în situații dificile?",
-                    "Ai observat o scădere a încrederii în tine în ultima perioadă?"
-                ],
+                q: ["Ținta glumelor?", "Exclus din grup?", "Mesaje jignitoare?", "Teamă în școală?", "Judecat pentru aspect?", "Zvonuri false?", "Obiecte luate/stricate?", "Mic în fața altora?", "Eviți postările online?", "Presat să faci ceva?", "Singur printre colegi?", "Controlat de prieteni?", "Ignorat la discuții?", "Porecle neplăcute?", "Gesturi de intimidare?", "Vinovat pe nedrept?", "Împins/lovit?", "Stresat dimineața?", "Fără ajutor?", "Scăderea încrederii?"],
                 interpret: (s) => s > 60 ? "Situație Critică" : "Sigur",
-                tips: ["Vorbește cu un adult de încredere", "Salvează dovezi dacă e bullying online", "Nu reacționa la provocări"]
+                tips: ["Cere ajutorul", "Salvează dovezi", "Nu te izola"]
             },
             burnout: {
                 title: "🔥 Test Burnout (15 Q)",
-                q: [
-                    "Te simți obosit chiar și după ce te-ai odihnit?",
-                    "Ai pierdut interesul pentru hobby-urile care îți plăceau?",
-                    "Te simți detașat sau cinic față de responsabilitățile tale?",
-                    "Simți că munca ta nu are nicio valoare?",
-                    "Ești mai iritabil cu prietenii sau familia?",
-                    "Ai dificultăți în a începe noi proiecte?",
-                    "Simți o lipsă de satisfacție după ce ai realizat ceva?",
-                    "Ai frecvent dureri de cap sau de stomac fără cauză medicală?",
-                    "Simți că ești sub o presiune constantă?",
-                    "Ai probleme de memorie sau de concentrare?",
-                    "Eviți să vorbești despre școală sau proiectele tale?",
-                    "Te simți copleșit de sarcinile zilnice mărunte?",
-                    "Simți că nu ai control asupra propriei vieți?",
-                    "Ai tendința de a te izola social mai mult ca înainte?",
-                    "Simți că resursele tale de energie sunt complet epuizate?"
-                ],
+                q: ["Obosit mereu?", "Fără interes pentru hobby?", "Cinic față de task-uri?", "Munca fără valoare?", "Iritabil cu familia?", "Greu de început proiecte?", "Lipsă de satisfacție?", "Dureri fizice?", "Presiune constantă?", "Probleme de memorie?", "Eviți discuții de școală?", "Copleșit de detalii?", "Fără control pe viață?", "Izolare socială?", "Energie zero?"],
                 interpret: (s) => s > 45 ? "Epuizare Severă" : "Echilibru",
-                tips: ["Ia o pauză digitală totală", "Prioritizează somnul", "Învață să spui 'Nu' sarcinilor suplimentare"]
+                tips: ["Pauză digitală", "Prioritizează somnul", "Învață să spui Nu"]
             }
         };
 
-        // --- LOGIC ---
         let navigationHistory = [];
         let currentSection = 'auth-section';
         const msgSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
@@ -280,8 +248,8 @@
         function togglePass() {
             const p = document.getElementById('password');
             const b = p.nextElementSibling;
-            if(p.type === "password") { p.type = "text"; b.innerText = "Ascunde"; }
-            else { p.type = "password"; b.innerText = "Arată"; }
+            p.type = p.type === "password" ? "text" : "password";
+            b.innerText = p.type === "password" ? "Arată" : "Ascunde";
         }
 
         function showApp(u) {
@@ -292,9 +260,7 @@
         }
 
         function navigateTo(id) {
-            if (currentSection !== id) {
-                if(currentSection !== 'auth-section') navigationHistory.push(currentSection);
-            }
+            if (currentSection !== id && currentSection !== 'auth-section') navigationHistory.push(currentSection);
             currentSection = id;
             document.querySelectorAll('.section-content').forEach(s => { s.classList.remove('section-active'); s.style.display = 'none'; });
             const target = document.getElementById(id);
@@ -337,21 +303,9 @@
             showQ(); navigateTo('test-runner');
         }
 
-        function saveProgress() {
-            localStorage.setItem('test_progress', JSON.stringify({key: currentKey, qIdx, score}));
-        }
-
-        function checkSavedProgress() {
-            const p = JSON.parse(localStorage.getItem('test_progress'));
-            if(p && p.qIdx > 0) document.getElementById('resume-container').classList.remove('hidden');
-        }
-
-        function resumeTest() {
-            const p = JSON.parse(localStorage.getItem('test_progress'));
-            currentKey = p.key; currentT = TESTS[p.key]; qIdx = p.qIdx; score = p.score;
-            document.getElementById('resume-container').classList.add('hidden');
-            startTestUI();
-        }
+        function saveProgress() { localStorage.setItem('test_progress', JSON.stringify({key: currentKey, qIdx, score})); }
+        function checkSavedProgress() { const p = JSON.parse(localStorage.getItem('test_progress')); if(p && p.qIdx > 0) document.getElementById('resume-container').classList.remove('hidden'); }
+        function resumeTest() { const p = JSON.parse(localStorage.getItem('test_progress')); currentKey = p.key; currentT = TESTS[p.key]; qIdx = p.qIdx; score = p.score; document.getElementById('resume-container').classList.add('hidden'); startTestUI(); }
 
         function showQ() {
             document.getElementById('q-progress').innerText = `${qIdx+1} / ${currentT.q.length}`;
@@ -362,11 +316,7 @@
         function handleAns(v) {
             score += v; qIdx++;
             if(qIdx < currentT.q.length) { saveProgress(); showQ(); }
-            else { 
-                localStorage.removeItem('test_progress'); 
-                document.getElementById('resume-container').classList.add('hidden');
-                showResult(); 
-            }
+            else { localStorage.removeItem('test_progress'); document.getElementById('resume-container').classList.add('hidden'); showResult(); }
         }
 
         function showResult() {
@@ -387,10 +337,10 @@
             input.value = ''; chat.scrollTop = chat.scrollHeight;
         }
 
-        function shareToWhatsApp() { const url = window.location.href; const text = `Hei! Te invit în SQUAD-ul MindPsih26. Intra aici: ${url}`; window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank'); }
+        function shareToWhatsApp() { const text = `Hei! Te invit în SQUAD-ul MindPsih26. Intra aici: ${window.location.href}`; window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank'); }
         document.getElementById('auth-form').onsubmit = (e) => { e.preventDefault(); const u = document.getElementById('username').value; const expiry = document.getElementById('keep-logged').checked ? Date.now() + (30*24*60*60*1000) : Date.now() + (2*60*60*1000); localStorage.setItem('mind_session_2k26', JSON.stringify({user: u, expiry: expiry})); showApp(u); };
         function setMood(m, b) { document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); }
-        function logout() { localStorage.removeItem('mind_session_2k26'); localStorage.removeItem('test_progress'); location.reload(); }
+        function logout() { localStorage.clear(); location.reload(); }
         function privateInvite(u) { alert(`Cerere trimisă lui ${u}.`); }
     </script>
 </body>
